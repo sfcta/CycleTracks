@@ -67,14 +67,11 @@
 	IBOutlet UIButton *infoButton;
 	IBOutlet UIButton *saveButton;
 	IBOutlet UIButton *startButton;
-	IBOutlet UIButton *lockButton;
 	
 	IBOutlet UILabel *timeCounter;
 	IBOutlet UILabel *distCounter;
 	IBOutlet UILabel *speedCounter;
-	
-	UISlider *slider;
-	UIView   *sliderView;
+
 
 	NSTimer *timer;
 	
@@ -82,7 +79,6 @@
 	UIView *opacityMask;
 	UIView *parentView;
 	
-	BOOL locked;
 	BOOL recording;
 	BOOL shouldUpdateCounter;
 	BOOL userInfoSaved;
@@ -101,20 +97,16 @@
 @property (nonatomic, retain) UIButton *infoButton;
 @property (nonatomic, retain) UIButton *saveButton;
 @property (nonatomic, retain) UIButton *startButton;
-@property (nonatomic, retain) UIButton *lockButton;
 
 @property (nonatomic, retain) UILabel *timeCounter;
 @property (nonatomic, retain) UILabel *distCounter;
 
-@property (nonatomic, retain) UISlider *slider;
-@property (nonatomic, retain) UIView   *sliderView;
 
 @property (assign) NSTimer *timer;
 
-@property (nonatomic, retain) UIView   *opacityMask;
 @property (nonatomic, retain) UIView   *parentView;
 
-@property (assign) BOOL locked;
+
 @property (assign) BOOL recording;
 @property (assign) BOOL shouldUpdateCounter;
 @property (assign) BOOL userInfoSaved;
@@ -129,9 +121,9 @@
 //- (id)initWithTripManager:(TripManager*)manager;
 
 // IBAction handlers
-- (IBAction)lockAction:(UIButton*)sender;
 - (IBAction)save:(UIButton *)sender;
 - (IBAction)start:(UIButton *)sender;
+
 
 // timer methods
 - (void)start:(UIButton *)sender;
@@ -142,13 +134,8 @@
 
 - (UIButton *)createSaveButton;
 - (UIButton *)createStartButton;
-- (UIButton *)createLockButton;
 
-- (void)createOpacityMask;
-- (UISlider *)createSlideToUnlock:(UIView*)view;
 
-- (void)lockDevice;
-- (void)unlockDevice;
 
 
 @end
