@@ -1,4 +1,4 @@
-/**  CycleTracks, Copyright 2009,2010 San Francisco County Transportation Authority
+/**  CycleTracks, Copyright 2009-2013 San Francisco County Transportation Authority
  *                                    San Francisco, CA, USA
  *
  *   @author Matt Paul <mattpaul@mopimp.com>
@@ -23,10 +23,10 @@
 //  SavedTripsViewController.h
 //  CycleTracks
 //
-//  Copyright 2009-2010 SFCTA. All rights reserved.
+//  Copyright 2009-2013 SFCTA. All rights reserved.
 //  Written by Matt Paul <mattpaul@mopimp.com> on 8/10/09.
 //	For more information on the project, 
-//	e-mail Billy Charlton at the SFCTA <billy.charlton@sfcta.org>
+//	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
 
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>

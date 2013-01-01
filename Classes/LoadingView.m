@@ -1,4 +1,4 @@
-/**  CycleTracks, Copyright 2009,2010 San Francisco County Transportation Authority
+/**  CycleTracks, Copyright 2009-2013 San Francisco County Transportation Authority
  *                                    San Francisco, CA, USA
  *
  *   This file is part of CycleTracks.
