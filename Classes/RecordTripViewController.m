@@ -43,9 +43,9 @@
 @implementation RecordTripViewController
 
 @synthesize locationManager, tripManager, reminderManager;
-@synthesize infoButton, saveButton, startButton, lockButton, slider, sliderView, opacityMask, parentView;
+@synthesize infoButton, saveButton, startButton, parentView;
 @synthesize timer, timeCounter, distCounter;
-@synthesize locked, recording, shouldUpdateCounter, userInfoSaved;
+@synthesize recording, shouldUpdateCounter, userInfoSaved;
 
 
 #pragma mark CLLocationManagerDelegate methods
@@ -270,10 +270,9 @@
 	*/
 	
 //	[self createCounter];
-//	[self createSlideToUnlock];
-	[self createOpacityMask];
+
 	
-	self.locked = NO;
+
 	self.recording = NO;
 	self.shouldUpdateCounter = NO;
 	
@@ -397,8 +396,9 @@
 	// reset button states
 	recording = NO;
 	startButton.enabled = YES;
+    [startButton setBackgroundImage:[UIImage imageNamed:@"start_button.png"] forState:UIControlStateNormal];
+    [startButton setTitle:@"Start" forState:UIControlStateNormal];
 	saveButton.enabled = NO;
-	lockButton.enabled = NO;
 	
 	// reset trip, reminder managers
 	NSManagedObjectContext *context = tripManager.managedObjectContext;
@@ -536,6 +536,7 @@
 }
 
 
+
 // handle save button action
 - (IBAction)save:(UIButton *)sender
 {
@@ -608,6 +609,8 @@
 // handle start button action
 - (IBAction)start:(UIButton *)sender
 {
+    if(recording == NO)
+    {
 	NSLog(@"start");
 	
 	// start the timer if needed
@@ -636,8 +639,9 @@
 	
 	reminderManager = [[ReminderManager alloc] initWithRecordingInProgressDelegate:self];
 	
-	// disable start button
-	startButton.enabled = NO;
+	// Toggle start button
+	[startButton setBackgroundImage:[UIImage imageNamed:@"cancel_button.png"] forState:UIControlStateNormal];
+    [startButton setTitle:@"Cancel" forState:UIControlStateNormal];    
 	
 	// enable save button
 	saveButton.enabled = YES;
@@ -657,10 +661,17 @@
 	
 	// set flag to update counter
 	shouldUpdateCounter = YES;
+    }
+    
+    else
+    {
+        NSLog(@"User Cancel");
+        [self resetRecordingInProgress];
+        
+    }
 	
-	// lock the device
-	[self lockDevice];
 }
+
 
 
 - (void)createCounter
@@ -797,208 +808,6 @@
 }
 
 
-// instantiate lock button
-- (UIButton *)createLockButton
-{
-	if (lockButton == nil)
-	{
-		// create a UIButton (UIButtonTypeRoundedRect)
-		lockButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-		//lockButton.frame = CGRectMake( 9, 304, kCustomButtonWidth, kCustomButtonHeight );
-		lockButton.frame = CGRectMake( 9, 299
-									  , kCustomButtonWidth, kCustomButtonHeight );
-		//lockButton.frame = CGRectMake( 13.0, 305, 44, 44 );
-		lockButton.backgroundColor = [UIColor clearColor];
-		lockButton.enabled = YES;
-		lockButton.hidden = YES;
-
-		[lockButton setBackgroundImage:[UIImage imageNamed:@"lock_button1.png"] forState:UIControlStateNormal];
-		lockButton.titleLabel.font = [UIFont boldSystemFontOfSize: 24];
-		lockButton.titleLabel.textColor = [UIColor whiteColor];
-		lockButton.titleEdgeInsets = UIEdgeInsetsMake( 0, 33, 0, 0 );
-		/*
-		[lockButton setImage:[UIImage imageNamed:@"UnlockIcon.png"] forState:UIControlStateNormal];
-		[lockButton setImage:[UIImage imageNamed:@"LockIcon.png"] forState:UIControlStateHighlighted];
-		//lockButton.imageView.frame = CGRectMake( 0, 0, 33, 33 );
-		 */
-		
-		/*
-		UIImageView *lockView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LockIcon.png"]];
-		//lockView.frame = CGRectMake( 75, 9, 22, 22 ); 
-		lockView.frame = CGRectMake( 115, 9, 22, 22 ); 
-		[lockButton addSubview:lockView];
-		 
-		 UIImageView *lockView = lockButton.imageView;
-		 lockView.frame = CGRectMake( 115, 9, 22, 22 ); 
-		 */
-		
-		[lockButton setTitle:@"Lock" forState:UIControlStateNormal];
-		[lockButton addTarget:self action:@selector(lockAction:) forControlEvents:UIControlEventTouchUpInside];
-	}
-	return lockButton;
-}
-
-
-- (IBAction)lockAction:(UIButton*)sender
-{
-	[self lockDevice];
-}
-
-
-- (void)lockDevice
-{
-	NSLog(@"lockDevice");
-	locked = YES;
-	
-	// dim screen
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackOpaque;
-	opacityMask.hidden = NO;
-	//opacityMask.exclusiveTouch = YES;
-	//opacityMask.multipleTouchEnabled = YES;
-	
-	//self.tableView.hidden = YES;
-	
-	lockButton.enabled		= NO;
-	saveButton.enabled		= NO;
-	startButton.enabled		= NO;
-	
-	mapView.scrollEnabled	= NO;
-	mapView.zoomEnabled		= NO;
-	
-	if ( slider )
-	{
-		slider.value = 0.0;
-		slider.hidden = NO;
-	}
-	else
-		NSLog(@"slide == nil");
-	
-	if ( sliderView )
-		sliderView.hidden = NO;
-
-	// enable reminders
-	if ( reminderManager )
-		[reminderManager enableReminders];
-}
-
-
-- (void)unlockDevice
-{
-	NSLog(@"unlockDevice");
-	locked = NO;
-
-	// un-dim screen
-	//[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
-	opacityMask.hidden = YES;
-	//opacityMask.exclusiveTouch = NO;
-	
-	//self.tableView.hidden = NO;
-
-	lockButton.enabled = YES;
-	saveButton.enabled = YES;
-	//startButton.enabled = YES;
-	
-	mapView.scrollEnabled	= YES;
-	mapView.zoomEnabled		= YES;
-	
-	if ( slider )
-		slider.hidden = YES;
-
-	if ( sliderView )
-		sliderView.hidden = YES;
-
-	// disable reminders
-	if ( reminderManager )
-		[reminderManager disableReminders];
-}
-
-
-- (void)createOpacityMask
-{
-	opacityMask = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OpacityMask80.png"]];
-	opacityMask.frame = CGRectMake( 0.0, 0.0, 320.0, 480.0 );
-	opacityMask.hidden = YES;
-
-	//[opacityMask addSubview:[self createSlideToUnlock]];
-	//[self createSlideToUnlock:opacityMask];
-	
-	UIViewController *pvc = self.parentViewController;
-	
-	[pvc.view addSubview:opacityMask];
-	[self createSlideToUnlock:pvc.view];
-
-	/*
-	if ( parentView )
-		[parentView addSubview:opacityMask];
-	*/
-	
-	//[self.view addSubview:opacityMask];
-}
-
-
-- (UISlider *)createSlideToUnlock:(UIView*)view
-{
-    if (slider == nil) 
-    {
-		// create background "slide to unlock" image
-        CGRect frame = CGRectMake( 9.0, 365.0, 302.0, 39.0 );
-        //CGRect frame = CGRectMake( 9.0, 372.0, 302.0, 39.0 );
-		self.sliderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideToUnlock.png"]];
-		sliderView.frame = frame;
-		sliderView.hidden = YES;
-		[view addSubview:sliderView];
-		
-		// create slider itself slightly larger per the thumb image
-		frame = CGRectMake( 7.0, 362.0, 307.0, 46.0 );
-		//frame = CGRectMake( 7.0, 369.0, 307.0, 46.0 );
-        self.slider = [[UISlider alloc] initWithFrame:frame];
-        [slider addTarget:self action:@selector(slideToUnlockAction:) forControlEvents:UIControlEventValueChanged];
-        
-		// in case the parent view draws with a custom color or gradient, use a transparent color
-        slider.backgroundColor = [UIColor clearColor];	
-		
-		/*
-		 UIImage *stetchLeftTrack = [[UIImage imageNamed:@"SlideToUnlock.png"]
-		 stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
-		 UIImage *stetchRightTrack = [[UIImage imageNamed:@"yellowslide.png"]
-									 stretchableImageWithLeftCapWidth:10.0 topCapHeight:0.0];
-		 //[slider setMinimumTrackImage:stetchLeftTrack forState:UIControlStateNormal];
-		 //[slider setMaximumTrackImage:stetchRightTrack forState:UIControlStateNormal];
-		 */
-
-        //[slider setThumbImage: [UIImage imageNamed:@"slider_ball.png"] forState:UIControlStateNormal];
-        [slider setThumbImage: [UIImage imageNamed:@"ClearArrowButtonWideDark.png"] forState:UIControlStateNormal];
-		//[slider setThumbImage: [UIImage imageNamed:@"whiteButton.png"] forState:UIControlStateNormal];
-
-        slider.minimumValue = 0.0;
-        slider.maximumValue = 100.0;
-        slider.continuous = NO;
-        slider.value = 0.0;
-		slider.hidden = YES;
-		[view addSubview:slider];
-    }
-
-    return slider;
-}
-
-
-// handle save button action
-- (void)slideToUnlockAction:(UISlider *)sender
-{
-	//NSLog(@"slideToUnlockAction: %f", [sender value]);
-	if ( [sender value] < 90.0 )
-	{
-		[sender setValue:0.0 animated:YES];
-		locked = YES;
-	}
-	else
-	{
-		// unlock the device
-		[sender setValue:100.0 animated:YES];
-		[self unlockDevice];
-	}
-}
 
 
 - (void)viewWillAppear:(BOOL)animated 
@@ -1138,13 +947,6 @@
 - (BOOL)tabBarController:(UITabBarController *)tabBarController 
 shouldSelectViewController:(UIViewController *)viewController
 {
-	if ( locked )
-		NSLog(@"locked: YES");
-	if ( locked && viewController != self.parentViewController )
-	{
-		return NO;
-	}
-	else
 		return YES;		
 }
 
@@ -1204,7 +1006,6 @@ shouldSelectViewController:(UIViewController *)viewController
 	
 	// update UI
 	recording = NO;	
-	lockButton.enabled = NO;
 	saveButton.enabled = NO;
 	startButton.enabled = YES;
 	[self resetTimer];
