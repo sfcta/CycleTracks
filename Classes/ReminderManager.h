@@ -42,7 +42,6 @@
 @property (nonatomic, retain) NSMutableArray *reminders;
 
 - (id)initWithRecordingInProgressDelegate:(id <RecordingInProgressDelegate>)delegate;
-- (void)enableReminders;
 - (void)disableReminders;
 
 @end

@@ -36,10 +36,8 @@
 
 
 #define k15Minutes	900
-#define k5Minutes	300
-
-//#define kBatteryLevelThreshold	0.90
-#define kBatteryLevelThreshold	0.20
+#define k10Minutes	600
+#define kNumReminders 10
 
 //#define kEnableTestReminder		YES
 #define kEnableTestReminder		NO
@@ -79,83 +77,12 @@
 @implementation Reminder
 @synthesize delegate, audible, battery, enabled, vibrate;
 
-- (void)trigger:(NSTimer*)theTimer
-{
-	if ( audible && enabled && vibrate )
-	{
-		CFURLRef		soundFileURLRef;
-		SystemSoundID	soundFileObject;
-		
-		// Get the main bundle for the app
-		CFBundleRef mainBundle = CFBundleGetMainBundle();
-		
-		// Get the URL to the sound file to play
-		soundFileURLRef = CFBundleCopyResourceURL( mainBundle, CFSTR ("bicycle-bell-normalized"), CFSTR ("aiff"), NULL );
-		
-		// Create a system sound object representing the sound file
-		AudioServicesCreateSystemSoundID( soundFileURLRef, &soundFileObject );
-		
-		// play audio + vibrate
-		AudioServicesPlayAlertSound( soundFileObject );
-		/*		
-		 // just vibrate
-		 AudioServicesPlaySystemSound( kSystemSoundID_Vibrate );
-		 */
-	}
-	
-	if ( battery && delegate )
-	{
-		// check battery level
-		UIDevice *device = [UIDevice currentDevice];
-		device.batteryMonitoringEnabled = YES;
-		switch (device.batteryState)
-		{
-			case UIDeviceBatteryStateUnknown:
-				NSLog(@"battery state = UIDeviceBatteryStateUnknown");
-				break;
-			case UIDeviceBatteryStateUnplugged:
-				NSLog(@"battery state = UIDeviceBatteryStateUnplugged");
-				break;
-			case UIDeviceBatteryStateCharging:
-				NSLog(@"battery state = UIDeviceBatteryStateCharging");
-				break;
-			case UIDeviceBatteryStateFull:
-				NSLog(@"battery state = UIDeviceBatteryStateFull");
-				break;
-		}
-		
-		NSLog(@"battery level = %f%%", device.batteryLevel * 100.0 );
-		if ( device.batteryLevel < kBatteryLevelThreshold )
-		{
-			// halt location updates
-			[[delegate getLocationManager] stopUpdatingLocation];
 
-			// re-enable screen lock
-			[UIApplication sharedApplication].idleTimerDisabled = NO;
-			
-			// notify user
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kBatteryTitle
-															message:kBatteryMessage
-														   delegate:self
-												  cancelButtonTitle:@"OK"
-												  otherButtonTitles:nil];
-			[alert show];
-			[alert release];
-			
-			// note this in saved data?
-			// exit app?
-			
-			// set battery to NO to prevent multiple re-triggerings of this dialog box
-			battery = NO;
-		}
-	}
-}
-
-- (id)initWithFireDate:(NSDate *)date
-			  interval:(NSTimeInterval)seconds
-			  delegate:(id <RecordingInProgressDelegate>)_delegate
+- (id)initWithFirstFireInterval:(NSTimeInterval)first_seconds
+                       interval:(NSTimeInterval)seconds
+                       delegate:(id <RecordingInProgressDelegate>)_delegate
 {
-	NSLog(@"Reminder initWithFireDate: %@ interval: %f", date, seconds);
+    NSLog(@"Reminder initWithFirstFireInterval: %f interval: %f", first_seconds, seconds);
 	if ( self = [super init] )
 	{
 		self.delegate = _delegate;
@@ -165,16 +92,21 @@
 		self.enabled = YES;
 		self.vibrate = YES;
 		
-		// schedule our reminder to fire
-		timer = [[NSTimer alloc] initWithFireDate:date 
-										 interval:seconds 
-										   target:self
-										 selector:@selector(trigger:) 
-										 userInfo:nil 
-										  repeats:YES];
-		
-        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-		[runLoop addTimer:timer forMode:NSDefaultRunLoopMode]; 
+		// schedule all of our reminders to fire
+        for (int reminder_num=0; reminder_num < kNumReminders; reminder_num++) {
+            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+            localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:(reminder_num==0 ? first_seconds : first_seconds+reminder_num*seconds)];
+            localNotif.timeZone = [NSTimeZone defaultTimeZone];
+            localNotif.alertBody = [NSString stringWithFormat:@"CycleTracks <%d> has been recording for %d minutes",
+                                    getpid(), (int)(reminder_num==0 ? first_seconds : first_seconds+reminder_num*seconds)/60];
+        
+            localNotif.soundName = @"bicycle-bell-normalized.aiff"; // UILocalNotificationDefaultSoundName;
+            //NSDictionary *infoDict = [NSDictionary dictionaryWithObject:item.eventName forKey:ToDoItemKey];
+            //localNotif.userInfo = infoDict;
+        
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+            [localNotif release];
+        }
 	}
 	
 	return self;
@@ -201,42 +133,23 @@
 		
 		// add reminders here
 		if ( kEnableTestReminder )
-			[reminders addObject:[[Reminder alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:60] 
-														   interval:30
-														   delegate:delegate]];
+			[reminders addObject:[[Reminder alloc] initWithFirstFireInterval:120
+                                                                    interval:120
+                                                                    delegate:delegate]];
 			
-		[reminders addObject:[[Reminder alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:k15Minutes] 
-													   interval:k5Minutes
-													   delegate:delegate]];
+		[reminders addObject:[[Reminder alloc] initWithFirstFireInterval:k15Minutes
+                                                                interval:k10Minutes
+                                                                delegate:delegate]];
 	}
 	
 	return self;
 }
 
 
-- (void)enableReminders
-{
-	NSLog(@"enableReminders");
-	if ( [reminders count] )
-	{
-		NSEnumerator *enumerator = [reminders objectEnumerator];
-		Reminder *reminder;
-		while ( reminder = [enumerator nextObject] )
-			reminder.enabled = YES;
-	}		
-}
-
-
 - (void)disableReminders
 {
 	NSLog(@"disableReminders");
-	if ( [reminders count] )
-	{
-		NSEnumerator *enumerator = [reminders objectEnumerator];
-		Reminder *reminder;
-		while ( reminder = [enumerator nextObject] )
-			reminder.enabled = NO;
-	}		
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 
