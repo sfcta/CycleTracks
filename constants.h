@@ -1,4 +1,4 @@
-/**  CycleTracks, Copyright 2009,2010 San Francisco County Transportation Authority
+/**  CycleTracks, Copyright 2009-2013 San Francisco County Transportation Authority
  *                                    San Francisco, CA, USA
  *
  *   @author Matt Paul <mattpaul@mopimp.com>
@@ -23,10 +23,10 @@
 //  constants.h
 //  CycleTracks
 //
-//  Copyright 2009-2010 SFCTA. All rights reserved.
+//  Copyright 2009-2013 SFCTA. All rights reserved.
 //  Written by Matt Paul <mattpaul@mopimp.com> on 8/25/09.
 //	For more information on the project, 
-//	e-mail Billy Charlton at the SFCTA <billy.charlton@sfcta.org>
+//	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
 
 
 #define kActionSheetButtonConfirm	0
@@ -38,8 +38,8 @@
 
 #define kCounterTimeInterval	0.5
 
-#define kCustomButtonWidth		136.0
-#define kCustomButtonHeight		48.0
+#define kCustomButtonWidth		127.0
+#define kCustomButtonHeight		42.0
 
 #define kCounterFontSize		26.0
 #define kMinimumFontSize		16.0
