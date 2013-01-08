@@ -88,6 +88,7 @@ UITextViewDelegate>
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)context;
 - (id)initWithTrip:(Trip*)trip;
 - (BOOL)loadTrip:(Trip*)trip;
+- (void)unloadTrip;
 
 - (void)createTrip;
 - (void)createTrip:(unsigned int)index;
@@ -106,7 +107,7 @@ UITextViewDelegate>
 - (int)countUnSyncedTrips;
 - (int)countZeroDistanceTrips;
 
-- (BOOL)loadMostRecetUnSavedTrip;
+- (BOOL)loadMostRecentUnSavedTrip;
 - (int)recalculateTripDistances;
 - (CLLocationDistance)calculateTripDistance:(Trip*)_trip;
 

@@ -122,6 +122,15 @@
     return YES;
 }
 
+- (void)unloadTrip
+{
+    [self.coords removeAllObjects];
+    distance					= 0.0;
+    self.trip					= nil;
+    purposeIndex				= -1;
+
+}
+
 
 - (id)initWithTrip:(Trip*)_trip
 {
@@ -210,7 +219,7 @@
 	CLLocation *nextLoc = [[CLLocation alloc] initWithLatitude:[next.latitude doubleValue] 
 													 longitude:[next.longitude doubleValue]];
 	
-	CLLocationDistance	deltaDist	= [nextLoc getDistanceFrom:prevLoc];
+	CLLocationDistance	deltaDist	= [nextLoc distanceFromLocation:prevLoc];
 	NSTimeInterval		deltaTime	= [next.recorded timeIntervalSinceDate:prev.recorded];
 	CLLocationDistance	newDist		= 0.;
 	
@@ -310,43 +319,6 @@
 		//NSLog(@"duration = %.0fs", duration);
 		[trip setDuration:[NSNumber numberWithDouble:duration]];
 		
-		/*
-		Coord *prev = [coords objectAtIndex:0];
-		CLLocation *prevLoc = [[CLLocation alloc] initWithLatitude:[prev.latitude doubleValue] 
-														 longitude:[prev.longitude doubleValue]];
-
-		CLLocationDistance	deltaDist = [location getDistanceFrom:prevLoc];
-		NSTimeInterval		deltaTime = [location.timestamp timeIntervalSinceDate:prev.recorded];
-		
-		NSLog(@"deltaDist = %f", deltaDist);
-		NSLog(@"deltaTime = %f", deltaTime);
-		NSLog(@"est speed = %f", deltaDist / deltaTime);
-		
-		// sanity check accuracy
-		if ( [prev.hAccuracy doubleValue] < kEpsilonAccuracy && 
-			 location.horizontalAccuracy < kEpsilonAccuracy )
-		{
-			// sanity check time interval if non-zero
-			if ( !kEpsilonTimeInterval || deltaTime < kEpsilonTimeInterval )
-			{
-				// sanity check speed
-				if ( deltaDist / deltaTime < kEpsilonSpeed )
-				{
-					// consider distance delta as valid
-					distance += deltaDist;
-					dirty = YES;
-
-					NSLog(@"distance: %f", distance);
-				}
-				else
-					NSLog(@"WARNING speed exceeds epsilon: %f", deltaDist / deltaTime);
-			}
-			else
-				NSLog(@"WARNING deltaTime exceeds epsilon: %f", deltaTime);
-		}
-		else
-			NSLog(@"WARNING accuracy exceeds epsilon: %f", location.horizontalAccuracy);
-		 */
 	}
 	
 	NSError *error;
@@ -671,7 +643,7 @@
     // inform the user
     NSLog(@"Connection failed! Error - %@ %@",
           [error localizedDescription],
-          [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
+          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
 	
 	[activityDelegate dismissSaving];
 	[activityDelegate stopAnimating];
@@ -831,38 +803,6 @@
 		// save / upload trip
 		[self saveTrip];		
 	}
-	
-	/*
-	else // alertView == saving
-	{
-		NSLog(@"saving didDismissWithButtonIndex: %d", buttonIndex);
-		
-		// reset button states
-		startButton.enabled = NO;
-		saveButton.enabled = NO;
-		lockButton.hidden = YES;
-		
-		// reset trip, reminder managers
-		NSManagedObjectContext *context = tripManager.managedObjectContext;
-		Trip *trip = tripManager.trip;
-		[self initTripManager:[[TripManager alloc] initWithManagedObjectContext:context]];
-		tripManager.dirty = YES;
-		
-		if ( reminderManager )
-		{
-			[reminderManager release];
-			reminderManager = nil;
-		}
-		
-		[self resetCounter];
-		[self resetPurpose];
-		
-		// load map view of saved trip
-		MapViewController *mvc = [[MapViewController alloc] initWithTrip:trip];
-		[[self navigationController] pushViewController:mvc animated:YES];
-		[mvc release];
-	}
-	 */
 }
 
 
@@ -980,7 +920,7 @@
 	return count;
 }
 
-- (BOOL)loadMostRecetUnSavedTrip
+- (BOOL)loadMostRecentUnSavedTrip
 {
 	BOOL success = NO;
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
