@@ -120,33 +120,14 @@
 	// select Record tab at launch
 	tabBarController.selectedIndex = 1;	
 	
-	// set delegate to prevent changing tabs when locked
-	tabBarController.delegate = recordVC;
-	
 	UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers 
 															 objectAtIndex:3];
 	PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
 	vc.managedObjectContext			= context;
 	
-	
-	// create a tab bar controller and init with nav controllers above
-	//tabBarController = [[UITabBarController alloc] initWithNibName:@"MainWindow.xib" bundle:nil];
-	
-	/*
-	 tabBarController.viewControllers = [NSArray arrayWithObjects:recordTripNavController, 
-	 savedTripsNavController, 
-	 nil];
-	 
-	 // set delegate to prevent changing tabs when locked
-	 tabBarController.delegate = recordTripViewController;
-	 
-	 // set parent view so we can apply opacity mask to it
-	 recordTripViewController.parentView = tabBarController.view;
-	 //recordTripViewController.parentView = tabBarController.tabBar;
-	 */
-	
-	
+		
 	// Add the tab bar controller's current view as a subview of the window
+    [window setFrame:[[UIScreen mainScreen] bounds]];
     [window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];	
 }
