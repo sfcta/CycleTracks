@@ -36,7 +36,6 @@
 #import "RecordingInProgressDelegate.h"
 #import "TripPurposeDelegate.h"
 
-
 @class ReminderManager;
 @class TripManager;
 
@@ -46,17 +45,16 @@
 	<CLLocationManagerDelegate,
 	MKMapViewDelegate,
 	UINavigationControllerDelegate, 
-	UITabBarControllerDelegate, 
 	PersonalInfoDelegate,
 	RecordingInProgressDelegate,
 	TripPurposeDelegate,
-	UIActionSheetDelegate,
 	UIAlertViewDelegate,
 	UITextViewDelegate>
 {
     NSManagedObjectContext *managedObjectContext;
 	
     CLLocationManager *locationManager;
+    CLLocation* lastLocation;
 	/*
 	UITableViewCell *tripPurposeCell;
 	UITableViewCell *personalInfoCell;
@@ -64,24 +62,19 @@
 	BOOL				didUpdateUserLocation;
 	IBOutlet MKMapView	*mapView;
 	
-	IBOutlet UIButton *infoButton;
-	IBOutlet UIButton *saveButton;
 	IBOutlet UIButton *startButton;
+    IBOutlet UIButton *cancelButton;
 	
 	IBOutlet UILabel *timeCounter;
 	IBOutlet UILabel *distCounter;
 	IBOutlet UILabel *speedCounter;
-
-
-	NSTimer *timer;
 	
-	// pointer to opacity mask, TabBar view
-	UIView *opacityMask;
-	UIView *parentView;
+	NSTimer *timer;
 	
 	BOOL recording;
 	BOOL shouldUpdateCounter;
 	BOOL userInfoSaved;
+    NSTimeInterval lastBatteryWarning;
 	
 	TripManager		*tripManager;
 	ReminderManager *reminderManager;
@@ -94,18 +87,14 @@
 @property (nonatomic, retain) UITableViewCell	*tripPurposeCell;
 @property (nonatomic, retain) UITableViewCell	*personalInfoCell;
 */
-@property (nonatomic, retain) UIButton *infoButton;
-@property (nonatomic, retain) UIButton *saveButton;
+
 @property (nonatomic, retain) UIButton *startButton;
+@property (nonatomic, retain) UIButton *cancelButton;
 
 @property (nonatomic, retain) UILabel *timeCounter;
 @property (nonatomic, retain) UILabel *distCounter;
 
-
 @property (assign) NSTimer *timer;
-
-@property (nonatomic, retain) UIView   *parentView;
-
 
 @property (assign) BOOL recording;
 @property (assign) BOOL shouldUpdateCounter;
@@ -116,26 +105,20 @@
 
 - (void)initTripManager:(TripManager*)manager;
 
-// DEPRECATED
-//- (id)initWithManagedObjectContext:(NSManagedObjectContext*)context;
-//- (id)initWithTripManager:(TripManager*)manager;
-
 // IBAction handlers
 - (IBAction)save:(UIButton *)sender;
 - (IBAction)start:(UIButton *)sender;
-
+- (IBAction)cancel:(UIButton *)sender;
+- (void)doneRecordingDidCancel:(BOOL)didCancel;
 
 // timer methods
 - (void)start:(UIButton *)sender;
-- (void)createCounter;
 - (void)resetCounter;
 - (void)setCounterTimeSince:(NSDate *)startDate distance:(CLLocationDistance)distance;
 - (void)updateCounter:(NSTimer *)theTimer;
 
-- (UIButton *)createSaveButton;
-- (UIButton *)createStartButton;
-
-
-
+- (void)handleBackgrounding;
+- (void)handleForegrounding;
+- (void)handleTermination;
 
 @end

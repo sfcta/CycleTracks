@@ -52,6 +52,7 @@
 {
 	// disable screen lock
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
+	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 	
 	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 	
@@ -105,7 +106,7 @@
 	UINavigationController	*recordNav	= (UINavigationController*)[tabBarController.viewControllers 
 																	objectAtIndex:1];
 	//[navCon popToRootViewControllerAnimated:NO];
-	RecordTripViewController *recordVC	= (RecordTripViewController *)[recordNav topViewController];
+    recordVC	= (RecordTripViewController *)[recordNav topViewController];
 	[recordVC initTripManager:manager];
 	
 	
@@ -121,10 +122,6 @@
 	
 	// set delegate to prevent changing tabs when locked
 	tabBarController.delegate = recordVC;
-	
-	// set parent view so we can apply opacity mask to it
-	recordVC.parentView = tabBarController.view;
-	
 	
 	UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers 
 															 objectAtIndex:3];
@@ -154,74 +151,6 @@
 	[window makeKeyAndVisible];	
 }
 
-/*
-- (void)applicationDidFinishLaunching:(UIApplication *)application
-{
-	// disable screen lock
-	[UIApplication sharedApplication].idleTimerDisabled = YES;
-	
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
-
-    NSManagedObjectContext *context = [self managedObjectContext];
-    if (!context) {
-        // Handle the error.
-    }
-	
-	// init our unique ID hash
-	[self initUniqueIDHash];
-	
-	// initialize trip manager with the managed object context
-	TripManager *manager = [[[TripManager alloc] initWithManagedObjectContext:context] autorelease];
-
-	// initialize each tab's root view controller with the trip manager	
-	RecordTripViewController *recordTripViewController = [[[RecordTripViewController alloc]
-														   initWithTripManager:manager]
-														  autorelease];
-
-	// create tab bar items for the tabs themselves
-	UIImage *image = [UIImage imageNamed:@"tabbar_record.png"];
-	UITabBarItem *recordTab = [[UITabBarItem alloc] initWithTitle:@"Record New Trip" image:image tag:101];
-	recordTripViewController.tabBarItem = recordTab;
-	
-	SavedTripsViewController *savedTripsViewController = [[[SavedTripsViewController alloc]
-														   initWithTripManager:manager]
-														  autorelease];
-
-	savedTripsViewController.delegate = recordTripViewController;
-	
-	image = [UIImage imageNamed:@"tabbar_view.png"];
-	UITabBarItem *viewTab = [[UITabBarItem alloc] initWithTitle:@"View Saved Trips" image:image tag:102];
-	savedTripsViewController.tabBarItem = viewTab;
-	
-	// create a navigation controller stack for each tab, set delegates to respective root view controller
-	UINavigationController *recordTripNavController = [[UINavigationController alloc]
-													   initWithRootViewController:recordTripViewController];
-	recordTripNavController.delegate = recordTripViewController;
-	recordTripNavController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-
-	UINavigationController *savedTripsNavController = [[UINavigationController alloc]
-													   initWithRootViewController:savedTripsViewController];
-	savedTripsNavController.delegate = savedTripsViewController;
-	savedTripsNavController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-
-	// create a tab bar controller and init with nav controllers above
-	tabBarController = [[UITabBarController alloc] initWithNibName:@"MainWindow.xib" bundle:nil];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:recordTripNavController, 
-																 savedTripsNavController, 
-																 nil];
-
-	// set delegate to prevent changing tabs when locked
-	tabBarController.delegate = recordTripViewController;
-	
-	// set parent view so we can apply opacity mask to it
-	recordTripViewController.parentView = tabBarController.view;
-	//recordTripViewController.parentView = tabBarController.tabBar;
-
-	// Add the tab bar controller's current view as a subview of the window
-    [window addSubview:tabBarController.view];
-	[window makeKeyAndVisible];	
-}
-*/
 
 - (void)initUniqueIDHash
 {
@@ -240,12 +169,59 @@
 	self.uniqueIDHash = uniqueID; // save for later.
 }
 
+/** 
+ * Nofity the OS we're going to be doing stuff in the background -- recording, updating the timer, etc.
+ */
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    
+    if (recordVC) {
+        // Let the RecordTripViewController take care of its business
+        [recordVC handleBackgrounding];
+    }
+    
+    // If we're not recording -- don't bother with the background task
+    if (recordVC && ![recordVC recording]) {
+        NSLog(@"applicationDidEnterBackground - bgTask=%d (should be zero)", bgTask);
+        return;
+    }
+    
+    bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Background Handler: End background because time ran out, cleaning up task.");
+            
+            // time's up - end the background task
+            [application endBackgroundTask:bgTask];
+            
+        });
+    }];
+
+    NSLog(@"applicationDidEnterBackground - bgTask=%d", bgTask);
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    NSLog(@"applicationWillEnterForeground - bgTask=%d", bgTask);
+    if (bgTask) {
+        [application endBackgroundTask:bgTask];        
+    }
+    bgTask = 0;
+
+    if (recordVC) {
+        [recordVC handleForegrounding];
+        if (recordVC.recording) {
+            tabBarController.selectedIndex = 1;
+        }
+    }
+}
 
 /**
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
 	
+    if (recordVC) {
+        [recordVC handleTermination];
+    }
+    
     NSError *error = nil;
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {

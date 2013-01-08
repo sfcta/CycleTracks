@@ -29,6 +29,8 @@
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
 
 
+@class RecordTripViewController;
+
 @interface CycleTracksAppDelegate : NSObject <UIApplicationDelegate>
 {
     NSManagedObjectModel *managedObjectModel;
@@ -38,6 +40,8 @@
     UIWindow *window;
     UITabBarController *tabBarController;
 	NSString *uniqueIDHash;
+    UIBackgroundTaskIdentifier bgTask;
+    RecordTripViewController *recordVC;
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;

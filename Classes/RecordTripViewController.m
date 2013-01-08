@@ -39,11 +39,16 @@
 #import "Trip.h"
 #import "User.h"
 
+#define kBatteryLevelThreshold	0.20
+
+#define kResumeInterruptedRecording 101
+#define kBatteryLowStopRecording    201
+#define kBatteryLowNotRecording     202
 
 @implementation RecordTripViewController
 
 @synthesize locationManager, tripManager, reminderManager;
-@synthesize infoButton, saveButton, startButton, parentView;
+@synthesize startButton, cancelButton;
 @synthesize timer, timeCounter, distCounter;
 @synthesize recording, shouldUpdateCounter, userInfoSaved;
 
@@ -57,6 +62,10 @@
         return locationManager;
     }
 	
+    if (![CLLocationManager locationServicesEnabled]) {
+        NSLog(@"CLLocationManager locationServicesEnabled == false!!");
+        //handle this?
+    }
     locationManager = [[CLLocationManager alloc] init];
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     //locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
@@ -65,19 +74,91 @@
     return locationManager;
 }
 
+/**
+ * Returns True if the battery level is too low
+ */
+- (BOOL)batteryLevelLowStartPressed:(BOOL)startPressed {
+	
+    // check battery level
+    UIDevice *device = [UIDevice currentDevice];
+    device.batteryMonitoringEnabled = YES;
+    switch (device.batteryState)
+    {
+        case UIDeviceBatteryStateUnknown:
+            NSLog(@"battery state = UIDeviceBatteryStateUnknown");
+            break;
+        case UIDeviceBatteryStateUnplugged:
+            NSLog(@"battery state = UIDeviceBatteryStateUnplugged");
+            break;
+        case UIDeviceBatteryStateCharging:
+            NSLog(@"battery state = UIDeviceBatteryStateCharging");
+            break;
+        case UIDeviceBatteryStateFull:
+            NSLog(@"battery state = UIDeviceBatteryStateFull");
+            break;
+    }
+		
+    NSLog(@"battery level = %f%%", device.batteryLevel * 100.0 );
+    if ( device.batteryLevel >= kBatteryLevelThreshold )
+    {
+        return FALSE;
+    }
+    
+    int alert_tag = kBatteryLowNotRecording;
+    if (recording) {
+        alert_tag = kBatteryLowStopRecording;
+        
+        // stop recording cleanly
+        [self doneRecordingDidCancel:FALSE];
+    }
+
+    // make sure we halt location updates
+    [[self getLocationManager] stopUpdatingLocation];
+    
+    // if this is happening not in response to a GUI event,
+    // only notify if we didn't just notify -- no need to be annoying and sometimes it takes a while
+    // for the location manager to stop
+    if (startPressed || ([[NSDate date] timeIntervalSince1970] - lastBatteryWarning > 120)) {
+        
+        // notify user -- alert if foreground, otherwise send a notification
+        if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kBatteryTitle
+                                                            message:kBatteryMessage
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            alert.tag = alert_tag;
+            [alert show];
+            [alert release];
+        }
+        else {
+            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+            localNotif.alertBody = kBatteryMessage;
+            localNotif.soundName = @"bicycle-bell-normalized.aiff";
+            [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+            [localNotif release];
+        }
+        
+        lastBatteryWarning = [[NSDate date] timeIntervalSince1970];
+    }
+    // battery was low - return TRUE
+    return TRUE;
+}
+
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-	// NSLog(@"location update: %@", [newLocation description]);
-	CLLocationDistance deltaDistance = [newLocation getDistanceFrom:oldLocation];
-	//NSLog(@"deltaDistance = %f", deltaDistance);
+	NSLog(@"location update: %@", [newLocation description]);
+	CLLocationDistance deltaDistance = [newLocation distanceFromLocation:oldLocation];
+	NSLog(@"deltaDistance = %f", deltaDistance);
 	
 	if ( !didUpdateUserLocation )
 	{
 		NSLog(@"zooming to current user location");
 		//MKCoordinateRegion region = { mapView.userLocation.location.coordinate, { 0.0078, 0.0068 } };
-		MKCoordinateRegion region = { newLocation.coordinate, { 0.0078, 0.0068 } };
+		MKCoordinateRegion region = { newLocation.coordinate, { 0.0058, 0.0048 } };
 		[mapView setRegion:region animated:YES];
 
 		didUpdateUserLocation = YES;
@@ -95,13 +176,21 @@
 		// add to CoreData store
 		CLLocationDistance distance = [tripManager addCoord:newLocation];
 		self.distCounter.text = [NSString stringWithFormat:@"%.1f mi", distance / 1609.344];
-	}
+	} else {
+        // save the location for when we do start
+        if (lastLocation) [lastLocation release];
+        lastLocation = newLocation;
+        [lastLocation retain];
+    }
 	
 	// 	double mph = ( [trip.distance doubleValue] / 1609.344 ) / ( [trip.duration doubleValue] / 3600. );
 	if ( newLocation.speed >= 0. )
 		speedCounter.text = [NSString stringWithFormat:@"%.1f mph", newLocation.speed * 3600 / 1609.344];
 	else
 		speedCounter.text = @"0.0 mph";
+    
+    // check the battery level and stop recording if low
+    [self batteryLevelLowStartPressed:FALSE];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -136,18 +225,6 @@
 }
 */
 
-/*
-- (id)initWithManagedObjectContext:(NSManagedObjectContext*)context
-{
-    if (self = [super initWithStyle:UITableViewStyleGrouped])
-	{
-		//NSLog(@"RecordTripViewController::initWithManagedObjectContext");
-		self.managedObjectContext = context;
-    }
-    return self;
-}
-*/
-
 - (void)initTripManager:(TripManager*)manager
 {
 	//manager.activityDelegate = self;
@@ -155,18 +232,6 @@
 	manager.dirty			= YES;
 	self.tripManager		= manager;
 }
-
-/*
-- (id)initWithTripManager:(TripManager*)manager
-{
-    if (self = [super initWithStyle:UITableViewStyleGrouped])
-	{
-		//NSLog(@"RecordTripViewController::initWithTripManager");
-		[self initTripManager:manager];
-    }
-    return self;
-}
-*/
 
 - (BOOL)hasUserInfoBeenSaved
 {
@@ -225,7 +290,7 @@
 													   delegate:self
 											  cancelButtonTitle:@"Cancel"
 											  otherButtonTitles:@"Continue", nil];
-		alert.tag = 101;
+		alert.tag = kResumeInterruptedRecording;
 		[alert show];
 		[alert release];
 	}
@@ -254,25 +319,6 @@
 	MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
 	[mapView setRegion:region animated:NO];
 	
-	// setup info button
-	infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-	infoButton.showsTouchWhenHighlighted = YES;
-	/*
-	[infoButton addTarget:self action:@selector(infoAction:) forControlEvents:UIControlEventTouchUpInside];
-	self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:infoButton];
-	*/
-	
-	// Set up the buttons.
-	/*
-	[self.view addSubview:[self createSaveButton]];
-	[self.view addSubview:[self createStartButton]];
-	[self.view addSubview:[self createLockButton]];
-	*/
-	
-//	[self createCounter];
-
-	
-
 	self.recording = NO;
 	self.shouldUpdateCounter = NO;
 	
@@ -309,76 +355,6 @@
 }
 
 
-// instantiate start button
-- (UIButton *)createStartButton
-{
-	if (startButton == nil)
-	{
-		// create a UIButton (UIButtonTypeRoundedRect)
-		startButton = [[UIButton buttonWithType:UIButtonTypeRoundedRect] retain];
-		[startButton setBackgroundImage:[UIImage imageNamed:@"start_button.png"] forState:UIControlStateNormal];
-		startButton.frame = CGRectMake( 9.0, 181.0, kCustomButtonWidth, kCustomButtonHeight );
-		startButton.backgroundColor = [UIColor clearColor];
-		startButton.enabled = YES;
-		//startButton.hidden = YES;
-		
-		[startButton setTitle:@"Start" forState:UIControlStateNormal];
-		[startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-		startButton.titleLabel.font = [UIFont boldSystemFontOfSize: 24];
-		//startButton.titleLabel.shadowOffset = CGSizeMake (1.0, 1.0);
-		startButton.titleLabel.textColor = [UIColor whiteColor];
-		[startButton addTarget:self action:@selector(start:) forControlEvents:UIControlEventTouchUpInside];
-	}
-	return startButton;
-}
-
-
-// instantiate save button
-- (UIButton *)createSaveButton
-{
-	if (saveButton == nil)
-	{
-		// create a UIButton (UIButtonTypeRoundedRect)
-		saveButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-		[saveButton setBackgroundImage:[UIImage imageNamed:@"save_button.png"] forState:UIControlStateNormal];
-		saveButton.frame = CGRectMake( 9.0, 240.0, kCustomButtonWidth, kCustomButtonHeight );
-		saveButton.backgroundColor = [UIColor clearColor];
-		saveButton.enabled = NO;
-		//saveButton.hidden = YES;
-		
-		[saveButton setTitle:@"Save" forState:UIControlStateNormal];
-		[saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-		saveButton.titleLabel.font = [UIFont boldSystemFontOfSize: 24];
-		//saveButton.titleLabel.shadowOffset = CGSizeMake (1.0, 1.0);
-		saveButton.titleLabel.textColor = [UIColor whiteColor];
-		[saveButton addTarget:self action:@selector(save:) forControlEvents:UIControlEventTouchUpInside];
-	}
-	return saveButton;
-}
-
-
-- (void)resetPurpose
-{
-	/*
-	NSLog(@"resetPurpose");
-	if ( tripPurposeCell != nil )
-	{
-		//tripPurposeCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		tripPurposeCell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-		if ( tripPurposeCell.accessoryView )
-		{
-			// release our custom checkmark accessory image
-			[tripPurposeCell.accessoryView release];
-			tripPurposeCell.accessoryView = nil;
-		}
-		tripPurposeCell.detailTextLabel.text = @"Required";
-		tripPurposeCell.detailTextLabel.enabled = NO;
-	}
-	[self.tableView reloadData];
-	 */
-}
-
-
 - (void)resetTimer
 {	
 	// invalidate timer
@@ -396,9 +372,6 @@
 	// reset button states
 	recording = NO;
 	startButton.enabled = YES;
-    [startButton setBackgroundImage:[UIImage imageNamed:@"start_button.png"] forState:UIControlStateNormal];
-    [startButton setTitle:@"Start" forState:UIControlStateNormal];
-	saveButton.enabled = NO;
 	
 	// reset trip, reminder managers
 	NSManagedObjectContext *context = tripManager.managedObjectContext;
@@ -412,129 +385,52 @@
 	}
 	
 	[self resetCounter];
-	[self resetPurpose];
 	[self resetTimer];
 }
-
-
-#pragma mark UIActionSheet delegate methods
-
-
-// NOTE: implement didDismissWithButtonIndex to process after sheet has been dismissed
-//- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-	NSLog(@"actionSheet clickedButtonAtIndex %d", buttonIndex);
-	switch ( buttonIndex )
-	{
-			/*
-		case kActionSheetButtonDiscard:
-			NSLog(@"Discard");
-			[self resetRecordingInProgress];
-			break;
-			*/
-			/*
-		case kActionSheetButtonConfirm:
-			NSLog(@"Confirm => creating Trip Notes dialog");
-			[tripManager promptForTripNotes];
-			
-			// stop recording new GPS data points
-			recording = NO;
-			
-			// update UI
-			saveButton.enabled = NO;
-			
-			[self resetTimer];
-			break;
-			*/
-			/*
-		case kActionSheetButtonChange:
-			NSLog(@"Change => push Trip Purpose picker");
-			 */
-		case 0: // push Trip Purpose picker
-			// stop recording new GPS data points
-		{
-			recording = NO;
-			
-			// update UI
-			saveButton.enabled = NO;
-			
-			[self resetTimer];
-			
-			// Trip Purpose
-			NSLog(@"INIT + PUSH");
-			PickerViewController *pickerViewController = [[PickerViewController alloc]
-														  //initWithPurpose:[tripManager getPurposeIndex]];
-														  initWithNibName:@"TripPurposePicker" bundle:nil];
-			[pickerViewController setDelegate:self];
-			//[[self navigationController] pushViewController:pickerViewController animated:YES];
-			[self.navigationController presentModalViewController:pickerViewController animated:YES];
-			[pickerViewController release];
-		}
-			break;
-			
-		case kActionSheetButtonCancel:
-		default:
-			NSLog(@"Cancel");
-			// re-enable counter updates
-			shouldUpdateCounter = YES;
-			break;
-	}
-}
-
-
-// called if the system cancels the action sheet (e.g. homescreen button has been pressed)
-- (void)actionSheetCancel:(UIActionSheet *)actionSheet
-{
-	NSLog(@"actionSheetCancel");
-}
-
 
 #pragma mark UIAlertViewDelegate methods
 
 
-// NOTE: method called upon closing save error / success alert
+/**
+ * This method is called upon closing the following alert boxes.
+ * - battery low
+ * - do you want to continue a previous, interrupted recording? (tag=kResumeInterruptedRecording)
+ * - upload attempt is complete (TripManager connection:didReceiveResponse:)
+ */
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-	switch (alertView.tag) {
-		case 101:
-		{
-			NSLog(@"recording interrupted didDismissWithButtonIndex: %d", buttonIndex);
-			switch (buttonIndex) {
-				case 0:
-					// new trip => do nothing
-					break;
-				case 1:
-				default:
-					// continue => load most recent unsaved trip
-					[tripManager loadMostRecetUnSavedTrip];
+    if (alertView.tag == kResumeInterruptedRecording) {
+        NSLog(@"recording interrupted didDismissWithButtonIndex: %d", buttonIndex);
+        if (buttonIndex == 0) {
+            // new trip => do nothing
+        }
+        else {
+            // continue => load most recent unsaved trip
+            [tripManager loadMostRecentUnSavedTrip];
 					
-					// update UI to reflect trip once loading has completed
-					[self setCounterTimeSince:tripManager.trip.start
-									 distance:[tripManager getDistanceEstimate]];
+            // update UI to reflect trip once loading has completed
+            [self setCounterTimeSince:tripManager.trip.start distance:[tripManager getDistanceEstimate]];
 
-					startButton.enabled = YES;					
-					break;
-			}
-		}
-			break;
-		default:
-		{
-			NSLog(@"saving didDismissWithButtonIndex: %d", buttonIndex);
+            startButton.enabled = YES;
+        }
+        return;
+    }
+    
+    // go to the map view of the trip
+    // not relevant if we weren't recording
+    if (alertView.tag != kBatteryLowNotRecording) {
+        NSLog(@"saving didDismissWithButtonIndex: %d", buttonIndex);
 			
-			// keep a pointer to our trip to pass to map view below
-			Trip *trip = tripManager.trip;
-			[self resetRecordingInProgress];
+        // keep a pointer to our trip to pass to map view below
+        Trip *trip = tripManager.trip;
+        [self resetRecordingInProgress];
 			
-			// load map view of saved trip
-			MapViewController *mvc = [[MapViewController alloc] initWithTrip:trip];
-			[[self navigationController] pushViewController:mvc animated:YES];
-			[mvc release];
-		}
-			break;
+        // load map view of saved trip
+        MapViewController *mvc = [[MapViewController alloc] initWithTrip:trip];
+        [[self navigationController] pushViewController:mvc animated:YES];
+        [mvc release];
 	}
 }
-
 
 
 // handle save button action
@@ -542,205 +438,120 @@
 {
 	NSLog(@"save");
 	
-	// go directly to TripPurpose, user can cancel from there
-	if ( YES )
-	{
-		// Trip Purpose
-		NSLog(@"INIT + PUSH");
-		PickerViewController *pickerViewController = [[PickerViewController alloc]
-													  //initWithPurpose:[tripManager getPurposeIndex]];
+    // Trip Purpose
+    PickerViewController *pickerViewController = [[PickerViewController alloc]
+                                                    //initWithPurpose:[tripManager getPurposeIndex]];
 													  initWithNibName:@"TripPurposePicker" bundle:nil];
-		[pickerViewController setDelegate:self];
-		//[[self navigationController] pushViewController:pickerViewController animated:YES];
-		[self.navigationController presentModalViewController:pickerViewController animated:YES];
-		[pickerViewController release];
-	}
-	
-	// prompt to confirm first
-	else
-	{
-		// pause updating the counter
-		shouldUpdateCounter = NO;
-		
-		// construct purpose confirmation string
-		NSString *purpose = nil;
-		if ( tripManager != nil )
-			purpose = [self getPurposeString:[tripManager getPurposeIndex]];
-		
-		NSString *confirm = [NSString stringWithFormat:@"Stop recording & save this trip?"];
-		
-		// present action sheet
-		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:confirm
-																 delegate:self
-														cancelButtonTitle:@"Cancel"
-												   destructiveButtonTitle:nil
-														otherButtonTitles:@"Save", nil];
-		
-		actionSheet.actionSheetStyle		= UIActionSheetStyleBlackTranslucent;
-		UIViewController *pvc = self.parentViewController;
-		UITabBarController *tbc = (UITabBarController *)pvc.parentViewController;
-		
-		[actionSheet showFromTabBar:tbc.tabBar];
-		[actionSheet release];
-	}
-}
-
-
-- (NSDictionary *)newTripTimerUserInfo
-{
-    return [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"StartDate",
-			tripManager, @"TripManager", nil ];
-}
-
-
-- (NSDictionary *)continueTripTimerUserInfo
-{
-	if ( tripManager.trip && tripManager.trip.start )
-		return [NSDictionary dictionaryWithObjectsAndKeys:tripManager.trip.start, @"StartDate",
-				tripManager, @"TripManager", nil ];
-	else {
-		NSLog(@"WARNING: tried to continue trip timer but failed to get trip.start date");
-		return [self newTripTimerUserInfo];
-	}
+    [pickerViewController setDelegate:self];
+    [self.navigationController presentModalViewController:pickerViewController animated:YES];
+    [pickerViewController release];
 	
 }
 
+- (IBAction)cancel:(UIButton *)sender
+{
+    NSLog(@"Cancel");
+    [self doneRecordingDidCancel:TRUE];
+}
+
+/**
+ * Call when we are done recording.
+ */
+- (void)doneRecordingDidCancel:(BOOL)didCancel {
+	// update UI
+	recording = NO;
+    
+    // transform save button into start button
+    [startButton setTitle:@"Start" forState:UIControlStateNormal];
+    [startButton setBackgroundImage:[UIImage imageNamed:@"start_button_wide.png"] forState:UIControlStateNormal];
+    startButton.frame = CGRectMake( 24.0, 198.0, 272.0, kCustomButtonHeight );
+	cancelButton.hidden = TRUE;
+    
+    // kill the timer that is updating the UI and reset the UI counter
+    [self resetTimer];
+    [self resetCounter];
+    
+    // remove all reminders
+    if ( reminderManager )
+        [reminderManager disableReminders];
+    
+    // if cancel - reset state
+    if (didCancel) {
+        [self.tripManager unloadTrip];
+    }
+    
+    // stop the location manager if we're in background mode
+    // if we're in foreground mode, backgrounding will do it
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive)
+        [[self getLocationManager] stopUpdatingLocation];    
+}
 
 // handle start button action
 - (IBAction)start:(UIButton *)sender
 {
-    if(recording == NO)
-    {
-	NSLog(@"start");
+	NSLog(@"start - recording=%d", recording);
+    
+    // just one button - we really want to save
+    if (recording) {
+        [self save:sender];
+        return;
+    }
 	
+    // if the battery level is low then NM
+    if ([self batteryLevelLowStartPressed:TRUE])
+        return;
+        
 	// start the timer if needed
 	if ( timer == nil )
 	{
-		// check if we're continuing a trip
-		if ( tripManager.trip && [tripManager.trip.coords count] )
+        NSDictionary* counterUserDict;
+		// check if we're continuing a trip - then start the trip from there
+		if ( tripManager.trip && tripManager.trip.start && [tripManager.trip.coords count] )
 		{
-			timer = [NSTimer scheduledTimerWithTimeInterval:kCounterTimeInterval
-													 target:self selector:@selector(updateCounter:)
-												   userInfo:[self continueTripTimerUserInfo] repeats:YES];
-		}
-		
-		// or starting a new recording
-		else {
+            counterUserDict = [NSDictionary dictionaryWithObjectsAndKeys:tripManager.trip.start, @"StartDate",
+                                                                         tripManager, @"TripManager", nil ];
+        }
+        // or starting a new recording
+        else {
 			[self resetCounter];
-			timer = [NSTimer scheduledTimerWithTimeInterval:kCounterTimeInterval
-													 target:self selector:@selector(updateCounter:)
-												   userInfo:[self newTripTimerUserInfo] repeats:YES];
-		}
+            counterUserDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"StartDate",
+                                                                         tripManager, @"TripManager", nil ];
+        }
+        timer = [NSTimer scheduledTimerWithTimeInterval:kCounterTimeInterval
+                                                 target:self selector:@selector(updateCounter:)
+                                                userInfo:counterUserDict
+                                                repeats:YES];
 	}
 
 	// init reminder manager
 	if ( reminderManager )
+        [reminderManager disableReminders];
 		[reminderManager release];
 	
 	reminderManager = [[ReminderManager alloc] initWithRecordingInProgressDelegate:self];
 	
-	// Toggle start button
-	[startButton setBackgroundImage:[UIImage imageNamed:@"cancel_button.png"] forState:UIControlStateNormal];
-    [startButton setTitle:@"Cancel" forState:UIControlStateNormal];    
+    // transform start button into save button
+    [startButton setTitle:@"Save" forState:UIControlStateNormal];
+    [startButton setBackgroundImage:[UIImage imageNamed:@"save_button.png"] forState:UIControlStateNormal];
+    startButton.frame = CGRectMake( 24.0, 198.0, kCustomButtonWidth, kCustomButtonHeight );
+    cancelButton.enabled = TRUE;
+    cancelButton.hidden = FALSE;
 	
-	// enable save button
-	saveButton.enabled = YES;
-	saveButton.hidden = NO;
-	
-	// set recording flag so future location updates will be added as coords
+    // set recording flag so future location updates will be added as coords
 	recording = YES;
 	
-	// update "Touch start to begin text"
-	//[self.tableView reloadData];
-	
-	/*
-	CGRect sectionRect = [self.tableView rectForSection:0];
-	[self.tableView setNeedsDisplayInRect:sectionRect];
-	[self.view setNeedsDisplayInRect:sectionRect];
-	*/
+    // add the last location we know about to start
+    if (lastLocation) {
+        NSLog(@"tripManager = %@", tripManager);
+        CLLocationDistance distance = [tripManager addCoord:lastLocation];
+        self.distCounter.text = [NSString stringWithFormat:@"%.1f mi", distance / 1609.344];
+        [lastLocation release];
+        lastLocation = nil;
+    }
 	
 	// set flag to update counter
 	shouldUpdateCounter = YES;
-    }
-    
-    else
-    {
-        NSLog(@"User Cancel");
-        [self resetRecordingInProgress];
-        
-    }
-	
 }
-
-
-
-- (void)createCounter
-{
-	// create counter window
-	/*
-	UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LargeCounter.png"]];
-	//CGRect frame = CGRectMake( 155, 181, 156, 89 );
-	CGRect frame = CGRectMake( 155, 181, 156, 107 );
-	imageView.frame = frame;
-	[self.view addSubview:imageView];
-	*/
-	
-	// create time counter text
-	if ( timeCounter == nil )
-	{
-		/*
-		frame = CGRectMake(	165, 179, 135, 50 );
-		self.timeCounter = [[[UILabel alloc] initWithFrame:frame] autorelease];
-		self.timeCounter.backgroundColor	= [UIColor clearColor];
-		self.timeCounter.font				= [UIFont boldSystemFontOfSize:kCounterFontSize];
-		self.timeCounter.textAlignment		= UITextAlignmentRight;
-		self.timeCounter.textColor			= [UIColor darkGrayColor];
-		[self.view addSubview:self.timeCounter];
-		*/
-		
-		// time elapsed
-		/*
-		frame = CGRectMake(	165, 213, 135, 20 );
-		UILabel *label = [[[UILabel alloc] initWithFrame:frame] autorelease];
-		label.backgroundColor	= [UIColor clearColor];
-		label.font				= [UIFont systemFontOfSize:12.0];
-		label.text				= @"time elapsed";
-		label.textAlignment		= UITextAlignmentRight;
-		label.textColor			= [UIColor grayColor];
-		[self.view addSubview:label];
-		 */
-	}
-	
-	// create GPS counter (e.g. # coords) text
-	if ( distCounter == nil )
-	{
-		/*
-		frame = CGRectMake(	165, 226, 135, 50 );
-		//frame = CGRectMake(	165, 255, 135, 20 );
-		self.distCounter = [[[UILabel alloc] initWithFrame:frame] autorelease];
-		self.distCounter.font = [UIFont boldSystemFontOfSize:kCounterFontSize];
-		self.distCounter.textAlignment = UITextAlignmentRight;
-		self.distCounter.textColor = [UIColor darkGrayColor];
-		self.distCounter.backgroundColor = [UIColor clearColor];
-		[self.view addSubview:self.distCounter];
-		*/
-		// distance
-		/*
-		frame = CGRectMake(	165, 260, 135, 20 );
-		//frame = CGRectMake(	165, 218, 135, 50 );
-		UILabel *label = [[[UILabel alloc] initWithFrame:frame] autorelease];
-		label.backgroundColor	= [UIColor clearColor];
-		label.font				= [UIFont systemFontOfSize:12.0];
-		label.text				= @"est. distance";
-		label.textAlignment		= UITextAlignmentRight;
-		label.textColor			= [UIColor grayColor];
-		[self.view addSubview:label];
-		 */
-	}
-	
-	[self resetCounter];
-}
-
 
 - (void)resetCounter
 {
@@ -772,14 +583,13 @@
 	
 	if ( distCounter != nil )
 		distCounter.text = [NSString stringWithFormat:@"%.1f mi", distance / 1609.344];
-;
 }
 
 
-// handle start button action
+// Updates the elapsed-time counter in the GUI.
 - (void)updateCounter:(NSTimer *)theTimer
 {
-	//NSLog(@"updateCounter");
+	// NSLog(@"updateCounter");
 	if ( shouldUpdateCounter )
 	{
 		NSDate *startDate = [[theTimer userInfo] objectForKey:@"StartDate"];
@@ -801,16 +611,38 @@
 		//self.timeCounter.text = [NSString stringWithFormat:@"%.1f sec", interval];
 		self.timeCounter.text = [inputFormatter stringFromDate:outputDate];
 	}
-	/*
-	if ( reminderManager )
-		[reminderManager updateReminder:theTimer];
-	 */
 }
 
+/** 
+ * Handle the fact that we're going to be backgrounded
+ * If we're not recording,
+ * - No need to run the timer
+ * - No need to get locations
+ * - No need to run the reminder clock
+ */
+- (void)handleBackgrounding
+{
+    if (!recording) {
+        [[self getLocationManager] stopUpdatingLocation];
+    }
+    // the timer is for visuals - no need for that but it doesn't seem to hurt
+    // [self resetTimer];
+}
 
+- (void)handleForegrounding
+{
+    NSLog(@"handleForegrounding : recording=%d", recording);
+}
 
+- (void)handleTermination
+{
+    if ( reminderManager )
+        [reminderManager disableReminders];
+}
 
-- (void)viewWillAppear:(BOOL)animated 
+#pragma mark UIViewController overrides
+
+- (void)viewWillAppear:(BOOL)animated
 {
     // listen for keyboard hide/show notifications so we can properly adjust the table's height
 	[super viewWillAppear:animated];
@@ -834,17 +666,6 @@
 {
 	NSLog(@"keyboardWillHide");
 }
-
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-*/
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -910,23 +731,11 @@
 
 #pragma mark UINavigationController
 
-/*
-- (void)navigationController:(UINavigationController *)navigationController 
-	   didShowViewController:(UIViewController *)viewController 
-					animated:(BOOL)animated
-{
-	if ( viewController == self )
-		NSLog(@"didShowViewController:self");
-	else
-		NSLog(@"didShowViewController:else");
-
-}
-*/
-
 - (void)navigationController:(UINavigationController *)navigationController 
 	   willShowViewController:(UIViewController *)viewController 
 					animated:(BOOL)animated
 {
+    NSLog(@"navigationController willShowViewController animated");
 	if ( viewController == self )
 	{
 		//NSLog(@"willShowViewController:self");
@@ -939,17 +748,6 @@
 		self.tabBarItem.title = @"Record New Trip"; // important to maintain the same tab item title
 	}
 }
-
-
-#pragma mark UITabBarControllerDelegate
-
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController 
-shouldSelectViewController:(UIViewController *)viewController
-{
-		return YES;		
-}
-
 
 #pragma mark PersonalInfoDelegate methods
 
@@ -995,7 +793,6 @@ shouldSelectViewController:(UIViewController *)viewController
 {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
 	recording = YES;
-	saveButton.enabled = YES;
 	shouldUpdateCounter = YES;
 }
 
@@ -1003,13 +800,8 @@ shouldSelectViewController:(UIViewController *)viewController
 - (void)didPickPurpose:(unsigned int)index
 {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
-	
-	// update UI
-	recording = NO;	
-	saveButton.enabled = NO;
-	startButton.enabled = YES;
-	[self resetTimer];
-	
+	[self doneRecordingDidCancel:FALSE];
+    
 	[tripManager setPurpose:index];
 	[tripManager promptForTripNotes];
 }
