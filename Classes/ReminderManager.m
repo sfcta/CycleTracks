@@ -97,8 +97,8 @@
             UILocalNotification *localNotif = [[UILocalNotification alloc] init];
             localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:(reminder_num==0 ? first_seconds : first_seconds+reminder_num*seconds)];
             localNotif.timeZone = [NSTimeZone defaultTimeZone];
-            localNotif.alertBody = [NSString stringWithFormat:@"CycleTracks <%d> has been recording for %d minutes",
-                                    getpid(), (int)(reminder_num==0 ? first_seconds : first_seconds+reminder_num*seconds)/60];
+            localNotif.alertBody = [NSString stringWithFormat:@"CycleTracks has been recording for %d minutes",
+                                    (int)(reminder_num==0 ? first_seconds : first_seconds+reminder_num*seconds)/60];
         
             localNotif.soundName = @"bicycle-bell-normalized.aiff"; // UILocalNotificationDefaultSoundName;
             //NSDictionary *infoDict = [NSDictionary dictionaryWithObject:item.eventName forKey:ToDoItemKey];
