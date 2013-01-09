@@ -529,7 +529,7 @@
         [reminderManager disableReminders];
 		[reminderManager release];
 	
-	reminderManager = [[ReminderManager alloc] initWithRecordingInProgressDelegate:self];
+	reminderManager = [[ReminderManager alloc] init];
 	
     // transform start button into save button
     [startButton setTitle:@"Save" forState:UIControlStateNormal];

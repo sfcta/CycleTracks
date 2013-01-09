@@ -42,114 +42,91 @@
 //#define kEnableTestReminder		YES
 #define kEnableTestReminder		NO
 
+@implementation ReminderManager
+@synthesize reminders;
 
-/*
- Let's use a dual bike bell/vibrate every 5 idle minutes, every 15 minutes starting at 30 minutes (non idle).  
- Additionally, we should do an auto shutoff after 20 idle minutes (i put my phone in my desk drawer and went 
- to a meeting), and after 180 total minutes (will the battery even last that long? basically we just want to 
- shut it off before the battery is killed...is there a way for app to know what the battery level is?  that 
- would be cool).  
- */
-
-
-@interface Reminder : NSObject <UIAlertViewDelegate>
-{
-	id <RecordingInProgressDelegate> delegate;
-	NSTimer *timer;
+- (id)init {
+	if ( self = [super init] )
+	{
+		//NSLog(@"ReminderManager init");
+		reminders = [[NSMutableArray arrayWithCapacity:kNumReminders*2] retain];
+		
+		// add reminders here
+		if ( kEnableTestReminder )
+			[self addRemindersWithFirstFireInterval:120 interval:120];
+			
+		[self addRemindersWithFirstFireInterval:k15Minutes interval:k10Minutes];
+	}
 	
-	BOOL audible;
-	BOOL battery;
-	BOOL enabled;
-	BOOL vibrate;
+	return self;
 }
 
-@property (nonatomic, retain) id <RecordingInProgressDelegate> delegate;
-@property (assign) BOOL audible;
-@property (assign) BOOL battery;
-@property (assign) BOOL enabled;
-@property (assign) BOOL vibrate;
+- (void)dealloc {
+    [reminders release];
+    [super dealloc];
+}
 
-- (void)trigger:(NSTimer*)theTimer;
-
-@end
-
-
-@implementation Reminder
-@synthesize delegate, audible, battery, enabled, vibrate;
-
-
-- (id)initWithFirstFireInterval:(NSTimeInterval)first_seconds
-                       interval:(NSTimeInterval)seconds
-                       delegate:(id <RecordingInProgressDelegate>)_delegate
+- (void)addRemindersWithFirstFireInterval:(NSTimeInterval)first_seconds
+                                 interval:(NSTimeInterval)seconds
 {
     NSLog(@"Reminder initWithFirstFireInterval: %f interval: %f", first_seconds, seconds);
 	if ( self = [super init] )
 	{
-		self.delegate = _delegate;
-		
-		self.audible = YES;
-		self.battery = YES;
-		self.enabled = YES;
-		self.vibrate = YES;
-		
-		// schedule all of our reminders to fire
+        // schedule all of our reminders to fire
         for (int reminder_num=0; reminder_num < kNumReminders; reminder_num++) {
+            NSTimeInterval reminder_secs = (reminder_num==0 ? first_seconds :
+                                            first_seconds+reminder_num*seconds);
+            
+            // Local notification will go if it's in the background
             UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-            localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:(reminder_num==0 ? first_seconds : first_seconds+reminder_num*seconds)];
+            localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:reminder_secs];
             localNotif.timeZone = [NSTimeZone defaultTimeZone];
-            localNotif.alertBody = [NSString stringWithFormat:@"CycleTracks has been recording for %d minutes",
-                                    (int)(reminder_num==0 ? first_seconds : first_seconds+reminder_num*seconds)/60];
-        
-            localNotif.soundName = @"bicycle-bell-normalized.aiff"; // UILocalNotificationDefaultSoundName;
-            //NSDictionary *infoDict = [NSDictionary dictionaryWithObject:item.eventName forKey:ToDoItemKey];
-            //localNotif.userInfo = infoDict;
-        
+            localNotif.alertBody = [NSString
+                                    stringWithFormat:@"CycleTracks has been recording for %d minutes",
+                                    (int)(reminder_secs)/60];
+            localNotif.soundName = @"bicycle-bell-normalized.aiff"; // 
+            
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
             [localNotif release];
+            
+            // Timer will trigger if it's in the foreground
+            [reminders addObject:[NSTimer scheduledTimerWithTimeInterval:reminder_secs
+                                                                  target:self
+                                                                selector:@selector(remindBell:)
+                                                                userInfo:nil
+                                                                 repeats:NO]];
         }
-	}
-	
-	return self;
+    }
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)remindBell:(NSTimer*)theTimer
 {
-	// user has acknowledged battery alert => re-enable
-	battery = YES;
+    CFURLRef		soundFileURLRef;
+    SystemSoundID	soundFileObject;
+    
+    // Get the main bundle for the app
+    CFBundleRef mainBundle = CFBundleGetMainBundle();
+    
+    // Get the URL to the sound file to play
+    soundFileURLRef = CFBundleCopyResourceURL( mainBundle, CFSTR ("bicycle-bell-normalized"), CFSTR ("aiff"), NULL );
+    
+    // Create a system sound object representing the sound file
+    AudioServicesCreateSystemSoundID( soundFileURLRef, &soundFileObject );
+
+    // play audio + vibrate
+    AudioServicesPlayAlertSound( soundFileObject );
 }
-
-@end
-
-
-@implementation ReminderManager
-@synthesize reminders;
-
-- (id)initWithRecordingInProgressDelegate:(id <RecordingInProgressDelegate>)delegate
-{
-	if ( self = [super init] )
-	{
-		//NSLog(@"ReminderManager init");
-		reminders = [[NSMutableArray arrayWithCapacity:10] retain];
-		
-		// add reminders here
-		if ( kEnableTestReminder )
-			[reminders addObject:[[Reminder alloc] initWithFirstFireInterval:120
-                                                                    interval:120
-                                                                    delegate:delegate]];
-			
-		[reminders addObject:[[Reminder alloc] initWithFirstFireInterval:k15Minutes
-                                                                interval:k10Minutes
-                                                                delegate:delegate]];
-	}
-	
-	return self;
-}
-
 
 - (void)disableReminders
 {
 	NSLog(@"disableReminders");
+    // remove local notifs
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    // disable all timers
+    for (NSTimer* reminder in reminders) {
+        [reminder invalidate];
+    }
+    [reminders removeAllObjects];
 }
 
 
