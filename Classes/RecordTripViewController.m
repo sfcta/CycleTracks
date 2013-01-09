@@ -313,8 +313,8 @@
 	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 
-    [startButton setBackgroundImage:[[UIImage imageNamed:@"start_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,12,48,12) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
-    [cancelButton setBackgroundImage:[[UIImage imageNamed:@"cancel_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,12,48,12) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
+    [startButton setBackgroundImage:[[UIImage imageNamed:@"start_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
+    [cancelButton setBackgroundImage:[[UIImage imageNamed:@"cancel_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
 	
 	// init map region to San Francisco
 	MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
@@ -464,7 +464,7 @@
     
     // transform save button into start button
     [startButton setTitle:@"Start" forState:UIControlStateNormal];
-    [startButton setBackgroundImage:[[UIImage imageNamed:@"start_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,12,48,12) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
+    [startButton setBackgroundImage:[[UIImage imageNamed:@"start_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
     startButton.frame = CGRectMake( 24.0, 198.0, 272.0, kCustomButtonHeight );
 	cancelButton.hidden = TRUE;
     
@@ -533,7 +533,7 @@
 	
     // transform start button into save button
     [startButton setTitle:@"Save" forState:UIControlStateNormal];
-    [startButton setBackgroundImage:[[UIImage imageNamed:@"save_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,12,48,12) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
+    [startButton setBackgroundImage:[[UIImage imageNamed:@"save_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
 
     startButton.frame = CGRectMake( 24.0, 198.0, kCustomButtonWidth, kCustomButtonHeight );
     cancelButton.enabled = TRUE;
