@@ -439,7 +439,7 @@
 		NSLog(@"TripManager setSaved error %@, %@", error, [error localizedDescription]);
 	}
 	else
-		NSLog(@"Saved trip: %@ (%.0fm, %.0fs)", trip.purpose, trip.distance, trip.duration );
+		NSLog(@"Saved trip: %@ (%@m, %@s)", trip.purpose, trip.distance, trip.duration );
 
 	dirty = YES;
 	
