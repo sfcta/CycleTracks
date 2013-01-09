@@ -70,6 +70,10 @@
 		64F824E6106AFFA4001413F8 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F824E5106AFFA4001413F8 /* PersonalInfoViewController.m */; };
 		64FCC5B411352242000FA1B6 /* PersonalInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B311352242000FA1B6 /* PersonalInfo.xib */; };
 		64FCC5B811352371000FA1B6 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B711352371000FA1B6 /* 20-gear2.png */; };
+		EE2D2BD3169CC1BF0059BCC0 /* tabbar_instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */; };
+		EE2D2BD4169CC1BF0059BCC0 /* tabbar_record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */; };
+		EE2D2BD5169CC1BF0059BCC0 /* tabbar_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */; };
+		EE2D2BD6169CC1BF0059BCC0 /* tabbar_view@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD2169CC1BF0059BCC0 /* tabbar_view@2x.png */; };
 		EE2D2BE5169CC41E0059BCC0 /* errands.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD7169CC41E0059BCC0 /* errands.png */; };
 		EE2D2BE6169CC41E0059BCC0 /* errands@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD8169CC41E0059BCC0 /* errands@2x.png */; };
 		EE2D2BE7169CC41E0059BCC0 /* exercise.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD9169CC41E0059BCC0 /* exercise.png */; };
@@ -189,6 +193,10 @@
 		64FCC5B311352242000FA1B6 /* PersonalInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalInfo.xib; sourceTree = "<group>"; };
 		64FCC5B711352371000FA1B6 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "../20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* CycleTracks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CycleTracks-Info.plist"; sourceTree = "<group>"; };
+		EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_instructions@2x.png"; sourceTree = "<group>"; };
+		EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_record@2x.png"; sourceTree = "<group>"; };
+		EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_settings@2x.png"; sourceTree = "<group>"; };
+		EE2D2BD2169CC1BF0059BCC0 /* tabbar_view@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_view@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD7169CC41E0059BCC0 /* errands.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = errands.png; sourceTree = "<group>"; };
 		EE2D2BD8169CC41E0059BCC0 /* errands@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "errands@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD9169CC41E0059BCC0 /* exercise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exercise.png; sourceTree = "<group>"; };
@@ -409,6 +417,10 @@
 		6411A196106A90FB00C201F0 /* TabBarIcons */ = {
 			isa = PBXGroup;
 			children = (
+				EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */,
+				EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */,
+				EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */,
+				EE2D2BD2169CC1BF0059BCC0 /* tabbar_view@2x.png */,
 				64BEA6691145857E00BF8E94 /* tabbar_instructions.png */,
 				64BEA66A1145857E00BF8E94 /* tabbar_settings.png */,
 				64C8D432113889B1008BCADE /* settings_icon2.png */,
@@ -543,6 +555,10 @@
 				EE974DA3169B9959003532A5 /* Icon_114x114_homescreen.png in Resources */,
 				EE974DA9169BB4CF003532A5 /* Default@2x.png in Resources */,
 				EE974DAB169BB4E4003532A5 /* Default-568h@2x.png in Resources */,
+				EE2D2BD3169CC1BF0059BCC0 /* tabbar_instructions@2x.png in Resources */,
+				EE2D2BD4169CC1BF0059BCC0 /* tabbar_record@2x.png in Resources */,
+				EE2D2BD5169CC1BF0059BCC0 /* tabbar_settings@2x.png in Resources */,
+				EE2D2BD6169CC1BF0059BCC0 /* tabbar_view@2x.png in Resources */,
 				EE2D2BE5169CC41E0059BCC0 /* errands.png in Resources */,
 				EE2D2BE6169CC41E0059BCC0 /* errands@2x.png in Resources */,
 				EE2D2BE7169CC41E0059BCC0 /* exercise.png in Resources */,
