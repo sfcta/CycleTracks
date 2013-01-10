@@ -539,6 +539,9 @@
     cancelButton.enabled = TRUE;
     cancelButton.hidden = FALSE;
 	
+    // Start the location manager.
+	[[self getLocationManager] startUpdatingLocation];
+
     // set recording flag so future location updates will be added as coords
 	recording = YES;
 	
@@ -634,6 +637,8 @@
 - (void)handleForegrounding
 {
     NSLog(@"handleForegrounding : recording=%d", recording);
+    // Start the location manager.
+	[[self getLocationManager] startUpdatingLocation];
 }
 
 - (void)handleTermination
