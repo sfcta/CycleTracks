@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -75,6 +75,11 @@
 		B6D6A1BA176A7D3D00499510 /* Star-White-Half.png in Resources */ = {isa = PBXBuildFile; fileRef = B6D6A1B6176A7D3C00499510 /* Star-White-Half.png */; };
 		B6D6A1BB176A7D3D00499510 /* Star-White.png in Resources */ = {isa = PBXBuildFile; fileRef = B6D6A1B7176A7D3C00499510 /* Star-White.png */; };
 		B6D6A1BC176A7D3D00499510 /* StarSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D6A1B9176A7D3C00499510 /* StarSlider.m */; };
+		E0ACB75D175544870068473C /* UIDevice+UDID.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB75C175544870068473C /* UIDevice+UDID.m */; };
+		E0ACB772175546DA0068473C /* NSBundle+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB760175546DA0068473C /* NSBundle+PSExtensions.m */; };
+		E0ACB777175546DA0068473C /* NSObject+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB76A175546DA0068473C /* NSObject+PSExtensions.m */; };
+		E0ACB778175546DA0068473C /* NSString+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB76C175546DA0068473C /* NSString+PSExtensions.m */; };
+		E0ACB77A175546DA0068473C /* PSExtensions+Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */; };
 		EE2D2BD3169CC1BF0059BCC0 /* tabbar_instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */; };
 		EE2D2BD4169CC1BF0059BCC0 /* tabbar_record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */; };
 		EE2D2BD5169CC1BF0059BCC0 /* tabbar_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */; };
@@ -200,6 +205,7 @@
 		64FCC5B311352242000FA1B6 /* PersonalInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalInfo.xib; sourceTree = "<group>"; };
 		64FCC5B711352371000FA1B6 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "../20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* CycleTracks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CycleTracks-Info.plist"; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		B6D6A1B1176A7AF000499510 /* TripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
 		B6D6A1B2176A7AF000499510 /* TripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
 		B6D6A1B4176A7C9900499510 /* TripDetailPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripDetailPicker.xib; sourceTree = SOURCE_ROOT; };
@@ -207,6 +213,18 @@
 		B6D6A1B7176A7D3C00499510 /* Star-White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-White.png"; sourceTree = SOURCE_ROOT; };
 		B6D6A1B8176A7D3C00499510 /* StarSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarSlider.h; sourceTree = SOURCE_ROOT; };
 		B6D6A1B9176A7D3C00499510 /* StarSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarSlider.m; sourceTree = SOURCE_ROOT; };
+=======
+		E0ACB75B175544870068473C /* UIDevice+UDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+UDID.h"; sourceTree = "<group>"; };
+		E0ACB75C175544870068473C /* UIDevice+UDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+UDID.m"; sourceTree = "<group>"; };
+		E0ACB75F175546DA0068473C /* NSBundle+PSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PSExtensions.h"; sourceTree = "<group>"; };
+		E0ACB760175546DA0068473C /* NSBundle+PSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+PSExtensions.m"; sourceTree = "<group>"; };
+		E0ACB769175546DA0068473C /* NSObject+PSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PSExtensions.h"; sourceTree = "<group>"; };
+		E0ACB76A175546DA0068473C /* NSObject+PSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PSExtensions.m"; sourceTree = "<group>"; };
+		E0ACB76B175546DA0068473C /* NSString+PSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PSExtensions.h"; sourceTree = "<group>"; };
+		E0ACB76C175546DA0068473C /* NSString+PSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PSExtensions.m"; sourceTree = "<group>"; };
+		E0ACB76F175546DA0068473C /* PSExtensions+Foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PSExtensions+Foundation.h"; sourceTree = "<group>"; };
+		E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PSExtensions+Foundation.m"; sourceTree = "<group>"; };
+>>>>>>> Initial code conversion to the Open Bike project. Pointed to the OpenBike endpoint, reworked some of the MD5 stuff, incorporated PSExtentions, otherwise converted to Permusoft development resources.
 		EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_instructions@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_record@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_settings@2x.png"; sourceTree = "<group>"; };
@@ -290,6 +308,8 @@
 				6433E54E106D542100C27387 /* TripPurposeDelegate.h */,
 				B6D6A1B1176A7AF000499510 /* TripDetailViewController.h */,
 				B6D6A1B2176A7AF000499510 /* TripDetailViewController.m */,
+				E0ACB75B175544870068473C /* UIDevice+UDID.h */,
+				E0ACB75C175544870068473C /* UIDevice+UDID.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -310,6 +330,7 @@
 				64119AA81068672100C201F0 /* Trip Purpose data source */,
 				6411992B1068371B00C201F0 /* Data Model */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				E0ACB75E175546DA0068473C /* Foundation */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -503,6 +524,21 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		E0ACB75E175546DA0068473C /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				E0ACB76F175546DA0068473C /* PSExtensions+Foundation.h */,
+				E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */,
+				E0ACB75F175546DA0068473C /* NSBundle+PSExtensions.h */,
+				E0ACB760175546DA0068473C /* NSBundle+PSExtensions.m */,
+				E0ACB769175546DA0068473C /* NSObject+PSExtensions.h */,
+				E0ACB76A175546DA0068473C /* NSObject+PSExtensions.m */,
+				E0ACB76B175546DA0068473C /* NSString+PSExtensions.h */,
+				E0ACB76C175546DA0068473C /* NSString+PSExtensions.m */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -528,8 +564,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CycleTracks" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -644,6 +683,11 @@
 				645E4EDC1200C1C800EFF0E6 /* LoadingView.m in Sources */,
 				B6D6A1B3176A7AF000499510 /* TripDetailViewController.m in Sources */,
 				B6D6A1BC176A7D3D00499510 /* StarSlider.m in Sources */,
+				E0ACB75D175544870068473C /* UIDevice+UDID.m in Sources */,
+				E0ACB772175546DA0068473C /* NSBundle+PSExtensions.m in Sources */,
+				E0ACB777175546DA0068473C /* NSObject+PSExtensions.m in Sources */,
+				E0ACB778175546DA0068473C /* NSString+PSExtensions.m in Sources */,
+				E0ACB77A175546DA0068473C /* PSExtensions+Foundation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,7 +698,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -673,7 +718,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -681,7 +727,6 @@
 				INFOPLIST_FILE = "CycleTracks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -690,12 +735,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 			};
 			name = Distribution;
 		};
@@ -703,7 +748,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -711,7 +757,6 @@
 				INFOPLIST_FILE = "CycleTracks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Distribution;
@@ -721,13 +766,12 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: mopimp productions";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "50065992-A084-4871-A0E0-4871B4BD3D7C";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 			};
 			name = Beta;
 		};
@@ -736,6 +780,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -746,8 +791,7 @@
 				INFOPLIST_FILE = "CycleTracks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.1.3;
+				SDKROOT = iphoneos;
 			};
 			name = Beta;
 		};
@@ -755,12 +799,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 			};
 			name = "Release Beta";
 		};
@@ -769,6 +813,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -777,8 +822,7 @@
 				INFOPLIST_FILE = "CycleTracks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.1.3;
+				SDKROOT = iphoneos;
 			};
 			name = "Release Beta";
 		};
@@ -786,12 +830,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -799,12 +844,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};

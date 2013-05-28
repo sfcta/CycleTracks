@@ -265,7 +265,7 @@
 		NSLog(@"added %d unique GPS coordinates of %d to map", count, [sortedCoords count]);
 		
 		// add end point as a pin annotation
-		if ( last = [sortedCoords lastObject] )
+		if ( last == [sortedCoords lastObject] )
 		{
 			pin.last = YES;
 			pin.title = @"End";

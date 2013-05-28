@@ -25,7 +25,7 @@
 //
 //  Copyright 2009-2013 SFCTA. All rights reserved.
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/21/09.
-//	For more information on the project, 
+//	For more information on the project,
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
 
 
@@ -33,15 +33,15 @@
 
 @interface CycleTracksAppDelegate : NSObject <UIApplicationDelegate>
 {
-    NSManagedObjectModel *managedObjectModel;
-    NSManagedObjectContext *managedObjectContext;	    
-    NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
-    UIWindow *window;
-    UITabBarController *tabBarController;
+   NSManagedObjectModel *managedObjectModel;
+   NSManagedObjectContext *managedObjectContext;
+   NSPersistentStoreCoordinator *persistentStoreCoordinator;
+   
+   UIWindow *window;
+   UITabBarController *tabBarController;
 	NSString *uniqueIDHash;
-    UIBackgroundTaskIdentifier bgTask;
-    RecordTripViewController *recordVC;
+   UIBackgroundTaskIdentifier bgTask;
+   RecordTripViewController *recordVC;
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;

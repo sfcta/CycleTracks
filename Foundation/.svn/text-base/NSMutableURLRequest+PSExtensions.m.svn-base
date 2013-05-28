@@ -1,0 +1,163 @@
+//
+//  NSMutableURLRequest+PSExtensions.m
+//  PSExtensions
+//
+//  Created by Gregory Kip on 3/21/12.
+//  Copyright (C) 2012 Permusoft Corporation. All rights reserved.
+//
+
+/*
+ * Copyright (C) 2012 Permusoft Corporation. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted
+ * provided that the following conditions are met:
+ *
+ * 1) Redistributions of source code must retain the above copyright notice, this list of conditions and
+ * the following disclaimer.
+ *
+ * 2) Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+ * and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#import "NSMutableURLRequest+PSExtensions.h"
+
+#import <objc/runtime.h>
+
+#import "NSString+PSExtensions.h"
+#import "NSDateFormatter+PSExtensions.h"
+
+
+NSString * const kBoundaryInitializerFormat = @"--%@\r\n";
+NSString * const kBoundaryDelimiterFormat = @"\r\n--%@\r\n";
+NSString * const kBoundaryTerminatorFormat = @"\r\n--%@--\r\n";
+NSString * const kContentType = @"Content-Type";
+NSString * const kMultipartContentTypeFormat = @"multipart/form-data; boundary=%@";
+NSString * const kMultipartContentDispositionFormat = @"Content-Disposition: form-data; name=\"%@\"\r\n\r\n";
+
+
+@implementation NSMutableURLRequest (PSExtensions)
+
+
++(NSMutableURLRequest *)POSTRequestWithDestination:(NSURL *)destination andDictionary:(NSDictionary *)dictionary {
+   NSMutableURLRequest *request;
+   NSString *boundaryString;
+   NSData *boundaryInitializer;
+   NSData *boundaryDelimiter;
+   NSData *boundaryTerminator;
+   NSString *contentType;
+   NSArray *keys;
+   
+   NSString *key;
+   id value;
+   
+   NSData *data;
+   NSMutableData *postBody = nil;
+   
+   const NSUInteger count = [dictionary count];
+   
+   if (count == 0) goto createRequest;
+   
+   keys = [dictionary allKeys];
+   postBody = [NSMutableData data];
+
+   
+   // Create the POST body
+   boundaryString = [NSString stringWithRandomUnsignedLong];
+   contentType = [NSString stringWithFormat:kMultipartContentTypeFormat, boundaryString];
+   boundaryInitializer = [[NSString stringWithFormat:kBoundaryInitializerFormat, boundaryString] dataUsingEncoding:NSUTF8StringEncoding];
+   boundaryDelimiter = [[NSString stringWithFormat:kBoundaryDelimiterFormat, boundaryString] dataUsingEncoding:NSUTF8StringEncoding];
+   boundaryTerminator = [[NSString stringWithFormat:kBoundaryTerminatorFormat, boundaryString] dataUsingEncoding:NSUTF8StringEncoding];
+   
+   @autoreleasepool {
+   [postBody appendData:boundaryInitializer];
+   
+   int i = 0;
+   goto postData;
+   
+   for (; i < count; i++) {
+      [postBody appendData:boundaryDelimiter];
+   postData:
+      key = [keys objectAtIndex:i];
+      value = [dictionary objectForKey:key];
+      
+      //NSLog(@"key: %@ value: %@", key, value);
+      
+      if ([value isKindOfClass:[NSDate class]]) {
+         NSString *dataString = [[NSDateFormatter mySqlDateTimeFormatter] stringFromDate:value];
+         data = [dataString dataUsingEncoding:NSUTF8StringEncoding];
+      } else {
+         data = [value dataUsingEncoding:NSUTF8StringEncoding];
+      }
+      
+      [postBody appendData:[[NSString stringWithFormat:kMultipartContentDispositionFormat, key] dataUsingEncoding:NSUTF8StringEncoding]];
+      [postBody appendData:data];
+   }
+   
+   [postBody appendData:boundaryTerminator];
+   }
+   
+   // Debugging
+   //NSLog(@"And the POST data is... ---------------------------------------------------------------------");
+   //NSLog(@"\n%@", [[NSString alloc] initWithData:postBody encoding:NSUTF8StringEncoding]);
+   //NSLog(@"---------------------------------------------------------------------------------------------");
+   
+   // Create the request
+   createRequest:
+   request = [NSMutableURLRequest requestWithURL:destination];
+   [request setHTTPMethod:@"POST"];
+   [request addValue:contentType forHTTPHeaderField:kContentType];
+   [request setHTTPBody:postBody];
+   
+   return request;
+}
+
+
++(NSMutableURLRequest *)GETRequestWithDestination:(NSURL *)destination andDictionary:(NSDictionary *)dictionary {
+   //NSLog(@"NSMutableURLRequest+PSExtensions GETRequestWithDestination: %@ andDictionary:", [destination absoluteString]);
+   
+   NSMutableString *getParameters;
+   NSString *key = nil;
+   NSString *value = nil;
+   
+   const NSUInteger count = [dictionary count];
+   
+   if (count == 0) return [NSURLRequest requestWithURL:destination];
+   
+   NSArray *keys = [dictionary allKeys];
+   
+   getParameters = [[NSMutableString alloc] initWithCapacity:512];
+   
+   @autoreleasepool {
+      int i = 0;
+      goto getData;
+      
+      for (; i < count; i++) {
+         [getParameters appendString:@"&"];
+      getData:
+         key = [[keys objectAtIndex:i] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+         value = [[dictionary valueForKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+         [getParameters appendFormat:@"%@=%@", key, value];
+      }
+   }
+   
+   // Debugging
+   //NSLog(@"And the GET string is... ---------------------------------------------------------------------");
+   //NSLog(@"\n%@", getParameters);
+   //NSLog(@"---------------------------------------------------------------------------------------------");
+   
+   NSURL *url = [NSURL URLWithString:getParameters relativeToURL:destination];
+   NSLog(@"%@", [url absoluteString]);
+   return [NSURLRequest requestWithURL:url];
+}
+
+
+@end
