@@ -78,7 +78,7 @@
 #define kInfoURL			@"http://www.sfcta.org/CycleTracksInfo"
 #define kInstructionsURL	@"http://www.sfcta.org/cycletrackshelp_v2.1.html"
 
-//#define kSaveURL			@"http://your-database-here/post/"
+#define kSaveURL			@"http://openbike.co:1337"
 
 #define kTripNotesPlaceholder	@"Comments"
 
