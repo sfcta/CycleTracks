@@ -86,3 +86,11 @@
 #define MAIN_FONT_SIZE		18
 #define MIN_MAIN_FONT_SIZE	16
 
+// Default map coordinates to Denver for initial view or errors
+#define kMapInitLat			39.7392
+#define kMapInitLong		-104.9842
+
+// San Francisco coordinates
+//#define kMapInitLat			37.7620
+//#define kMapInitLong		-122.4350
+

@@ -316,8 +316,7 @@
     [startButton setBackgroundImage:[[UIImage imageNamed:@"start_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
     [cancelButton setBackgroundImage:[[UIImage imageNamed:@"cancel_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20) resizingMode: UIImageResizingModeStretch] forState:UIControlStateNormal];
 	
-	// init map region to San Francisco
-	MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
+	MKCoordinateRegion region = { { kMapInitLat, kMapInitLong }, { 0.10825, 0.10825 } };
 	[mapView setRegion:region animated:NO];
 	
 	self.recording = NO;
