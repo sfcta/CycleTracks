@@ -142,7 +142,7 @@
 	[sortDescriptors release];
 	[sortDescriptor release];
 	
-	NSError *error;
+	NSError *error = nil;
 	NSInteger count = [tripManager.managedObjectContext countForFetchRequest:request error:&error];
 	NSLog(@"count = %d", count);
 	
@@ -279,7 +279,7 @@
 	// save updated distance to CoreData
 	[mapTripManager.trip setDistance:[NSNumber numberWithDouble:newDist]];
 
-	NSError *error;
+	NSError *error = nil;
 	if (![mapTripManager.managedObjectContext save:&error]) {
 		// Handle the error.
 		NSLog(@"_recalculateDistanceForSelectedTripMap error %@, %@", error, [error localizedDescription]);
@@ -814,7 +814,9 @@
 			switch (buttonIndex) {
 				case 0:
 					// Nevermind
-					[self displaySelectedTripMap];
+					if (selectedTrip != nil) {
+						[self displaySelectedTripMap];
+					}
 					break;
 				case 1:
 				default:
