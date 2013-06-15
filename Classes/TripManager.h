@@ -96,6 +96,7 @@ UITextViewDelegate>
 - (CLLocationDistance)addCoord:(CLLocation*)location;
 - (void)saveNotes:(NSString*)notes;
 - (void)saveTrip;
+- (void)showSaveDialog;
 
 - (CLLocationDistance)getDistanceEstimate;
 

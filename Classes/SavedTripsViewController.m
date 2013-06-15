@@ -33,7 +33,7 @@
 #import "Coord.h"
 #import "LoadingView.h"
 #import "MapViewController.h"
-#import "PickerViewController.h"
+#import "TripDetailViewController.h"
 #import "SavedTripsViewController.h"
 #import "Trip.h"
 #import "TripManager.h"
@@ -761,8 +761,8 @@
 			
 			// Trip Purpose
 			NSLog(@"INIT + PUSH");
-			PickerViewController *pickerViewController = [[PickerViewController alloc]
-														  initWithNibName:@"TripPurposePicker" bundle:nil];
+			TripDetailViewController *pickerViewController = [[TripDetailViewController alloc]
+														  initWithNibName:@"TripDetailPicker" bundle:nil];
 			[pickerViewController setDelegate:self];
 			//[[self navigationController] pushViewController:pickerViewController animated:YES];
 			[self.navigationController presentModalViewController:pickerViewController animated:YES];
@@ -859,7 +859,7 @@
 {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
 	[tripManager setPurpose:index];
-	[tripManager promptForTripNotes];
+	[tripManager showSaveDialog];
 }
 
 
