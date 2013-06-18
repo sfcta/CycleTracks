@@ -1,3 +1,25 @@
+Modified for OpenBike
+-----------
+OpenBike adds qualitative ratings for safety, ease of use, and convenience. 
+The modified codebase has been updated with OpenBike related services.
+
+Sample JSON Output:
+{
+   "_id": "1367991738551_51",
+   "_rev": "2-b7638f8b6643d58a9e0c701db6bd10c5",
+   "coords": "{\"2013-05-07 22:21:53\":{\"vac\":10,\"lon\":-104.948646,\"rec\":\"2013-05-07 22:21:53\",\"spd\":0,\"alt\":1621.800048828125,\"lat\":39.682987,\"hac\":10},\"2013-05-07 22:21:49\":{\"vac\":18,\"lon\":-104.94867,\"rec\":\"2013-05-07 22:21:49\",\"spd\":0,\"alt\":1615.300048828125,\"lat\":39.683014,\"hac\":18},\"2013-05-07 22:21:54\":{\"vac\":11,\"lon\":-104.948643,\"rec\":\"2013-05-07 22:21:54\",\"spd\":0,\"alt\":1623.5,\"lat\":39.68299,\"hac\":11},\"2013-05-07 22:21:51\":{\"vac\":14,\"lon\":-104.948663,\"rec\":\"2013-05-07 22:21:51\",\"spd\":0,\"alt\":1614.5999755859375,\"lat\":39.683013,\"hac\":14},\"2013-05-07 22:21:47\":{\"vac\":27,\"lon\":-104.948677,\"rec\":\"2013-05-07 22:21:47\",\"spd\":0,\"alt\":1616.9000244140625,\"lat\":39.683014,\"hac\":27}}",
+   "user": "{\"gender\":\"M\",\"workZIP\":\"80202\",\"email\":\"mlockwitz@gmail.com\",\"cyclingFreq\":2,\"schoolZIP\":\"\",\"age\":\"28\",\"homeZIP\":\"80210\"}",
+   "device": "androidDeviceId-f96372616546f1b5",
+   "notes": "",
+   "purpose": "Commute",
+   "start": "2013-05-07 22:21:57",
+   "end": "2013-05-07 22:21:54",
+   "ease": "3.5",
+   "safety": "2.0",
+   "convenience": "2.5",
+   "version": "2"
+}
+
 CycleTracks
 -----------
 Copyright 2009, 2010 San Francisco County Transportation Authority
