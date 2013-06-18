@@ -34,6 +34,7 @@
 #import "MapCoord.h"
 #import "MapViewController.h"
 #import "Trip.h"
+#import "constants.h"
 
 
 #define kFudgeFactor	1.5
@@ -301,14 +302,14 @@
 		else
 		{
 			// init map region to San Francisco
-			MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
+			MKCoordinateRegion region = { { kMapInitLat, kMapInitLong }, { 0.10825, 0.10825 } };
 			[mapView setRegion:region animated:NO];
 		}
 	}
 	else
 	{
 		// error: init map region to San Francisco
-		MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
+		MKCoordinateRegion region = { { kMapInitLat, kMapInitLong }, { 0.10825, 0.10825 } };
 		[mapView setRegion:region animated:NO];
 	}
 	

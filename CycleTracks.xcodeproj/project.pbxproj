@@ -70,6 +70,11 @@
 		64F824E6106AFFA4001413F8 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F824E5106AFFA4001413F8 /* PersonalInfoViewController.m */; };
 		64FCC5B411352242000FA1B6 /* PersonalInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B311352242000FA1B6 /* PersonalInfo.xib */; };
 		64FCC5B811352371000FA1B6 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B711352371000FA1B6 /* 20-gear2.png */; };
+		B6D6A1B3176A7AF000499510 /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D6A1B2176A7AF000499510 /* TripDetailViewController.m */; };
+		B6D6A1B5176A7C9900499510 /* TripDetailPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6D6A1B4176A7C9900499510 /* TripDetailPicker.xib */; };
+		B6D6A1BA176A7D3D00499510 /* Star-White-Half.png in Resources */ = {isa = PBXBuildFile; fileRef = B6D6A1B6176A7D3C00499510 /* Star-White-Half.png */; };
+		B6D6A1BB176A7D3D00499510 /* Star-White.png in Resources */ = {isa = PBXBuildFile; fileRef = B6D6A1B7176A7D3C00499510 /* Star-White.png */; };
+		B6D6A1BC176A7D3D00499510 /* StarSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D6A1B9176A7D3C00499510 /* StarSlider.m */; };
 		EE2D2BD3169CC1BF0059BCC0 /* tabbar_instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */; };
 		EE2D2BD4169CC1BF0059BCC0 /* tabbar_record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */; };
 		EE2D2BD5169CC1BF0059BCC0 /* tabbar_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */; };
@@ -195,6 +200,13 @@
 		64FCC5B311352242000FA1B6 /* PersonalInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalInfo.xib; sourceTree = "<group>"; };
 		64FCC5B711352371000FA1B6 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "../20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* CycleTracks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CycleTracks-Info.plist"; sourceTree = "<group>"; };
+		B6D6A1B1176A7AF000499510 /* TripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
+		B6D6A1B2176A7AF000499510 /* TripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
+		B6D6A1B4176A7C9900499510 /* TripDetailPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripDetailPicker.xib; sourceTree = SOURCE_ROOT; };
+		B6D6A1B6176A7D3C00499510 /* Star-White-Half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-White-Half.png"; sourceTree = SOURCE_ROOT; };
+		B6D6A1B7176A7D3C00499510 /* Star-White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-White.png"; sourceTree = SOURCE_ROOT; };
+		B6D6A1B8176A7D3C00499510 /* StarSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarSlider.h; sourceTree = SOURCE_ROOT; };
+		B6D6A1B9176A7D3C00499510 /* StarSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarSlider.m; sourceTree = SOURCE_ROOT; };
 		EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_instructions@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_record@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_settings@2x.png"; sourceTree = "<group>"; };
@@ -269,11 +281,15 @@
 				6426476D1073FEC300E43DEF /* ReminderManager.m */,
 				641199B0106851AA00C201F0 /* SavedTripsViewController.h */,
 				641199B1106851AA00C201F0 /* SavedTripsViewController.m */,
+				B6D6A1B8176A7D3C00499510 /* StarSlider.h */,
+				B6D6A1B9176A7D3C00499510 /* StarSlider.m */,
 				64F823DF106AC151001413F8 /* SaveRequest.h */,
 				64F823E0106AC151001413F8 /* SaveRequest.m */,
 				64119F021069ACF800C201F0 /* TripManager.h */,
 				64119F031069ACF800C201F0 /* TripManager.m */,
 				6433E54E106D542100C27387 /* TripPurposeDelegate.h */,
+				B6D6A1B1176A7AF000499510 /* TripDetailViewController.h */,
+				B6D6A1B2176A7AF000499510 /* TripDetailViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -325,6 +341,7 @@
 				64C8D40211386B26008BCADE /* RecordMap.xib */,
 				64210F5311350AE200415F1A /* RecordNewTrip.xib */,
 				64119A9B1068665B00C201F0 /* TripPurposePicker.xib */,
+				B6D6A1B4176A7C9900499510 /* TripDetailPicker.xib */,
 				64FCC5B311352242000FA1B6 /* PersonalInfo.xib */,
 			);
 			name = Resources;
@@ -374,6 +391,8 @@
 		6411A16A106A05DE00C201F0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B6D6A1B6176A7D3C00499510 /* Star-White-Half.png */,
+				B6D6A1B7176A7D3C00499510 /* Star-White.png */,
 				64C8D40411386C9F008BCADE /* LCD-screen-288x126.png */,
 				64C8D41B11387949008BCADE /* record-map-frame-288x141.png */,
 				6405FB45107E9038004B453B /* GreenCheckMark3.png */,
@@ -583,6 +602,9 @@
 				EE2D2BF6169CCE1E0059BCC0 /* commute2@2x.png in Resources */,
 				EE2D2BF8169CD17F0059BCC0 /* start_button@2x.png in Resources */,
 				EE2D2BFA169CD1EE0059BCC0 /* save_button@2x.png in Resources */,
+				B6D6A1B5176A7C9900499510 /* TripDetailPicker.xib in Resources */,
+				B6D6A1BA176A7D3D00499510 /* Star-White-Half.png in Resources */,
+				B6D6A1BB176A7D3D00499510 /* Star-White.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +642,8 @@
 				6426476E1073FEC300E43DEF /* ReminderManager.m in Sources */,
 				64210F6111350C8500415F1A /* AboutViewController.m in Sources */,
 				645E4EDC1200C1C800EFF0E6 /* LoadingView.m in Sources */,
+				B6D6A1B3176A7AF000499510 /* TripDetailViewController.m in Sources */,
+				B6D6A1BC176A7D3D00499510 /* StarSlider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

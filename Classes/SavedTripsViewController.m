@@ -33,7 +33,7 @@
 #import "Coord.h"
 #import "LoadingView.h"
 #import "MapViewController.h"
-#import "PickerViewController.h"
+#import "TripDetailViewController.h"
 #import "SavedTripsViewController.h"
 #import "Trip.h"
 #import "TripManager.h"
@@ -142,7 +142,7 @@
 	[sortDescriptors release];
 	[sortDescriptor release];
 	
-	NSError *error;
+	NSError *error = nil;
 	NSInteger count = [tripManager.managedObjectContext countForFetchRequest:request error:&error];
 	NSLog(@"count = %d", count);
 	
@@ -279,7 +279,7 @@
 	// save updated distance to CoreData
 	[mapTripManager.trip setDistance:[NSNumber numberWithDouble:newDist]];
 
-	NSError *error;
+	NSError *error = nil;
 	if (![mapTripManager.managedObjectContext save:&error]) {
 		// Handle the error.
 		NSLog(@"_recalculateDistanceForSelectedTripMap error %@, %@", error, [error localizedDescription]);
@@ -761,8 +761,8 @@
 			
 			// Trip Purpose
 			NSLog(@"INIT + PUSH");
-			PickerViewController *pickerViewController = [[PickerViewController alloc]
-														  initWithNibName:@"TripPurposePicker" bundle:nil];
+			TripDetailViewController *pickerViewController = [[TripDetailViewController alloc]
+														  initWithNibName:@"TripDetailPicker" bundle:nil];
 			[pickerViewController setDelegate:self];
 			//[[self navigationController] pushViewController:pickerViewController animated:YES];
 			[self.navigationController presentModalViewController:pickerViewController animated:YES];
@@ -814,7 +814,9 @@
 			switch (buttonIndex) {
 				case 0:
 					// Nevermind
-					[self displaySelectedTripMap];
+					if (selectedTrip != nil) {
+						[self displaySelectedTripMap];
+					}
 					break;
 				case 1:
 				default:
@@ -857,7 +859,7 @@
 {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
 	[tripManager setPurpose:index];
-	[tripManager promptForTripNotes];
+	[tripManager showSaveDialog];
 }
 
 

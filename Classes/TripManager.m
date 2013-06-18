@@ -542,6 +542,27 @@
 	}
 }
 
+- (void)showSaveDialog
+{
+	// present UIAlertView "Saving..."
+	saving = [[UIAlertView alloc] initWithTitle:kSavingTitle
+										message:kConnecting
+									   delegate:nil
+							  cancelButtonTitle:nil
+							  otherButtonTitles:nil];
+
+	NSLog(@"created saving dialog: %@", saving);
+
+	[self createActivityIndicator];
+	[activityIndicator startAnimating];
+	[saving addSubview:activityIndicator];
+	[saving show];
+	[saving release];
+
+	// save / upload trip
+	[self saveTrip];
+}
+
 
 #pragma mark NSURLConnection delegate methods
 
