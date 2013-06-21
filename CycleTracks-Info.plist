@@ -16,9 +16,11 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>Icon.png</string>
-				<string>Icon_114x114_homescreen.png</string>
+				<string>icon-57.png</string>
+				<string>icon-114.png</string>
 			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
@@ -44,7 +46,7 @@
 		<string>location</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
-	<string>YES</string>
+	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>location-services</string>

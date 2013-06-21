@@ -80,6 +80,8 @@
 		E0ACB777175546DA0068473C /* NSObject+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB76A175546DA0068473C /* NSObject+PSExtensions.m */; };
 		E0ACB778175546DA0068473C /* NSString+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB76C175546DA0068473C /* NSString+PSExtensions.m */; };
 		E0ACB77A175546DA0068473C /* PSExtensions+Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */; };
+		E0D3A4DE17728032009653AD /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = E0D3A4DD17728032009653AD /* icon-57.png */; };
+		E0D3A4E01772803A009653AD /* icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = E0D3A4DF1772803A009653AD /* icon-114.png */; };
 		EE2D2BD3169CC1BF0059BCC0 /* tabbar_instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */; };
 		EE2D2BD4169CC1BF0059BCC0 /* tabbar_record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */; };
 		EE2D2BD5169CC1BF0059BCC0 /* tabbar_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */; };
@@ -205,7 +207,6 @@
 		64FCC5B311352242000FA1B6 /* PersonalInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalInfo.xib; sourceTree = "<group>"; };
 		64FCC5B711352371000FA1B6 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "../20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* CycleTracks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CycleTracks-Info.plist"; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		B6D6A1B1176A7AF000499510 /* TripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
 		B6D6A1B2176A7AF000499510 /* TripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
 		B6D6A1B4176A7C9900499510 /* TripDetailPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripDetailPicker.xib; sourceTree = SOURCE_ROOT; };
@@ -213,7 +214,6 @@
 		B6D6A1B7176A7D3C00499510 /* Star-White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-White.png"; sourceTree = SOURCE_ROOT; };
 		B6D6A1B8176A7D3C00499510 /* StarSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarSlider.h; sourceTree = SOURCE_ROOT; };
 		B6D6A1B9176A7D3C00499510 /* StarSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarSlider.m; sourceTree = SOURCE_ROOT; };
-=======
 		E0ACB75B175544870068473C /* UIDevice+UDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+UDID.h"; sourceTree = "<group>"; };
 		E0ACB75C175544870068473C /* UIDevice+UDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+UDID.m"; sourceTree = "<group>"; };
 		E0ACB75F175546DA0068473C /* NSBundle+PSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PSExtensions.h"; sourceTree = "<group>"; };
@@ -224,7 +224,8 @@
 		E0ACB76C175546DA0068473C /* NSString+PSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PSExtensions.m"; sourceTree = "<group>"; };
 		E0ACB76F175546DA0068473C /* PSExtensions+Foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PSExtensions+Foundation.h"; sourceTree = "<group>"; };
 		E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PSExtensions+Foundation.m"; sourceTree = "<group>"; };
->>>>>>> Initial code conversion to the Open Bike project. Pointed to the OpenBike endpoint, reworked some of the MD5 stuff, incorporated PSExtentions, otherwise converted to Permusoft development resources.
+		E0D3A4DD17728032009653AD /* icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-57.png"; sourceTree = "<group>"; };
+		E0D3A4DF1772803A009653AD /* icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-114.png"; sourceTree = "<group>"; };
 		EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_instructions@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_record@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_settings@2x.png"; sourceTree = "<group>"; };
@@ -325,6 +326,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				E0D3A4DF1772803A009653AD /* icon-114.png */,
+				E0D3A4DD17728032009653AD /* icon-57.png */,
 				64577E28106DC2FD003ACBFD /* dist.plist */,
 				64F8239A106AB3E1001413F8 /* TouchJSON */,
 				64119AA81068672100C201F0 /* Trip Purpose data source */,
@@ -644,6 +647,8 @@
 				B6D6A1B5176A7C9900499510 /* TripDetailPicker.xib in Resources */,
 				B6D6A1BA176A7D3D00499510 /* Star-White-Half.png in Resources */,
 				B6D6A1BB176A7D3D00499510 /* Star-White.png in Resources */,
+				E0D3A4DE17728032009653AD /* icon-57.png in Resources */,
+				E0D3A4E01772803A009653AD /* icon-114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
