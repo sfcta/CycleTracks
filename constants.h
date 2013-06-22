@@ -83,7 +83,7 @@
 //#define kInfoURL			   @"http://www.sfcta.org/CycleTracksInfo"
 #define kInstructionsURL	@"http://www.permusoft.com/OpenBike/ioshelp.html"
 
-#define kSaveURL           @"http://openbike.co/tripsaver"
+#define kSaveURL           @"http://upload.openbike.co"
 
 #define kTripNotesPlaceholder	@"Comments"
 

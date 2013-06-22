@@ -608,7 +608,7 @@
 				message = kServerError;
 		}
 		
-		NSLog(@"%@: %@", title, message);
+		NSLog(@"HTTP RESPONSE %@: %@", title, message);
 		
 		// update trip.uploaded
 		if ( success )
@@ -640,6 +640,14 @@
    // receivedData is declared as a method instance elsewhere
    [receivedData setLength:0];
 }
+
+-(NSURLRequest *)connection:(NSURLConnection *)connection
+            willSendRequest:(NSURLRequest *)request
+           redirectResponse:(NSURLResponse *)redirectResponse
+{
+   return request;
+}
+
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
