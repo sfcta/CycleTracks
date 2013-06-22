@@ -460,7 +460,9 @@
                                                          //initWithPurpose:[tripManager getPurposeIndex]];
                                                          initWithNibName:@"TripDetailPicker" bundle:nil];
    [tripDetailViewController setDelegate:self];
-   [self.navigationController presentModalViewController:tripDetailViewController animated:YES];
+   
+   [[self navigationController] presentViewController:tripDetailViewController animated:YES completion:nil];
+   
    [tripDetailViewController release];
 	
 }
@@ -834,7 +836,7 @@
 
 - (void)didCancelPurpose
 {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+   [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 	recording = YES;
 	shouldUpdateCounter = YES;
 }
@@ -842,7 +844,7 @@
 
 - (void)didPickPurpose:(unsigned int)index
 {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+   [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 	[self doneRecordingDidCancel:FALSE];
    
 	[tripManager setPurpose:index];
@@ -852,7 +854,7 @@
 
 -(void)didPickPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience {
    NSLog(@"%@", NSStringFromSelector(_cmd));
-   [self.navigationController dismissModalViewControllerAnimated:YES];
+   [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 	[self doneRecordingDidCancel:FALSE];
    
 	//[tripManager setPurpose:index];
