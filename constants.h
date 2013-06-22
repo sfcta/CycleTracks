@@ -80,8 +80,8 @@
 #define kSaveAccepted		@"Your trip has already been uploaded. Thank you."
 #define kSaveError			@"Your trip has been saved. Please try uploading again later."
 
-#define kInfoURL			   @"http://www.sfcta.org/CycleTracksInfo"
-#define kInstructionsURL	@"http://www.sfcta.org/cycletrackshelp_v2.1.html"
+//#define kInfoURL			   @"http://www.sfcta.org/CycleTracksInfo"
+#define kInstructionsURL	@"http://www.permusoft.com/OpenBike/ioshelp.html"
 
 #define kSaveURL           @"http://openbike.co/tripsaver"
 

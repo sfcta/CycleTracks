@@ -307,7 +307,7 @@
 - (void)infoAction:(id)sender
 {
 	if ( !recording )
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString: kInfoURL]];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString: kInstructionsURL]];
 }
 
 
@@ -315,7 +315,7 @@
 {
 	NSLog(@"RecordTripViewController viewDidLoad");
    [super viewDidLoad];
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+	//[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 	self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
    
    UIImage *startButtonImage = [UIImage imageNamed:@"start_button"];
@@ -332,8 +332,8 @@
    }
    
 	
-	// init map region to San Francisco
-	MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
+	// init map region to Denver
+	MKCoordinateRegion region = { { 39.73934, -104.98480 }, { 0.10825, 0.10825 } };
 	[mapView setRegion:region animated:NO];
 	
 	self.recording = NO;
