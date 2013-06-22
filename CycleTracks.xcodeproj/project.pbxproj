@@ -22,7 +22,6 @@
 		64119AAD1068672100C201F0 /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119AAA1068672100C201F0 /* CustomView.m */; };
 		64119AAE1068672100C201F0 /* CustomPickerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119AAC1068672100C201F0 /* CustomPickerDataSource.m */; };
 		64119ABF10689ED800C201F0 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119ABE10689ED800C201F0 /* PickerViewController.m */; };
-		64119EB81069A35C00C201F0 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119EB71069A35C00C201F0 /* Trip.m */; };
 		64119F041069ACF800C201F0 /* TripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119F031069ACF800C201F0 /* TripManager.m */; };
 		64119FC31069C4CC00C201F0 /* Coord.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119FC21069C4CC00C201F0 /* Coord.m */; };
 		6411A16C106A05FE00C201F0 /* LargeCounter.png in Resources */ = {isa = PBXBuildFile; fileRef = 6411A16B106A05FE00C201F0 /* LargeCounter.png */; };
@@ -77,6 +76,12 @@
 		E0ACB77A175546DA0068473C /* PSExtensions+Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */; };
 		E0D3A4DE17728032009653AD /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = E0D3A4DD17728032009653AD /* icon-57.png */; };
 		E0D3A4E01772803A009653AD /* icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = E0D3A4DF1772803A009653AD /* icon-114.png */; };
+		E0FA74B11774FA0F004CF28F /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA74B01774FA0F004CF28F /* TripDetailViewController.m */; };
+		E0FA74B41774FA3F004CF28F /* StarSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA74B31774FA3F004CF28F /* StarSlider.m */; };
+		E0FA74B61774FA7B004CF28F /* TripDetailPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0FA74B51774FA7B004CF28F /* TripDetailPicker.xib */; };
+		E0FA74B91774FAD8004CF28F /* Star-White-Half.png in Resources */ = {isa = PBXBuildFile; fileRef = E0FA74B71774FAD8004CF28F /* Star-White-Half.png */; };
+		E0FA74BA1774FAD8004CF28F /* Star-White.png in Resources */ = {isa = PBXBuildFile; fileRef = E0FA74B81774FAD8004CF28F /* Star-White.png */; };
+		E0FA74BD17752F9C004CF28F /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA74BC17752F9C004CF28F /* Trip.m */; };
 		EE2D2BD3169CC1BF0059BCC0 /* tabbar_instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */; };
 		EE2D2BD4169CC1BF0059BCC0 /* tabbar_record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */; };
 		EE2D2BD5169CC1BF0059BCC0 /* tabbar_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */; };
@@ -129,8 +134,6 @@
 		64119AAC1068672100C201F0 /* CustomPickerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPickerDataSource.m; sourceTree = "<group>"; };
 		64119ABD10689ED800C201F0 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		64119ABE10689ED800C201F0 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
-		64119EB61069A35C00C201F0 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
-		64119EB71069A35C00C201F0 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		64119F021069ACF800C201F0 /* TripManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripManager.h; sourceTree = "<group>"; };
 		64119F031069ACF800C201F0 /* TripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripManager.m; sourceTree = "<group>"; };
 		64119FC11069C4CC00C201F0 /* Coord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coord.h; sourceTree = "<group>"; };
@@ -214,6 +217,15 @@
 		E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PSExtensions+Foundation.m"; sourceTree = "<group>"; };
 		E0D3A4DD17728032009653AD /* icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-57.png"; sourceTree = "<group>"; };
 		E0D3A4DF1772803A009653AD /* icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-114.png"; sourceTree = "<group>"; };
+		E0FA74AF1774FA0F004CF28F /* TripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
+		E0FA74B01774FA0F004CF28F /* TripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
+		E0FA74B21774FA3F004CF28F /* StarSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarSlider.h; sourceTree = "<group>"; };
+		E0FA74B31774FA3F004CF28F /* StarSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarSlider.m; sourceTree = "<group>"; };
+		E0FA74B51774FA7B004CF28F /* TripDetailPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripDetailPicker.xib; sourceTree = "<group>"; };
+		E0FA74B71774FAD8004CF28F /* Star-White-Half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-White-Half.png"; sourceTree = "<group>"; };
+		E0FA74B81774FAD8004CF28F /* Star-White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-White.png"; sourceTree = "<group>"; };
+		E0FA74BB17752F9C004CF28F /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		E0FA74BC17752F9C004CF28F /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_instructions@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_record@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_settings@2x.png"; sourceTree = "<group>"; };
@@ -290,6 +302,10 @@
 				641199B1106851AA00C201F0 /* SavedTripsViewController.m */,
 				64F823DF106AC151001413F8 /* SaveRequest.h */,
 				64F823E0106AC151001413F8 /* SaveRequest.m */,
+				E0FA74B21774FA3F004CF28F /* StarSlider.h */,
+				E0FA74B31774FA3F004CF28F /* StarSlider.m */,
+				E0FA74AF1774FA0F004CF28F /* TripDetailViewController.h */,
+				E0FA74B01774FA0F004CF28F /* TripDetailViewController.m */,
 				64119F021069ACF800C201F0 /* TripManager.h */,
 				64119F031069ACF800C201F0 /* TripManager.m */,
 				6433E54E106D542100C27387 /* TripPurposeDelegate.h */,
@@ -348,6 +364,7 @@
 				642F14791071D3F10050BCB9 /* MapViewController.xib */,
 				64C8D40211386B26008BCADE /* RecordMap.xib */,
 				64210F5311350AE200415F1A /* RecordNewTrip.xib */,
+				E0FA74B51774FA7B004CF28F /* TripDetailPicker.xib */,
 				64119A9B1068665B00C201F0 /* TripPurposePicker.xib */,
 				64FCC5B311352242000FA1B6 /* PersonalInfo.xib */,
 			);
@@ -374,10 +391,10 @@
 			isa = PBXGroup;
 			children = (
 				28C3AD890F43EF2300507BA6 /* CycleTracks.xcdatamodel */,
+				E0FA74BB17752F9C004CF28F /* Trip.h */,
+				E0FA74BC17752F9C004CF28F /* Trip.m */,
 				64119FC11069C4CC00C201F0 /* Coord.h */,
 				64119FC21069C4CC00C201F0 /* Coord.m */,
-				64119EB61069A35C00C201F0 /* Trip.h */,
-				64119EB71069A35C00C201F0 /* Trip.m */,
 				6433E4E4106D4A2D00C27387 /* User.h */,
 				6433E4E5106D4A2D00C27387 /* User.m */,
 			);
@@ -398,6 +415,8 @@
 		6411A16A106A05DE00C201F0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E0FA74B71774FAD8004CF28F /* Star-White-Half.png */,
+				E0FA74B81774FAD8004CF28F /* Star-White.png */,
 				64C8D40411386C9F008BCADE /* LCD-screen-288x126.png */,
 				64C8D41B11387949008BCADE /* record-map-frame-288x141.png */,
 				6405FB45107E9038004B453B /* GreenCheckMark3.png */,
@@ -627,6 +646,9 @@
 				EE2D2BFA169CD1EE0059BCC0 /* save_button@2x.png in Resources */,
 				E0D3A4DE17728032009653AD /* icon-57.png in Resources */,
 				E0D3A4E01772803A009653AD /* icon-114.png in Resources */,
+				E0FA74B61774FA7B004CF28F /* TripDetailPicker.xib in Resources */,
+				E0FA74B91774FAD8004CF28F /* Star-White-Half.png in Resources */,
+				E0FA74BA1774FAD8004CF28F /* Star-White.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,7 +667,6 @@
 				64119AAD1068672100C201F0 /* CustomView.m in Sources */,
 				64119AAE1068672100C201F0 /* CustomPickerDataSource.m in Sources */,
 				64119ABF10689ED800C201F0 /* PickerViewController.m in Sources */,
-				64119EB81069A35C00C201F0 /* Trip.m in Sources */,
 				64119F041069ACF800C201F0 /* TripManager.m in Sources */,
 				64119FC31069C4CC00C201F0 /* Coord.m in Sources */,
 				64F823AE106AB3E1001413F8 /* CDataScanner.m in Sources */,
@@ -669,6 +690,9 @@
 				E0ACB777175546DA0068473C /* NSObject+PSExtensions.m in Sources */,
 				E0ACB778175546DA0068473C /* NSString+PSExtensions.m in Sources */,
 				E0ACB77A175546DA0068473C /* PSExtensions+Foundation.m in Sources */,
+				E0FA74B11774FA0F004CF28F /* TripDetailViewController.m in Sources */,
+				E0FA74B41774FA3F004CF28F /* StarSlider.m in Sources */,
+				E0FA74BD17752F9C004CF28F /* Trip.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,7 +704,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gregory Kip (FG2MHX6374)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -690,7 +714,7 @@
 				INFOPLIST_FILE = "CycleTracks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5838EF88-D63F-4ED4-B50B-43C854BF889A";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;

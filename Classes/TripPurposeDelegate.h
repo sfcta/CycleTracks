@@ -66,5 +66,5 @@
 @optional
 - (void)didCancelPurpose;
 - (void)didPickPurpose:(unsigned int)index;
-
+-(void)didPickPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience;
 @end

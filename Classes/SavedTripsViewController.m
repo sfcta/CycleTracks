@@ -33,7 +33,7 @@
 #import "Coord.h"
 #import "LoadingView.h"
 #import "MapViewController.h"
-#import "PickerViewController.h"
+#import "TripDetailViewController.h"
 #import "SavedTripsViewController.h"
 #import "Trip.h"
 #import "TripManager.h"
@@ -431,7 +431,7 @@
 		// add check mark
 		image = [UIImage imageNamed:@"GreenCheckMark2.png"];
 		
-		int index = [TripPurpose getPurposeIndex:trip.purpose];
+		NSInteger index = [TripPurpose getPurposeIndex:trip.purpose];
 		NSLog(@"trip.purpose: %d => %@", index, trip.purpose);
 		//int index =0;
 		
@@ -761,12 +761,11 @@
 			
 			// Trip Purpose
 			NSLog(@"INIT + PUSH");
-			PickerViewController *pickerViewController = [[PickerViewController alloc]
-														  initWithNibName:@"TripPurposePicker" bundle:nil];
-			[pickerViewController setDelegate:self];
+         TripDetailViewController *tripDetailViewController = [[TripDetailViewController alloc] initWithNibName:@"TripDetailPicker" bundle:nil];
+         [tripDetailViewController setDelegate:self];
 			//[[self navigationController] pushViewController:pickerViewController animated:YES];
-			[self.navigationController presentModalViewController:pickerViewController animated:YES];
-			[pickerViewController release];
+			[self.navigationController presentModalViewController:tripDetailViewController animated:YES];
+			[tripDetailViewController release];
 			break;
 			
 		//case kActionSheetButtonCancel:
@@ -858,6 +857,12 @@
 	[self.navigationController dismissModalViewControllerAnimated:YES];
 	[tripManager setPurpose:index];
 	[tripManager promptForTripNotes];
+}
+
+-(void)didPickPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience {
+   [self.navigationController dismissModalViewControllerAnimated:YES];
+   [tripManager setPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience];
+   [tripManager promptForTripNotes];
 }
 
 

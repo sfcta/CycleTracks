@@ -266,6 +266,8 @@
 
 - (void)done
 {
+   NSError *error;
+
 	if ( user != nil )
 	{
 		NSLog(@"saving age: %@", age.text);
@@ -289,7 +291,6 @@
 		NSLog(@"saving cycling freq: %d", [cyclingFreq intValue]);
 		[user setCyclingFreq:cyclingFreq];
 
-		NSError *error;
 		if (![managedObjectContext save:&error]) {
 			// Handle the error.
 			NSLog(@"PersonalInfo save cycling freq error %@, %@", error, [error localizedDescription]);
@@ -301,6 +302,13 @@
 	// update UI
 	// TODO: test for at least one set value
 	[delegate setSaved:YES];
+   
+   NSString *title = (user == nil) ? @"Error!" : @"Got it!";
+   NSString *message = (user == nil) ? [error localizedDescription] : @"Your data will be associated with your routes. You may change or delete your data at any time.";
+
+   
+   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Thanks, Open Bike!" otherButtonTitles:nil];
+   [alertView show];
 	
 	[self.navigationController popViewControllerAnimated:YES];
 }
