@@ -67,7 +67,7 @@
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 	
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+	//[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 	
    NSManagedObjectContext *context = [self managedObjectContext];
    if (!context) {
