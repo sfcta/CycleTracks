@@ -769,7 +769,7 @@
          TripDetailViewController *tripDetailViewController = [[TripDetailViewController alloc] initWithNibName:@"TripDetailPicker" bundle:nil];
          [tripDetailViewController setDelegate:self];
 			//[[self navigationController] pushViewController:pickerViewController animated:YES];
-			[self.navigationController presentModalViewController:tripDetailViewController animated:YES];
+         [[self navigationController] presentViewController:tripDetailViewController animated:YES completion:nil];
 			[tripDetailViewController release];
 			break;
 			
@@ -853,19 +853,19 @@
 
 - (void)didCancelPurpose
 {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+   [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (void)didPickPurpose:(unsigned int)index
 {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+   [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
 	[tripManager setPurpose:index];
 	[tripManager promptForTripNotes];
 }
 
 -(void)didPickPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience {
-   [self.navigationController dismissModalViewControllerAnimated:YES];
+   [[self navigationController] dismissViewControllerAnimated:YES completion:nil];
    [tripManager setPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience];
    [tripManager promptForTripNotes];
 }

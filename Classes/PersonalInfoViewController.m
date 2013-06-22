@@ -83,7 +83,7 @@
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.textAlignment = UITextAlignmentRight;
+	textField.textAlignment = NSTextAlignmentRight;
 	textField.placeholder = @"";
 	textField.keyboardType = UIKeyboardTypeDefault;
 	textField.returnKeyType = UIReturnKeyDone;
@@ -98,7 +98,7 @@
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 	textField.autocapitalizationType = UITextAutocapitalizationTypeNone,
 	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.textAlignment = UITextAlignmentRight;
+	textField.textAlignment = NSTextAlignmentRight;
 	textField.placeholder = @"";
 	textField.keyboardType = UIKeyboardTypeEmailAddress;
 	textField.returnKeyType = UIReturnKeyDone;
@@ -112,7 +112,7 @@
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.textAlignment = UITextAlignmentRight;
+	textField.textAlignment = NSTextAlignmentRight;
 	textField.placeholder = @"12345";
 	textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
 	textField.returnKeyType = UIReturnKeyDone;
