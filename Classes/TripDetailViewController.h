@@ -6,6 +6,7 @@
 #import "CustomPickerDataSource.h"
 #import "TripPurposeDelegate.h"
 
+@class StarSlider;
 
 @interface TripDetailViewController : UIViewController <UIPickerViewDelegate>
 {
@@ -20,6 +21,11 @@
 @property (nonatomic, retain) id <TripPurposeDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UIPickerView *customPickerView;
 @property (nonatomic, retain) CustomPickerDataSource *customPickerDataSource;
+
+@property (nonatomic, retain) StarSlider *easeSlider;
+@property (nonatomic, retain) StarSlider *safetySlider;
+@property (nonatomic, retain) StarSlider *convenienceSlider;
+
 
 - (id)initWithPurpose:(NSInteger)index;
 

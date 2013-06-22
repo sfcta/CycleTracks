@@ -142,7 +142,7 @@
 	[sortDescriptors release];
 	[sortDescriptor release];
 	
-	NSError *error = nil;
+	NSError *error;
 	NSInteger count = [tripManager.managedObjectContext countForFetchRequest:request error:&error];
 	NSLog(@"count = %d", count);
 	
@@ -279,7 +279,7 @@
 	// save updated distance to CoreData
 	[mapTripManager.trip setDistance:[NSNumber numberWithDouble:newDist]];
 
-	NSError *error = nil;
+	NSError *error;
 	if (![mapTripManager.managedObjectContext save:&error]) {
 		// Handle the error.
 		NSLog(@"_recalculateDistanceForSelectedTripMap error %@, %@", error, [error localizedDescription]);
@@ -431,7 +431,7 @@
 		// add check mark
 		image = [UIImage imageNamed:@"GreenCheckMark2.png"];
 		
-		int index = [TripPurpose getPurposeIndex:trip.purpose];
+		NSInteger index = [TripPurpose getPurposeIndex:trip.purpose];
 		NSLog(@"trip.purpose: %d => %@", index, trip.purpose);
 		//int index =0;
 		
@@ -761,12 +761,11 @@
 			
 			// Trip Purpose
 			NSLog(@"INIT + PUSH");
-			TripDetailViewController *pickerViewController = [[TripDetailViewController alloc]
-														  initWithNibName:@"TripDetailPicker" bundle:nil];
-			[pickerViewController setDelegate:self];
+         TripDetailViewController *tripDetailViewController = [[TripDetailViewController alloc] initWithNibName:@"TripDetailPicker" bundle:nil];
+         [tripDetailViewController setDelegate:self];
 			//[[self navigationController] pushViewController:pickerViewController animated:YES];
-			[self.navigationController presentModalViewController:pickerViewController animated:YES];
-			[pickerViewController release];
+			[self.navigationController presentModalViewController:tripDetailViewController animated:YES];
+			[tripDetailViewController release];
 			break;
 			
 		//case kActionSheetButtonCancel:
@@ -814,9 +813,7 @@
 			switch (buttonIndex) {
 				case 0:
 					// Nevermind
-					if (selectedTrip != nil) {
-						[self displaySelectedTripMap];
-					}
+					[self displaySelectedTripMap];
 					break;
 				case 1:
 				default:
@@ -859,7 +856,13 @@
 {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
 	[tripManager setPurpose:index];
-	[tripManager showSaveDialog];
+	[tripManager promptForTripNotes];
+}
+
+-(void)didPickPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience {
+   [self.navigationController dismissModalViewControllerAnimated:YES];
+   [tripManager setPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience];
+   [tripManager promptForTripNotes];
 }
 
 

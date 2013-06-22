@@ -1,6 +1,7 @@
 //
 //	TripDetailViewController.m
 //	CycleTracks
+//
 
 #import "CustomView.h"
 #import "TripDetailViewController.h"
@@ -9,6 +10,7 @@
 @implementation TripDetailViewController
 
 @synthesize customPickerView, customPickerDataSource, delegate;
+@synthesize easeSlider, safetySlider, convenienceSlider;
 
 
 // return the picker frame based on its size
@@ -17,18 +19,18 @@
 	
 	// layout at bottom of page
 	/*
-	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-	CGRect pickerRect = CGRectMake(	0.0,
-									screenRect.size.height - 84.0 - size.height,
-									size.width,
-									size.height);
+    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+    CGRect pickerRect = CGRectMake(	0.0,
+    screenRect.size.height - 84.0 - size.height,
+    size.width,
+    size.height);
 	 */
 	
 	// layout at top of page
-	//CGRect pickerRect = CGRectMake(	0.0, 0.0, size.width, size.height );	
+	//CGRect pickerRect = CGRectMake(	0.0, 0.0, size.width, size.height );
 	
 	// layout at top of page, leaving room for translucent nav bar
-	//CGRect pickerRect = CGRectMake(	0.0, 43.0, size.width, size.height );	
+	//CGRect pickerRect = CGRectMake(	0.0, 43.0, size.width, size.height );
 	CGRect pickerRect = CGRectMake(	0.0, 43.0, size.width, size.height );
 	return pickerRect;
 }
@@ -70,7 +72,8 @@
 - (IBAction)save:(id)sender
 {
 	NSInteger row = [customPickerView selectedRowInComponent:0];
-	[delegate didPickPurpose:row];
+	//[delegate didPickPurpose:row];
+   [delegate didPickPurpose:row ease:[self.easeSlider value] safety:[self.safetySlider value] convenience:[self.convenienceSlider value]];
 }
 
 
@@ -106,39 +109,38 @@
 
 
 - (void)viewDidLoad
-{		
+{
 	[super viewDidLoad];
 	
 	self.title = NSLocalizedString(@"Trip Purpose", @"");
-
+   
 	//self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	// self.view.backgroundColor = [[UIColor alloc] initWithRed:40. green:42. blue:57. alpha:1. ];
-
+   
 	// Set up the buttons.
 	/*
-	UIBarButtonItem* done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-															  target:self action:@selector(done)];
-	done.enabled = YES;
-	self.navigationItem.rightBarButtonItem = done;
+    UIBarButtonItem* done = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+    target:self action:@selector(done)];
+    done.enabled = YES;
+    self.navigationItem.rightBarButtonItem = done;
 	 */
 	//[self.navigationController setNavigationBarHidden:NO animated:YES];
 	UIColor *transparent = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.0f];
-
-    StarSlider *easeSlider = [StarSlider control];
-	[easeSlider setFrame:CGRectMake(128.0, 274.0, 192.0, 34.0) ];
-	easeSlider.backgroundColor = transparent;
-    [self.view addSubview:easeSlider];
+   
+   self.easeSlider = [StarSlider control];
+	[self.easeSlider setFrame:CGRectMake(128.0, 274.0, 192.0, 34.0) ];
+	self.easeSlider.backgroundColor = transparent;
+   [self.view addSubview:self.easeSlider];
 	
-	
-	StarSlider *safetySlider = [StarSlider control];
-	[safetySlider setFrame:CGRectMake(128.0, 324.0, 192.0, 34.0)];
-	safetySlider.backgroundColor = transparent;
-    [self.view addSubview:safetySlider];
-
-	StarSlider *convenienceSlider = [StarSlider control];
-	[convenienceSlider setFrame:CGRectMake(128.0, 374.0, 192.0, 34.0)];
-	convenienceSlider.backgroundColor = transparent;
-    [self.view addSubview:convenienceSlider];
+   self.safetySlider = [StarSlider control];
+	[self.safetySlider setFrame:CGRectMake(128.0, 324.0, 192.0, 34.0)];
+	self.safetySlider.backgroundColor = transparent;
+   [self.view addSubview:self.safetySlider];
+   
+   self.convenienceSlider = [StarSlider control];
+	[self.convenienceSlider setFrame:CGRectMake(128.0, 374.0, 192.0, 34.0)];
+	self.convenienceSlider.backgroundColor = transparent;
+   [self.view addSubview:self.convenienceSlider];
 }
 
 

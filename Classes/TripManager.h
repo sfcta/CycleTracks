@@ -46,20 +46,23 @@ UITextViewDelegate>
 {
 	id <ActivityIndicatorDelegate> activityDelegate;
 	id <UIAlertViewDelegate> alertDelegate;
-
+   
 	UIActivityIndicatorView *activityIndicator;
 	UIAlertView *saving;
 	UIAlertView *tripNotes;
 	UITextView	*tripNotesText;
-
+   
 	BOOL dirty;
 	Trip *trip;
 	CLLocationDistance distance;
 	NSInteger purposeIndex;
+   NSInteger ease;
+   NSInteger safety;
+   NSInteger convenience;
 	
 	NSMutableArray *coords;
-    NSManagedObjectContext *managedObjectContext;
-
+   NSManagedObjectContext *managedObjectContext;
+   
 	NSMutableData *receivedData;
 	
 	NSMutableArray *unSavedTrips;
@@ -112,12 +115,14 @@ UITextViewDelegate>
 - (int)recalculateTripDistances;
 - (CLLocationDistance)calculateTripDistance:(Trip*)_trip;
 
+-(NSString *)setPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience;
+
 @end
 
 
 @interface TripPurpose : NSObject { }
 
-+ (unsigned int)getPurposeIndex:(NSString*)string;
++ (NSInteger)getPurposeIndex:(NSString*)string;
 + (NSString *)getPurposeString:(unsigned int)index;
 
 @end

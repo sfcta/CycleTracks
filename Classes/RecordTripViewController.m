@@ -450,12 +450,12 @@
 	NSLog(@"save");
 	
    // Trip Purpose
-   PickerViewController *pickerViewController = [[PickerViewController alloc]
-                                                 //initWithPurpose:[tripManager getPurposeIndex]];
-                                                 initWithNibName:@"TripPurposePicker" bundle:nil];
-   [pickerViewController setDelegate:self];
-   [self.navigationController presentModalViewController:pickerViewController animated:YES];
-   [pickerViewController release];
+   TripDetailViewController *tripDetailViewController = [[TripDetailViewController alloc]
+                                                         //initWithPurpose:[tripManager getPurposeIndex]];
+                                                         initWithNibName:@"TripDetailPicker" bundle:nil];
+   [tripDetailViewController setDelegate:self];
+   [self.navigationController presentModalViewController:tripDetailViewController animated:YES];
+   [tripDetailViewController release];
 	
 }
 
@@ -474,7 +474,7 @@
    
    
    // transform save button into start button
-
+   
    UIImage *startButtonImage = [UIImage imageNamed:@"start_button"];
    
    if ([startButtonImage respondsToSelector:@selector(resizableImageWithCapInsets:resizingMode:)]) {
@@ -484,7 +484,7 @@
       // iOS 5
       [startButton setBackgroundImage:[startButtonImage resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20)] forState:UIControlStateNormal];
    }
-
+   
    [startButton setTitle:@"Start" forState:UIControlStateNormal];
    startButton.frame = CGRectMake( 24.0, 198.0, 272.0, kCustomButtonHeight );
 	cancelButton.hidden = TRUE;
@@ -562,7 +562,7 @@
       // iOS 5
       [startButton setBackgroundImage:[saveButtonImage resizableImageWithCapInsets:UIEdgeInsetsMake(48,20,48,20)] forState:UIControlStateNormal];
    }
-
+   
    [startButton setTitle:@"Save" forState:UIControlStateNormal];
    
    startButton.frame = CGRectMake(24.0, 198.0, kCustomButtonWidth, kCustomButtonHeight);
@@ -842,6 +842,19 @@
 	[tripManager setPurpose:index];
 	[tripManager showSaveDialog];
 }
+
+
+-(void)didPickPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience {
+   NSLog(@"%@", NSStringFromSelector(_cmd));
+   [self.navigationController dismissModalViewControllerAnimated:YES];
+	[self doneRecordingDidCancel:FALSE];
+   
+	//[tripManager setPurpose:index];
+   [tripManager setPurpose:index ease:ease safety:safety convenience:convenience];
+	[tripManager promptForTripNotes];
+
+}
+
 
 
 #pragma mark RecordingInProgressDelegate method
