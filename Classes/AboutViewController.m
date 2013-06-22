@@ -27,6 +27,10 @@
 //  Copyright 2010 mopimp productions. All rights reserved.
 //
 
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
+
 #import "AboutViewController.h"
 #import "constants.h"
 

@@ -3,6 +3,10 @@
 //	CycleTracks
 //
 
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
+
 #import "CustomView.h"
 #import "TripDetailViewController.h"
 #import "StarSlider.h"

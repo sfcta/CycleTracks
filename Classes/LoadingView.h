@@ -30,6 +30,11 @@
 //  this copyright and permission notice. Attribution in compiled projects is
 //  appreciated but not required.
 //
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import <UIKit/UIKit.h>
 
