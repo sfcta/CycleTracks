@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/30/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
 #include <AudioToolbox/AudioToolbox.h>
@@ -82,7 +87,7 @@
             localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:reminder_secs];
             localNotif.timeZone = [NSTimeZone defaultTimeZone];
             localNotif.alertBody = [NSString
-                                    stringWithFormat:@"CycleTracks has been recording for %d minutes",
+                                    stringWithFormat:@"Open Bike has been recording for %d minutes",
                                     (int)(reminder_secs)/60];
             localNotif.soundName = @"bicycle-bell-normalized.aiff"; // 
             

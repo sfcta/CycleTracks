@@ -27,7 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/22/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
 
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 // Trip Purpose descriptions
 #define kDescCommute	@"The primary reason for this bike trip is to get between home and your primary work location."

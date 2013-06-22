@@ -69,6 +69,7 @@
 		64F824E6106AFFA4001413F8 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F824E5106AFFA4001413F8 /* PersonalInfoViewController.m */; };
 		64FCC5B411352242000FA1B6 /* PersonalInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B311352242000FA1B6 /* PersonalInfo.xib */; };
 		64FCC5B811352371000FA1B6 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B711352371000FA1B6 /* 20-gear2.png */; };
+		E01E223217761CDF007653C4 /* legal.txt in Resources */ = {isa = PBXBuildFile; fileRef = E01E223117761CDF007653C4 /* legal.txt */; };
 		E0ACB75D175544870068473C /* UIDevice+UDID.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB75C175544870068473C /* UIDevice+UDID.m */; };
 		E0ACB772175546DA0068473C /* NSBundle+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB760175546DA0068473C /* NSBundle+PSExtensions.m */; };
 		E0ACB777175546DA0068473C /* NSObject+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB76A175546DA0068473C /* NSObject+PSExtensions.m */; };
@@ -114,13 +115,13 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* CycleTracksAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleTracksAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* CycleTracksAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleTracksAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* CycleTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CycleTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Open Bike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Open Bike.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28C3AD890F43EF2300507BA6 /* CycleTracks.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = CycleTracks.xcdatamodel; sourceTree = "<group>"; };
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* CycleTracks_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleTracks_Prefix.pch; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* Open Bike_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Open Bike_Prefix.pch"; sourceTree = "<group>"; };
 		6405FB45107E9038004B453B /* GreenCheckMark3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GreenCheckMark3.png; sourceTree = "<group>"; };
 		6411996010683D7500C201F0 /* RecordTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordTripViewController.h; sourceTree = "<group>"; };
 		6411996110683D7500C201F0 /* RecordTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordTripViewController.m; sourceTree = "<group>"; };
@@ -204,9 +205,10 @@
 		64F824E5106AFFA4001413F8 /* PersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoViewController.m; sourceTree = "<group>"; };
 		64FCC5B311352242000FA1B6 /* PersonalInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalInfo.xib; sourceTree = "<group>"; };
 		64FCC5B711352371000FA1B6 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "../20-gear2.png"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* CycleTracks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CycleTracks-Info.plist"; sourceTree = "<group>"; };
-		E0ACB75B175544870068473C /* UIDevice+UDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+UDID.h"; sourceTree = "<group>"; };
-		E0ACB75C175544870068473C /* UIDevice+UDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+UDID.m"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Open Bike-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Open Bike-Info.plist"; sourceTree = "<group>"; };
+		E01E223117761CDF007653C4 /* legal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = legal.txt; sourceTree = "<group>"; };
+		E0ACB75B175544870068473C /* UIDevice+UDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIDevice+UDID.h"; path = "Classes/UIDevice+UDID.h"; sourceTree = "<group>"; };
+		E0ACB75C175544870068473C /* UIDevice+UDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+UDID.m"; path = "Classes/UIDevice+UDID.m"; sourceTree = "<group>"; };
 		E0ACB75F175546DA0068473C /* NSBundle+PSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PSExtensions.h"; sourceTree = "<group>"; };
 		E0ACB760175546DA0068473C /* NSBundle+PSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+PSExtensions.m"; sourceTree = "<group>"; };
 		E0ACB769175546DA0068473C /* NSObject+PSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PSExtensions.h"; sourceTree = "<group>"; };
@@ -309,8 +311,6 @@
 				64119F021069ACF800C201F0 /* TripManager.h */,
 				64119F031069ACF800C201F0 /* TripManager.m */,
 				6433E54E106D542100C27387 /* TripPurposeDelegate.h */,
-				E0ACB75B175544870068473C /* UIDevice+UDID.h */,
-				E0ACB75C175544870068473C /* UIDevice+UDID.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -318,7 +318,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* CycleTracks.app */,
+				1D6058910D05DD3D006BFB54 /* Open Bike.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -334,6 +334,7 @@
 				6411992B1068371B00C201F0 /* Data Model */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				E0ACB75E175546DA0068473C /* Foundation */,
+				E01E223017761C7E007653C4 /* UIKit */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -346,7 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				64F823B6106AB402001413F8 /* constants.h */,
-				32CA4F630368D1EE00C91783 /* CycleTracks_Prefix.pch */,
+				32CA4F630368D1EE00C91783 /* Open Bike_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -359,7 +360,7 @@
 				6411A185106A90E400C201F0 /* TripPurposePickerIcons v2 */,
 				6411A16A106A05DE00C201F0 /* Images */,
 				6458114D107AA4D30075DABD /* bicycle-bell-normalized.aiff */,
-				8D1107310486CEB800E47090 /* CycleTracks-Info.plist */,
+				8D1107310486CEB800E47090 /* Open Bike-Info.plist */,
 				64210F28113508B800415F1A /* MainWindow.xib */,
 				642F14791071D3F10050BCB9 /* MapViewController.xib */,
 				64C8D40211386B26008BCADE /* RecordMap.xib */,
@@ -367,6 +368,7 @@
 				E0FA74B51774FA7B004CF28F /* TripDetailPicker.xib */,
 				64119A9B1068665B00C201F0 /* TripPurposePicker.xib */,
 				64FCC5B311352242000FA1B6 /* PersonalInfo.xib */,
+				E01E223117761CDF007653C4 /* legal.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -527,6 +529,15 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		E01E223017761C7E007653C4 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				E0ACB75B175544870068473C /* UIDevice+UDID.h */,
+				E0ACB75C175544870068473C /* UIDevice+UDID.m */,
+			);
+			name = UIKit;
+			sourceTree = "<group>";
+		};
 		E0ACB75E175546DA0068473C /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,9 +556,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* CycleTracks */ = {
+		1D6058900D05DD3D006BFB54 /* Open Bike */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "CycleTracks" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Open Bike" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -557,9 +568,9 @@
 			);
 			dependencies = (
 			);
-			name = CycleTracks;
+			name = "Open Bike";
 			productName = CycleTracks;
-			productReference = 1D6058910D05DD3D006BFB54 /* CycleTracks.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Open Bike.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -570,7 +581,7 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 			};
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CycleTracks" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Open Bike" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -581,7 +592,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* CycleTracks */,
+				1D6058900D05DD3D006BFB54 /* Open Bike */,
 			);
 		};
 /* End PBXProject section */
@@ -649,6 +660,7 @@
 				E0FA74B61774FA7B004CF28F /* TripDetailPicker.xib in Resources */,
 				E0FA74B91774FAD8004CF28F /* Star-White-Half.png in Resources */,
 				E0FA74BA1774FAD8004CF28F /* Star-White.png in Resources */,
+				E01E223217761CDF007653C4 /* legal.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,10 +722,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
+				GCC_PREFIX_HEADER = "Open Bike_Prefix.pch";
+				INFOPLIST_FILE = "Open Bike-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
+				PRODUCT_NAME = "Open Bike";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5838EF88-D63F-4ED4-B50B-43C854BF889A";
 				SDKROOT = iphoneos;
 			};
@@ -728,10 +740,10 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
+				GCC_PREFIX_HEADER = "Open Bike_Prefix.pch";
+				INFOPLIST_FILE = "Open Bike-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
+				PRODUCT_NAME = "Open Bike";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -758,10 +770,10 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
+				GCC_PREFIX_HEADER = "Open Bike_Prefix.pch";
+				INFOPLIST_FILE = "Open Bike-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
+				PRODUCT_NAME = "Open Bike";
 				SDKROOT = iphoneos;
 			};
 			name = Distribution;
@@ -792,10 +804,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
+				GCC_PREFIX_HEADER = "Open Bike_Prefix.pch";
+				INFOPLIST_FILE = "Open Bike-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
+				PRODUCT_NAME = "Open Bike";
 				SDKROOT = iphoneos;
 			};
 			name = Beta;
@@ -823,10 +835,10 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
+				GCC_PREFIX_HEADER = "Open Bike_Prefix.pch";
+				INFOPLIST_FILE = "Open Bike-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
+				PRODUCT_NAME = "Open Bike";
 				SDKROOT = iphoneos;
 			};
 			name = "Release Beta";
@@ -861,7 +873,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "CycleTracks" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Open Bike" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
@@ -873,7 +885,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CycleTracks" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Open Bike" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,

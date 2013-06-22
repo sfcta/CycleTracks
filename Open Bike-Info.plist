@@ -54,6 +54,8 @@
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackTranslucent</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© Permusoft, San Francisco County Transportation Authority, and others as indicated.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

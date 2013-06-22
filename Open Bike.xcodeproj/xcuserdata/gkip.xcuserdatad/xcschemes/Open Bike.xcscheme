@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
                BuildableName = "CycleTracks.app"
-               BlueprintName = "CycleTracks"
-               ReferencedContainer = "container:CycleTracks.xcodeproj">
+               BlueprintName = "Open Bike"
+               ReferencedContainer = "container:Open Bike.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "CycleTracks.app"
-            BlueprintName = "CycleTracks"
-            ReferencedContainer = "container:CycleTracks.xcodeproj">
+            BlueprintName = "Open Bike"
+            ReferencedContainer = "container:Open Bike.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,8 +53,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "CycleTracks.app"
-            BlueprintName = "CycleTracks"
-            ReferencedContainer = "container:CycleTracks.xcodeproj">
+            BlueprintName = "Open Bike"
+            ReferencedContainer = "container:Open Bike.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -71,8 +71,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "CycleTracks.app"
-            BlueprintName = "CycleTracks"
-            ReferencedContainer = "container:CycleTracks.xcodeproj">
+            BlueprintName = "Open Bike"
+            ReferencedContainer = "container:Open Bike.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

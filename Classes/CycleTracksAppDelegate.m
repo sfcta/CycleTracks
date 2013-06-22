@@ -2,14 +2,6 @@
 //  CycleTracksAppDelegate.m
 //  CycleTracks
 //
-//  Copyright 2009-2013 SFCTA. All rights reserved.
-//  Written by Matt Paul <mattpaul@mopimp.com> on 9/21/09.
-//	 For more information on the project,
-//	 e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
-//  Modifications for OpenBike by Gregory Kip of Permusoft.
-//  http://openbike.co
-//  http://www.permusoft.com
-//
 
 /*   CycleTracks, Copyright 2009-2013 San Francisco County Transportation Authority
  *                                    San Francisco, CA, USA
@@ -31,6 +23,17 @@
  *   You should have received a copy of the GNU General Public License
  *   along with CycleTracks.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+//
+//  Copyright 2009-2013 SFCTA. All rights reserved.
+//  Written by Matt Paul <mattpaul@mopimp.com> on 9/21/09.
+//	 For more information on the project,
+//	 e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
 #import <CommonCrypto/CommonDigest.h>
@@ -261,7 +264,7 @@
       return persistentStoreCoordinator;
    }
 	
-   NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"CycleTracks.sqlite"]];
+   NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"OpenBike.sqlite"]];
 	
 	NSError *error = nil;
    persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

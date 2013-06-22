@@ -1,6 +1,11 @@
 //
 //	TripDetailViewController.h
 //	CycleTracks
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import <UIKit/UIKit.h>
 #import "CustomPickerDataSource.h"
