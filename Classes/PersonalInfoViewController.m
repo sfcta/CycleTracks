@@ -124,7 +124,7 @@
 - (User *)createUser
 {
 	// Create and configure a new instance of the User entity
-	User *noob = (User *)[[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext] retain];
+	User *noob = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
 	
 	NSError *error;
 	if (![managedObjectContext save:&error]) {
@@ -204,8 +204,6 @@
 	else
 		NSLog(@"init FAIL");
 	
-	[mutableFetchResults release];
-	[request release];
 }
 
 
@@ -419,7 +417,7 @@
 			static NSString *CellIdentifier = @"CellTextField";
 			cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 			if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			}
 
 			// inner switch statement identifies row
@@ -448,7 +446,7 @@
 			static NSString *CellIdentifier = @"CellTextField";
 			cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 			if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			}
 
 			switch ([indexPath indexAtPosition:1])
@@ -476,7 +474,7 @@
 			static NSString *CellIdentifier = @"CellCheckmark";
 			cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 			if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			}
 			
 			switch ([indexPath indexAtPosition:1])
@@ -615,9 +613,6 @@
 */
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

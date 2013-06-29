@@ -144,8 +144,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSError *error;
 	NSInteger count = [tripManager.managedObjectContext countForFetchRequest:request error:&error];
@@ -162,8 +160,6 @@
 	[self setTrips:mutableFetchResults];
 	[self.tableView reloadData];
 
-	[mutableFetchResults release];
-	[request release];
 }
 
 
@@ -189,7 +185,6 @@
 											  otherButtonTitles:@"Recalculate", nil];
 		alert.tag = 202;
 		[alert show];
-		[alert release];
 	}
 	
 	// check for countUnSyncedTrips
@@ -202,7 +197,6 @@
 											  otherButtonTitles:@"Upload Now", nil];
 		alert.tag = 303;
 		[alert show];
-		[alert release];
 	}
 	else
 		NSLog(@"no zero distance or unsynced trips found");
@@ -275,50 +269,48 @@
 - (void)_recalculateDistanceForSelectedTripMap
 {
 	// important if we call from a background thread
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; // Top-level pool
+    @autoreleasepool { // Top-level pool
 	
 	// instantiate a temporary TripManager to recalcuate distance
-	TripManager *mapTripManager = [[TripManager alloc] initWithTrip:selectedTrip];
-	CLLocationDistance newDist	= [mapTripManager calculateTripDistance:selectedTrip];
-	
-	// save updated distance to CoreData
-	[mapTripManager.trip setDistance:[NSNumber numberWithDouble:newDist]];
+		TripManager *mapTripManager = [[TripManager alloc] initWithTrip:selectedTrip];
+		CLLocationDistance newDist	= [mapTripManager calculateTripDistance:selectedTrip];
+		
+		// save updated distance to CoreData
+		[mapTripManager.trip setDistance:[NSNumber numberWithDouble:newDist]];
 
-	NSError *error;
-	if (![mapTripManager.managedObjectContext save:&error]) {
-		// Handle the error.
-		NSLog(@"_recalculateDistanceForSelectedTripMap error %@, %@", error, [error localizedDescription]);
-	}
-	
-	[mapTripManager release];
-	tripManager.dirty = YES;
-	
-	[self performSelectorOnMainThread:@selector(_displaySelectedTripMap) withObject:nil waitUntilDone:NO];
-    [pool release];  // Release the objects in the pool.
+		NSError *error;
+		if (![mapTripManager.managedObjectContext save:&error]) {
+			// Handle the error.
+			NSLog(@"_recalculateDistanceForSelectedTripMap error %@, %@", error, [error localizedDescription]);
+		}
+		
+		tripManager.dirty = YES;
+		
+		[self performSelectorOnMainThread:@selector(_displaySelectedTripMap) withObject:nil waitUntilDone:NO];
+    }  // Release the objects in the pool.
 }
 
 
 - (void)_displaySelectedTripMap
 {
 	// important if we call from a background thread
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; // Top-level pool
+    @autoreleasepool { // Top-level pool
 
-	if ( selectedTrip )
-	{
-		MapViewController *mvc = [[MapViewController alloc] initWithTrip:selectedTrip];
-		[[self navigationController] pushViewController:mvc animated:YES];
-		[mvc release];		
-		selectedTrip = nil;
-	}
+		if ( selectedTrip )
+		{
+			MapViewController *mvc = [[MapViewController alloc] initWithTrip:selectedTrip];
+			[[self navigationController] pushViewController:mvc animated:YES];
+			selectedTrip = nil;
+		}
 
-    [pool release];  // Release the objects in the pool.
+    }  // Release the objects in the pool.
 }
 
 
 // display map view
 - (void)displaySelectedTripMap
 {
-	loading		= [[LoadingView loadingViewInView:self.parentViewController.view] retain];
+	loading		= [LoadingView loadingViewInView:self.parentViewController.view];
 	loading.tag = 909;
 	[self performSelectorInBackground:@selector(_recalculateDistanceForSelectedTripMap) withObject:nil];
 }
@@ -348,7 +340,7 @@
 	TripCell *cell = (TripCell*)[self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 	if (cell == nil)
 	{
-		cell = [[[TripCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
+		cell = [[TripCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
 		cell.detailTextLabel.numberOfLines = 2;
 		if ([reuseIdentifier isEqualToString:kCellReuseIdentifierCheck])
 		{
@@ -590,7 +582,6 @@
 	
 	actionSheet.actionSheetStyle	= UIActionSheetStyleBlackTranslucent;
 	[actionSheet showInView:self.tabBarController.view];
-	[actionSheet release];	
 }
 
 
@@ -614,8 +605,6 @@
 		{
 			// init new TripManager instance with selected trip
 			// release previously set tripManager
-			if ( tripManager )
-				[tripManager release];
 			
 			tripManager = [[TripManager alloc] initWithTrip:selectedTrip];
 			//tripManager.activityDelegate = self;
@@ -681,11 +670,6 @@
  }
  */
 
-- (void)dealloc {
-    [managedObjectContext release];
-    [trips release];
-    [super dealloc];
-}
 
 
 #pragma mark UINavigationController
@@ -773,7 +757,6 @@
          [tripDetailViewController setDelegate:self];
 			//[[self navigationController] pushViewController:pickerViewController animated:YES];
          [[self navigationController] presentViewController:tripDetailViewController animated:YES completion:nil];
-			[tripDetailViewController release];
 			break;
 			
 		//case kActionSheetButtonCancel:

@@ -8,12 +8,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Classes/TripManager.m"
-         timestampString = "394167329.18567"
+         timestampString = "394173159.16007"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "891"
-         endingLineNumber = "891"
-         landmarkName = "-alertView:didDismissWithButtonIndex:"
+         startingLineNumber = "92"
+         endingLineNumber = "92"
+         landmarkName = "-loadTrip:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

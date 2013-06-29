@@ -136,14 +136,12 @@
                                                otherButtonTitles:nil];
          alert.tag = alert_tag;
          [alert show];
-         [alert release];
       }
       else {
          UILocalNotification *localNotif = [[UILocalNotification alloc] init];
          localNotif.alertBody = kBatteryMessage;
          localNotif.soundName = @"bicycle-bell-normalized.aiff";
          [[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
-         [localNotif release];
       }
       
       lastBatteryWarning = [[NSDate date] timeIntervalSince1970];
@@ -184,9 +182,7 @@
 		self.distCounter.text = [NSString stringWithFormat:@"%.1f mi", distance / 1609.344];
 	} else {
       // save the location for when we do start
-      if (lastLocation) [lastLocation release];
       lastLocation = newLocation;
-      [lastLocation retain];
    }
 	
 	// 	double mph = ( [trip.distance doubleValue] / 1609.344 ) / ( [trip.duration doubleValue] / 3600. );
@@ -283,7 +279,6 @@
 	else
 		NSLog(@"no saved user");
 	
-	[request release];
 	return response;
 }
 
@@ -298,7 +293,6 @@
                                             otherButtonTitles:@"Continue", nil];
 		alert.tag = kResumeInterruptedRecording;
 		[alert show];
-		[alert release];
 	}
 	else
 		NSLog(@"no unsaved trips found");
@@ -397,7 +391,6 @@
 	
 	if ( reminderManager )
 	{
-		[reminderManager release];
 		reminderManager = nil;
 	}
 	
@@ -445,7 +438,6 @@
       // load map view of saved trip
       MapViewController *mvc = [[MapViewController alloc] initWithTrip:trip];
       [[self navigationController] pushViewController:mvc animated:YES];
-      [mvc release];
 	}
 }
 
@@ -463,7 +455,6 @@
    
    [[self navigationController] presentViewController:tripDetailViewController animated:YES completion:nil];
    
-   [tripDetailViewController release];
 	
 }
 
@@ -556,7 +547,6 @@
 	// init reminder manager
 	if ( reminderManager )
       [reminderManager disableReminders];
-   [reminderManager release];
 	
 	reminderManager = [[ReminderManager alloc] init];
 	
@@ -588,7 +578,6 @@
       NSLog(@"tripManager = %@", tripManager);
       CLLocationDistance distance = [tripManager addCoord:lastLocation];
       self.distCounter.text = [NSString stringWithFormat:@"%.1f mi", distance / 1609.344];
-      [lastLocation release];
       lastLocation = nil;
    }
 	
@@ -765,13 +754,6 @@
 }
 
 
-- (void)dealloc {
-   [managedObjectContext release];
-   //[coords release];
-   [locationManager release];
-   [startButton release];
-   [super dealloc];
-}
 
 
 #pragma mark UINavigationController

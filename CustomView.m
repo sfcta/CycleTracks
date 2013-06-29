@@ -81,12 +81,5 @@ const CGFloat kViewHeight = 44;
 					baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
 }
 
-- (void)dealloc
-{
-	[title release];
-	[image release];
-	
-	[super dealloc];
-}
 
 @end

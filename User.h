@@ -36,14 +36,14 @@
 {
 }
 
-@property (nonatomic, retain) NSString * age;
-@property (nonatomic, retain) NSString * email;
-@property (nonatomic, retain) NSString * gender;
-@property (nonatomic, retain) NSNumber * cyclingFreq;
-@property (nonatomic, retain) NSString * schoolZIP;
-@property (nonatomic, retain) NSString * workZIP;
-@property (nonatomic, retain) NSString * homeZIP;
-@property (nonatomic, retain) NSSet* trips;
+@property (nonatomic, strong) NSString * age;
+@property (nonatomic, strong) NSString * email;
+@property (nonatomic, strong) NSString * gender;
+@property (nonatomic, strong) NSNumber * cyclingFreq;
+@property (nonatomic, strong) NSString * schoolZIP;
+@property (nonatomic, strong) NSString * workZIP;
+@property (nonatomic, strong) NSString * homeZIP;
+@property (nonatomic, strong) NSSet* trips;
 
 @end
 

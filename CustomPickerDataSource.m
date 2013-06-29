@@ -66,61 +66,47 @@
 		view.title = @"Commute";
 		view.image = [UIImage imageNamed:kTripPurposeCommuteIcon];
 		[viewArray addObject:view];
-		[view release];
 		
 		view = [[CustomView alloc] initWithFrame:CGRectZero];
 		view.title = @"School";
 		view.image = [UIImage imageNamed:kTripPurposeSchoolIcon];
 		[viewArray addObject:view];
-		[view release];
 		
 		view = [[CustomView alloc] initWithFrame:CGRectZero];
 		view.title = @"Work-Related";
 		view.image = [UIImage imageNamed:kTripPurposeWorkIcon];
 		[viewArray addObject:view];
-		[view release];
 		
 		view = [[CustomView alloc] initWithFrame:CGRectZero];
 		view.title = @"Exercise";
 		view.image = [UIImage imageNamed:kTripPurposeExerciseIcon];
 		[viewArray addObject:view];
-		[view release];
 		
 		view = [[CustomView alloc] initWithFrame:CGRectZero];
 		view.title = @"Social";
 		view.image = [UIImage imageNamed:kTripPurposeSocialIcon];
 		[viewArray addObject:view];
-		[view release];
 		
 		view = [[CustomView alloc] initWithFrame:CGRectZero];
 		view.title = @"Shopping";
 		view.image = [UIImage imageNamed:kTripPurposeShoppingIcon];
 		[viewArray addObject:view];
-		[view release];
 		
 		view = [[CustomView alloc] initWithFrame:CGRectZero];
 		view.title = @"Errand";
 		view.image = [UIImage imageNamed:kTripPurposeErrandIcon];
 		[viewArray addObject:view];
-		[view release];
 		
 		view = [[CustomView alloc] initWithFrame:CGRectZero];
 		view.title = @"Other";
 		view.image = [UIImage imageNamed:kTripPurposeOtherIcon];
 		[viewArray addObject:view];
-		[view release];
 
 		self.customPickerArray = viewArray;
-		[viewArray release];
 	}
 	return self;
 }
 
-- (void)dealloc
-{
-	[customPickerArray release];
-	[super dealloc];
-}
 
 
 #pragma mark UIPickerViewDataSource

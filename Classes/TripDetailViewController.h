@@ -23,13 +23,13 @@
 }
 
 
-@property (nonatomic, retain) id <TripPurposeDelegate> delegate;
-@property (nonatomic, retain) IBOutlet UIPickerView *customPickerView;
-@property (nonatomic, retain) CustomPickerDataSource *customPickerDataSource;
+@property (nonatomic, strong) id <TripPurposeDelegate> delegate;
+@property (nonatomic, strong) IBOutlet UIPickerView *customPickerView;
+@property (nonatomic, strong) CustomPickerDataSource *customPickerDataSource;
 
-@property (nonatomic, retain) StarSlider *easeSlider;
-@property (nonatomic, retain) StarSlider *safetySlider;
-@property (nonatomic, retain) StarSlider *convenienceSlider;
+@property (nonatomic, strong) StarSlider *easeSlider;
+@property (nonatomic, strong) StarSlider *safetySlider;
+@property (nonatomic, strong) StarSlider *convenienceSlider;
 
 
 - (id)initWithPurpose:(NSInteger)index;

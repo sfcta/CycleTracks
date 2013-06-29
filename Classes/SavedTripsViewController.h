@@ -59,12 +59,12 @@
 	LoadingView *loading;
 }
 
-@property (nonatomic, retain) NSMutableArray *trips;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSMutableArray *trips;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, retain) id <RecordingInProgressDelegate> delegate;
-@property (nonatomic, retain) TripManager *tripManager;
-@property (nonatomic, retain) Trip *selectedTrip;
+@property (nonatomic, strong) id <RecordingInProgressDelegate> delegate;
+@property (nonatomic, strong) TripManager *tripManager;
+@property (nonatomic, strong) Trip *selectedTrip;
 
 - (void)initTripManager:(TripManager*)manager;
 

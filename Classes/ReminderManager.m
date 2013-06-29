@@ -66,7 +66,7 @@
       NSLog(@"Reminder initWithFirstFireInterval: %f interval: %f", first_seconds, seconds);
       
 		//NSLog(@"ReminderManager init");
-		reminders = [[NSMutableArray arrayWithCapacity:kNumReminders*2] retain];
+		reminders = [NSMutableArray arrayWithCapacity:kNumReminders*2];
 		
 		// add reminders here
       
@@ -82,7 +82,6 @@
          localNotif.soundName = @"bicycle-bell-normalized.aiff";
          
          [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-         [localNotif release];
          
          // Timer will trigger if it's in the foreground
          [reminders addObject:[NSTimer scheduledTimerWithTimeInterval:reminder_secs
@@ -97,10 +96,6 @@
 	return self;
 }
 
-- (void)dealloc {
-    [reminders release];
-    [super dealloc];
-}
 
 //- (void)addRemindersWithFirstFireInterval:(NSTimeInterval)first_seconds
 //                                 interval:(NSTimeInterval)seconds

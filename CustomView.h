@@ -42,8 +42,8 @@
 	UIImage *image;
 }
 
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) UIImage *image;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) UIImage *image;
 
 + (CGFloat)viewWidth;
 + (CGFloat)viewHeight;

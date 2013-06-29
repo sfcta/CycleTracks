@@ -78,7 +78,7 @@
 	[self initUniqueIDHash];
 	
 	// initialize trip manager with the managed object context
-	TripManager *manager = [[[TripManager alloc] initWithManagedObjectContext:context] autorelease];
+	TripManager *manager = [[TripManager alloc] initWithManagedObjectContext:context];
 	
 	
 	/*
@@ -249,7 +249,7 @@
    if (managedObjectModel != nil) {
       return managedObjectModel;
    }
-   managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
+   managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
    return managedObjectModel;
 }
 
@@ -298,18 +298,6 @@
 }
 
 
-#pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-	
-   [managedObjectContext release];
-   [managedObjectModel release];
-   [persistentStoreCoordinator release];
-   
-	[window release];
-	[super dealloc];
-}
 
 
 @end

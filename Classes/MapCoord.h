@@ -49,8 +49,8 @@
 }
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (retain) NSString *title;
-@property (retain) NSString *subtitle;
+@property (strong) NSString *title;
+@property (strong) NSString *subtitle;
 
 @property (assign) BOOL first;
 @property (assign) BOOL last;

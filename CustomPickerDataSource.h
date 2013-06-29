@@ -49,7 +49,7 @@
 	id<UIPickerViewDelegate> parent;
 }
 
-@property (nonatomic, retain) NSArray *customPickerArray;
-@property (nonatomic, retain) id<UIPickerViewDelegate> parent;
+@property (nonatomic, strong) NSArray *customPickerArray;
+@property (nonatomic, strong) id<UIPickerViewDelegate> parent;
 
 @end

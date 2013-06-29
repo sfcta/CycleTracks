@@ -74,7 +74,7 @@
 	IBOutlet UILabel *distCounter;
 	IBOutlet UILabel *speedCounter;
 	
-	NSTimer *timer;
+	NSTimer *__weak timer;
 	
 	BOOL recording;
 	BOOL shouldUpdateCounter;
@@ -87,26 +87,26 @@
 
 //@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 /*
 @property (nonatomic, retain) UITableViewCell	*tripPurposeCell;
 @property (nonatomic, retain) UITableViewCell	*personalInfoCell;
 */
 
-@property (nonatomic, retain) UIButton *startButton;
-@property (nonatomic, retain) UIButton *cancelButton;
+@property (nonatomic, strong) UIButton *startButton;
+@property (nonatomic, strong) UIButton *cancelButton;
 
-@property (nonatomic, retain) UILabel *timeCounter;
-@property (nonatomic, retain) UILabel *distCounter;
+@property (nonatomic, strong) UILabel *timeCounter;
+@property (nonatomic, strong) UILabel *distCounter;
 
-@property (assign) NSTimer *timer;
+@property (weak) NSTimer *timer;
 
 @property (assign) BOOL recording;
 @property (assign) BOOL shouldUpdateCounter;
 @property (assign) BOOL userInfoSaved;
 
-@property (nonatomic, retain) ReminderManager *reminderManager;
-@property (nonatomic, retain) TripManager *tripManager;
+@property (nonatomic, strong) ReminderManager *reminderManager;
+@property (nonatomic, strong) TripManager *tripManager;
 
 - (void)initTripManager:(TripManager*)manager;
 

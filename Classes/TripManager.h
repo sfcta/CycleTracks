@@ -76,21 +76,21 @@ UITextViewDelegate>
 }
 
 
-@property (nonatomic, retain) id <ActivityIndicatorDelegate> activityDelegate;
-@property (nonatomic, retain) id <UIAlertViewDelegate> alertDelegate;
+@property (nonatomic, strong) id <ActivityIndicatorDelegate> activityDelegate;
+@property (nonatomic, strong) id <UIAlertViewDelegate> alertDelegate;
 
-@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, retain) UIAlertView *saving;
-@property (nonatomic, retain) UIAlertView *tripNotes;
-@property (nonatomic, retain) UITextView *tripNotesText;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIAlertView *saving;
+@property (nonatomic, strong) UIAlertView *tripNotes;
+@property (nonatomic, strong) UITextView *tripNotesText;
 
 @property (assign) BOOL dirty;
-@property (nonatomic, retain) Trip *trip;
+@property (nonatomic, strong) Trip *trip;
 
-@property (nonatomic, retain) NSMutableArray *coords;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSMutableArray *coords;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, retain) NSMutableData *receivedData;
+@property (nonatomic, strong) NSMutableData *receivedData;
 
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)context;

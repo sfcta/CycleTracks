@@ -63,11 +63,6 @@ if ((self = [super init]) != nil)
 return(self);
 }
 
-- (void)dealloc
-{
-//
-[super dealloc];
-}
 
 #pragma mark -
 
@@ -98,7 +93,6 @@ if (theData && theData.length >= 4)
 		{
 		NSString *theString = [[NSString alloc] initWithData:theData encoding:theEncoding];
 		theData = [theString dataUsingEncoding:NSUTF8StringEncoding];
-		[theString release];
 		}
 	}
 [super setData:theData];
@@ -202,7 +196,6 @@ while ([self currentCharacter] != '}')
 				NULL];
 			*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-2 userInfo:theUserInfo];
 			}
-		[theDictionary release];
 		return(NO);
 		}
 
@@ -218,7 +211,6 @@ while ([self currentCharacter] != '}')
 				NULL];
 			*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-3 userInfo:theUserInfo];
 			}
-		[theDictionary release];
 		return(NO);
 		}
 
@@ -233,7 +225,6 @@ while ([self currentCharacter] != '}')
 				NULL];
 			*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-4 userInfo:theUserInfo];
 			}
-		[theDictionary release];
 		return(NO);
 		}
 
@@ -252,7 +243,6 @@ while ([self currentCharacter] != '}')
 					NULL];
 				*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-5 userInfo:theUserInfo];
 				}
-			[theDictionary release];
 			return(NO);
 			}
 		break;
@@ -275,14 +265,12 @@ if ([self scanCharacter:'}'] == NO)
 			NULL];
 		*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-6 userInfo:theUserInfo];
 		}
-	[theDictionary release];
 	return(NO);
 	}
 
 if (outDictionary != NULL)
-	*outDictionary = [[theDictionary copy] autorelease];
+	*outDictionary = [theDictionary copy];
 
-[theDictionary release];
 
 return(YES);
 }
@@ -319,7 +307,6 @@ while ([self currentCharacter] != ']')
 				NULL];
 			*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-8 userInfo:theUserInfo];
 			}
-		[theArray release];
 		return(NO);
 		}
 
@@ -339,7 +326,6 @@ while ([self currentCharacter] != ']')
 					NULL];
 				*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-9 userInfo:theUserInfo];
 				}
-			[theArray release];
 			return(NO);
 			}
 		
@@ -360,14 +346,12 @@ if ([self scanCharacter:']'] == NO)
 			NULL];
 		*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-10 userInfo:theUserInfo];
 		}
-	[theArray release];
 	return(NO);
 	}
 
 if (outArray != NULL)
-	*outArray = [[theArray copy] autorelease];
+	*outArray = [theArray copy];
 
-[theArray release];
 
 return(YES);
 }
@@ -390,7 +374,6 @@ if ([self scanCharacter:'"'] == NO)
 			NULL];
 		*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-11 userInfo:theUserInfo];
 		}
-	[theString release];
 	return(NO);
 	}
 
@@ -444,7 +427,6 @@ while ([self scanCharacter:'"'] == NO)
 								NULL];
 							*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-12 userInfo:theUserInfo];
 							}
-						[theString release];
 						return(NO);
 						}
 					theCharacter |= (theDigit << theShift);
@@ -461,7 +443,6 @@ while ([self scanCharacter:'"'] == NO)
 						NULL];
 					*outError = [NSError errorWithDomain:kJSONScannerErrorDomain code:-13 userInfo:theUserInfo];
 					}
-				[theString release];
 				return(NO);
 				}
 				break;
@@ -471,9 +452,8 @@ while ([self scanCharacter:'"'] == NO)
 	}
 	
 if (outStringConstant != NULL)
-	*outStringConstant = [[theString copy] autorelease];
+	*outStringConstant = [theString copy];
 
-[theString release];
 
 return(YES);
 }
@@ -525,7 +505,7 @@ if (P == current)
 
 if (outValue)
 	{
-	*outValue = [[[NSString alloc] initWithBytes:current length:P - current encoding:NSUTF8StringEncoding] autorelease];
+	*outValue = [[NSString alloc] initWithBytes:current length:P - current encoding:NSUTF8StringEncoding];
 	}
 	
 current = P;

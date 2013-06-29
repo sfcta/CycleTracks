@@ -50,10 +50,10 @@
 }
 
 
-@property (nonatomic, retain) Trip *trip;
-@property (nonatomic, retain) UIBarButtonItem *doneButton;
-@property (nonatomic, retain) UIBarButtonItem *flipButton;
-@property (nonatomic, retain) UIView *infoView;
+@property (nonatomic, strong) Trip *trip;
+@property (nonatomic, strong) UIBarButtonItem *doneButton;
+@property (nonatomic, strong) UIBarButtonItem *flipButton;
+@property (nonatomic, strong) UIView *infoView;
 
 - (id)initWithTrip:(Trip *)trip;
 

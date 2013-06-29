@@ -77,14 +77,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	[super dealloc];
-	
-	[postVars release];
-	[request release];
-	[deviceUniqueIdHash release];
-}
 
 #pragma mark instance methods
 
@@ -93,7 +85,7 @@
 {
 	
 	NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:delegate];
-	return [conn autorelease];
+	return conn;
 }
 
 @end

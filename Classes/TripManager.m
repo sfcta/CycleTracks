@@ -89,8 +89,8 @@
 		NSLog(@"loading %fm trip started at %@...", distance, _trip.start);
       
 		// sort coords by recorded date DESCENDING so that the coord at index=0 is the most recent
-		NSSortDescriptor *dateDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"recorded"
-                                                                      ascending:NO] autorelease];
+		NSSortDescriptor *dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"recorded"
+                                                                      ascending:NO];
 		NSArray *sortDescriptors	= [NSArray arrayWithObjects:dateDescriptor, nil];
 		self.coords					= [[[_trip.coords allObjects] sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
 		
@@ -388,7 +388,6 @@
 		else
 			NSLog(@"TripManager fetch user FAIL");
 		
-		[mutableFetchResults release];
 	}
 	else
 		NSLog(@"TripManager WARNING no saved user data to encode");
@@ -397,7 +396,6 @@
 	NSString *jsonUserData = [[CJSONSerializer serializer] serializeObject:userDict];
 	NSLog(@"%@", jsonUserData );
 	
-	[request release];
 	return jsonUserData;
 }
 
@@ -552,7 +550,7 @@
 	
 	if ( theConnection )
 	{
-		receivedData=[[NSMutableData data] retain];
+		receivedData=[NSMutableData data];
 	}
 	else
 	{
@@ -575,7 +573,6 @@
 	[activityIndicator startAnimating];
 	[saving addSubview:activityIndicator];
 	[saving show];
-	[saving release];
 
 	// save / upload trip
 	[self saveTrip];
@@ -649,7 +646,6 @@
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
 		[alert show];
-		[alert release];
 		
 		[activityDelegate dismissSaving];
 		[activityDelegate stopAnimating];
@@ -681,12 +677,6 @@
 - (void)connection:(NSURLConnection *)connection
   didFailWithError:(NSError *)error
 {
-   // release the connection, and the data object
-   [connection release];
-	
-   // receivedData is declared as a method instance elsewhere
-   [receivedData release];
-	
    // inform the user
    NSLog(@"Connection failed! Error - %@ %@",
          [error localizedDescription],
@@ -701,21 +691,16 @@
                                          cancelButtonTitle:@"OK"
                                          otherButtonTitles:nil];
 	[alert show];
-	[alert release];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	// do something with the data
    NSLog(@"Succeeded! Received %d bytes of data", [receivedData length]);
-	NSLog(@"%@", [[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] autorelease] );
+	NSLog(@"%@", [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding]);
    
 	[activityDelegate dismissSaving];
 	[activityDelegate stopAnimating];
-   
-   // release the connection, and the data object
-   [connection release];
-   [receivedData release];
 }
 
 
@@ -797,8 +782,8 @@
 	NSLog(@"createTrip");
 	
 	// Create and configure a new instance of the Trip entity
-	trip = (Trip *)[[NSEntityDescription insertNewObjectForEntityForName:@"Trip"
-                                                 inManagedObjectContext:managedObjectContext] retain];
+	trip = (Trip *)[NSEntityDescription insertNewObjectForEntityForName:@"Trip"
+                                                 inManagedObjectContext:managedObjectContext];
 	[trip setStart:[NSDate date]];
 	
 	NSError *error;
@@ -816,8 +801,8 @@
 	NSLog(@"createTrip: %@", purpose);
 	
 	// Create and configure a new instance of the Trip entity
-	trip = (Trip *)[[NSEntityDescription insertNewObjectForEntityForName:@"Trip"
-                                                 inManagedObjectContext:managedObjectContext] retain];
+	trip = (Trip *)[NSEntityDescription insertNewObjectForEntityForName:@"Trip"
+                                                 inManagedObjectContext:managedObjectContext];
 	
 	[trip setPurpose:purpose];
 	[trip setStart:[NSDate date]];
@@ -836,8 +821,8 @@
 	NSLog(@"createTrip: %@", purpose);
 	
 	// Create and configure a new instance of the Trip entity
-	trip = (Trip *)[[NSEntityDescription insertNewObjectForEntityForName:@"Trip"
-                                                 inManagedObjectContext:managedObjectContext] retain];
+	trip = (Trip *)[NSEntityDescription insertNewObjectForEntityForName:@"Trip"
+                                                 inManagedObjectContext:managedObjectContext];
 	
 	[trip setPurpose:purpose];
    [trip setEase:[NSNumber numberWithInteger:ease_]];
@@ -864,7 +849,6 @@
 	[self createTripNotesText];
 	[tripNotes addSubview:tripNotesText];
 	[tripNotes show];
-	[tripNotes release];
 }
 
 
@@ -901,7 +885,6 @@
 		[activityIndicator startAnimating];
 		[saving addSubview:activityIndicator];
 		[saving show];
-		[saving release];
 		
 		// save / upload trip
 		[self saveTrip];
@@ -959,8 +942,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved = nil"];
 	[request setPredicate:predicate];
@@ -969,7 +950,6 @@
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
 	NSLog(@"countUnSavedTrips = %d", count);
 	
-	[request release];
 	return count;
 }
 
@@ -984,8 +964,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved != nil AND uploaded = nil"];
 	[request setPredicate:predicate];
@@ -994,7 +972,6 @@
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
 	NSLog(@"countUnSyncedTrips = %d", count);
 	
-	[request release];
 	return count;
 }
 
@@ -1009,8 +986,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved != nil AND distance < 0.1"];
 	[request setPredicate:predicate];
@@ -1019,7 +994,6 @@
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
 	NSLog(@"countZeroDistanceTrips = %d", count);
 	
-	[request release];
 	return count;
 }
 
@@ -1034,8 +1008,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved = nil"];
 	[request setPredicate:predicate];
@@ -1056,8 +1028,6 @@
 		success = [self loadTrip:[mutableFetchResults objectAtIndex:0]];
 	}
 	
-	[mutableFetchResults release];
-	[request release];
 	return success;
 }
 
@@ -1083,7 +1053,7 @@
 	if ( [filteredCoords count] )
 	{
 		// sort filtered coords by recorded date
-		NSSortDescriptor *sortByDate	= [[[NSSortDescriptor alloc] initWithKey:@"recorded" ascending:YES] autorelease];
+		NSSortDescriptor *sortByDate	= [[NSSortDescriptor alloc] initWithKey:@"recorded" ascending:YES];
 		NSArray		*sortDescriptors	= [NSArray arrayWithObjects:sortByDate, nil];
 		NSArray		*sortedCoords		= [filteredCoords sortedArrayUsingDescriptors:sortDescriptors];
 		
@@ -1114,8 +1084,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved != nil AND distance < 0.1"];
 	[request setPredicate:predicate];
@@ -1145,8 +1113,6 @@
 		break;
 	}
 	
-	[mutableFetchResults release];
-	[request release];
 	
 	return count;
 }

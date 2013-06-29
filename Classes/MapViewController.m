@@ -198,7 +198,7 @@
 		NSLog(@"count of filtered coords = %d", [filteredCoords count]);
 		
 		// sort filtered coords by recorded date
-		NSSortDescriptor *sortByDate	= [[[NSSortDescriptor alloc] initWithKey:@"recorded" ascending:YES] autorelease];
+		NSSortDescriptor *sortByDate	= [[NSSortDescriptor alloc] initWithKey:@"recorded" ascending:YES];
 		NSArray		*sortDescriptors	= [NSArray arrayWithObjects:sortByDate, nil];
 		NSArray		*sortedCoords		= [filteredCoords sortedArrayUsingDescriptors:sortDescriptors];
 		
@@ -344,13 +344,6 @@
 }
 
 
-- (void)dealloc {
-	[doneButton release];
-	[flipButton release];
-	[mapView release];
-	[trip release];
-    [super dealloc];
-}
 
 
 #pragma mark MKMapViewDelegate methods
@@ -400,8 +393,7 @@
 			if ( !pinView )
 			{
 				// If an existing pin view was not available, create one
-				pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"FirstCoord"]
-						   autorelease];
+				pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"FirstCoord"];
 				
 				pinView.animatesDrop = YES;
 				pinView.canShowCallout = YES;
@@ -419,8 +411,7 @@
 			if ( !pinView )
 			{
 				// If an existing pin view was not available, create one
-				pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LastCoord"]
-						   autorelease];
+				pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LastCoord"];
 				
 				pinView.animatesDrop = YES;
 				pinView.canShowCallout = YES;
@@ -438,8 +429,7 @@
 			if (!annotationView)
 			{
 				// If an existing pin view was not available, create one
-				annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MapCoord"]
-								  autorelease];
+				annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MapCoord"];
 				
 				annotationView.image = [UIImage imageNamed:@"MapCoord.png"];
 				

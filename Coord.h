@@ -36,14 +36,14 @@
 {
 }
 
-@property (nonatomic, retain) NSNumber * vAccuracy;
-@property (nonatomic, retain) NSNumber * altitude;
-@property (nonatomic, retain) NSNumber * hAccuracy;
-@property (nonatomic, retain) NSNumber * longitude;
-@property (nonatomic, retain) NSDate * recorded;
-@property (nonatomic, retain) NSNumber * speed;
-@property (nonatomic, retain) NSNumber * latitude;
-@property (nonatomic, retain) Trip * trip;
+@property (nonatomic, strong) NSNumber * vAccuracy;
+@property (nonatomic, strong) NSNumber * altitude;
+@property (nonatomic, strong) NSNumber * hAccuracy;
+@property (nonatomic, strong) NSNumber * longitude;
+@property (nonatomic, strong) NSDate * recorded;
+@property (nonatomic, strong) NSNumber * speed;
+@property (nonatomic, strong) NSNumber * latitude;
+@property (nonatomic, strong) Trip * trip;
 
 @end
 

@@ -115,7 +115,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 	CGRect frame    = CGRectMake(floor(0.5 * (320 - DEFAULT_LABEL_WIDTH)),
 								 floor(0.5 * (480 - DEFAULT_LABEL_HEIGHT)), 
 								 DEFAULT_LABEL_WIDTH, DEFAULT_LABEL_HEIGHT);
-	LoadingView *loadingView = [[[LoadingView alloc] initWithFrame:frame] autorelease];
+	LoadingView *loadingView = [[LoadingView alloc] initWithFrame:frame];
 	
 	if (!loadingView)
 	{
@@ -133,9 +133,8 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 	 */
 	CGRect labelFrame = CGRectMake(0, 0, DEFAULT_LABEL_WIDTH, 35.);
 	UILabel *loadingLabel =
-		[[[UILabel alloc]
-			initWithFrame:labelFrame]
-		autorelease];
+		[[UILabel alloc]
+			initWithFrame:labelFrame];
 	loadingLabel.text = NSLocalizedString(@"Loading...", nil);
 	loadingLabel.textColor = [UIColor whiteColor];
 	loadingLabel.backgroundColor = [UIColor clearColor];
@@ -148,9 +147,8 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 		UIViewAutoresizingFlexibleBottomMargin;
 	
 	[loadingView addSubview:loadingLabel];
-	UIActivityIndicatorView *activityIndicatorView = [[[UIActivityIndicatorView alloc]
-													   initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite]
-													  autorelease];
+	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc]
+													   initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 	CGRect activityIndicatorRect = activityIndicatorView.frame;
 	activityIndicatorRect.origin.x = 0.5 * (loadingView.frame.size.width - activityIndicatorRect.size.width);
 	activityIndicatorRect.origin.y = loadingLabel.frame.origin.y + loadingLabel.frame.size.height + 10.;
@@ -231,16 +229,6 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 	CGContextStrokePath(context);
 	
 	CGPathRelease(roundRectPath);
-}
-
-//
-// dealloc
-//
-// Release instance memory.
-//
-- (void)dealloc
-{
-    [super dealloc];
 }
 
 @end
