@@ -501,6 +501,8 @@
 		cell = [self getCellWithReuseIdentifier:kCellReuseIdentifierExclamation];
 		tripStatus = @"(recording interrupted)";
 	}
+   
+   NSLog(@"%@", tripStatus); // placate the static analyzer
 
 	/*
     cell.textLabel.text = [NSString stringWithFormat:@"%@ (%.0fm, %.fs)", 

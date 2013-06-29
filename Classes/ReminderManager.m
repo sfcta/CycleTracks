@@ -145,6 +145,8 @@
 
     // play audio + vibrate
     AudioServicesPlayAlertSound( soundFileObject );
+   
+   CFRelease(soundFileURLRef);
 }
 
 - (void)disableReminders
