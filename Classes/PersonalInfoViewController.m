@@ -78,7 +78,7 @@
 }
 */
 
-- (UITextField*)initTextFieldAlpha
+- (UITextField*)initializeTextFieldAlpha
 {
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
@@ -92,7 +92,7 @@
 }
 
 
-- (UITextField*)initTextFieldEmail
+- (UITextField*)initializeTextFieldEmail
 {
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
@@ -107,7 +107,7 @@
 }
 
 
-- (UITextField*)initTextFieldNumeric
+- (UITextField*)initializeTextFieldNumeric
 {
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
@@ -144,12 +144,12 @@
 	// self.title = @"Personal Info";
 	
 	// initialize text fields
-	self.age		= [self initTextFieldNumeric];
-	self.email		= [self initTextFieldEmail];
-	self.gender		= [self initTextFieldAlpha];
-	self.homeZIP	= [self initTextFieldNumeric];
-	self.workZIP	= [self initTextFieldNumeric];
-	self.schoolZIP	= [self initTextFieldNumeric];
+	self.age		= [self initializeTextFieldNumeric];
+	self.email		= [self initializeTextFieldEmail];
+	self.gender		= [self initializeTextFieldAlpha];
+	self.homeZIP	= [self initializeTextFieldNumeric];
+	self.workZIP	= [self initializeTextFieldNumeric];
+	self.schoolZIP	= [self initializeTextFieldNumeric];
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;

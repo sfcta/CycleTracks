@@ -717,6 +717,9 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
 	NSLog(@"actionSheet clickedButtonAtIndex %d", buttonIndex);
+   
+   TripDetailViewController *tripDetailViewController;
+   
 	switch ( buttonIndex )
 	{
 			/*
@@ -766,7 +769,7 @@
 			
 			// Trip Purpose
 			NSLog(@"INIT + PUSH");
-         TripDetailViewController *tripDetailViewController = [[TripDetailViewController alloc] initWithNibName:@"TripDetailPicker" bundle:nil];
+         tripDetailViewController = [[TripDetailViewController alloc] initWithNibName:@"TripDetailPicker" bundle:nil];
          [tripDetailViewController setDelegate:self];
 			//[[self navigationController] pushViewController:pickerViewController animated:YES];
          [[self navigationController] presentViewController:tripDetailViewController animated:YES completion:nil];
