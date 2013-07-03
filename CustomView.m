@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/22/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import "CustomView.h"
 
@@ -72,16 +77,9 @@ const CGFloat kViewHeight = 44;
 					withFont:[UIFont systemFontOfSize:MAIN_FONT_SIZE]
 					minFontSize:MIN_MAIN_FONT_SIZE
 					actualFontSize:NULL
-					lineBreakMode:UILineBreakModeTailTruncation
+					lineBreakMode:NSLineBreakByTruncatingTail
 					baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
 }
 
-- (void)dealloc
-{
-	[title release];
-	[image release];
-	
-	[super dealloc];
-}
 
 @end

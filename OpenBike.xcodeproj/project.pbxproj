@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,7 +22,6 @@
 		64119AAD1068672100C201F0 /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119AAA1068672100C201F0 /* CustomView.m */; };
 		64119AAE1068672100C201F0 /* CustomPickerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119AAC1068672100C201F0 /* CustomPickerDataSource.m */; };
 		64119ABF10689ED800C201F0 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119ABE10689ED800C201F0 /* PickerViewController.m */; };
-		64119EB81069A35C00C201F0 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119EB71069A35C00C201F0 /* Trip.m */; };
 		64119F041069ACF800C201F0 /* TripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119F031069ACF800C201F0 /* TripManager.m */; };
 		64119FC31069C4CC00C201F0 /* Coord.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119FC21069C4CC00C201F0 /* Coord.m */; };
 		6411A16C106A05FE00C201F0 /* LargeCounter.png in Resources */ = {isa = PBXBuildFile; fileRef = 6411A16B106A05FE00C201F0 /* LargeCounter.png */; };
@@ -70,6 +69,19 @@
 		64F824E6106AFFA4001413F8 /* PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F824E5106AFFA4001413F8 /* PersonalInfoViewController.m */; };
 		64FCC5B411352242000FA1B6 /* PersonalInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B311352242000FA1B6 /* PersonalInfo.xib */; };
 		64FCC5B811352371000FA1B6 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 64FCC5B711352371000FA1B6 /* 20-gear2.png */; };
+		E0ACB75D175544870068473C /* UIDevice+UDID.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB75C175544870068473C /* UIDevice+UDID.m */; };
+		E0ACB772175546DA0068473C /* NSBundle+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB760175546DA0068473C /* NSBundle+PSExtensions.m */; };
+		E0ACB777175546DA0068473C /* NSObject+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB76A175546DA0068473C /* NSObject+PSExtensions.m */; };
+		E0ACB778175546DA0068473C /* NSString+PSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB76C175546DA0068473C /* NSString+PSExtensions.m */; };
+		E0ACB77A175546DA0068473C /* PSExtensions+Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */; };
+		E0D3A4DE17728032009653AD /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = E0D3A4DD17728032009653AD /* icon-57.png */; };
+		E0D3A4E01772803A009653AD /* icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = E0D3A4DF1772803A009653AD /* icon-114.png */; };
+		E0FA74B11774FA0F004CF28F /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA74B01774FA0F004CF28F /* TripDetailViewController.m */; };
+		E0FA74B41774FA3F004CF28F /* StarSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA74B31774FA3F004CF28F /* StarSlider.m */; };
+		E0FA74B61774FA7B004CF28F /* TripDetailPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0FA74B51774FA7B004CF28F /* TripDetailPicker.xib */; };
+		E0FA74B91774FAD8004CF28F /* Star-White-Half.png in Resources */ = {isa = PBXBuildFile; fileRef = E0FA74B71774FAD8004CF28F /* Star-White-Half.png */; };
+		E0FA74BA1774FAD8004CF28F /* Star-White.png in Resources */ = {isa = PBXBuildFile; fileRef = E0FA74B81774FAD8004CF28F /* Star-White.png */; };
+		E0FA74BD17752F9C004CF28F /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA74BC17752F9C004CF28F /* Trip.m */; };
 		EE2D2BD3169CC1BF0059BCC0 /* tabbar_instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */; };
 		EE2D2BD4169CC1BF0059BCC0 /* tabbar_record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */; };
 		EE2D2BD5169CC1BF0059BCC0 /* tabbar_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */; };
@@ -102,13 +114,13 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* CycleTracksAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleTracksAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* CycleTracksAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleTracksAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* CycleTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CycleTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* OpenBike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenBike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28C3AD890F43EF2300507BA6 /* CycleTracks.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = CycleTracks.xcdatamodel; sourceTree = "<group>"; };
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* CycleTracks_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleTracks_Prefix.pch; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* OpenBike_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenBike_Prefix.pch; sourceTree = "<group>"; };
 		6405FB45107E9038004B453B /* GreenCheckMark3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GreenCheckMark3.png; sourceTree = "<group>"; };
 		6411996010683D7500C201F0 /* RecordTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordTripViewController.h; sourceTree = "<group>"; };
 		6411996110683D7500C201F0 /* RecordTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordTripViewController.m; sourceTree = "<group>"; };
@@ -122,8 +134,6 @@
 		64119AAC1068672100C201F0 /* CustomPickerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPickerDataSource.m; sourceTree = "<group>"; };
 		64119ABD10689ED800C201F0 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		64119ABE10689ED800C201F0 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
-		64119EB61069A35C00C201F0 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
-		64119EB71069A35C00C201F0 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		64119F021069ACF800C201F0 /* TripManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripManager.h; sourceTree = "<group>"; };
 		64119F031069ACF800C201F0 /* TripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripManager.m; sourceTree = "<group>"; };
 		64119FC11069C4CC00C201F0 /* Coord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coord.h; sourceTree = "<group>"; };
@@ -194,7 +204,29 @@
 		64F824E5106AFFA4001413F8 /* PersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoViewController.m; sourceTree = "<group>"; };
 		64FCC5B311352242000FA1B6 /* PersonalInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonalInfo.xib; sourceTree = "<group>"; };
 		64FCC5B711352371000FA1B6 /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "20-gear2.png"; path = "../20-gear2.png"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* CycleTracks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CycleTracks-Info.plist"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* OpenBike-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OpenBike-Info.plist"; sourceTree = "<group>"; };
+		E01E223117761CDF007653C4 /* legal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = legal.txt; sourceTree = "<group>"; };
+		E0ACB75B175544870068473C /* UIDevice+UDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIDevice+UDID.h"; path = "Classes/UIDevice+UDID.h"; sourceTree = "<group>"; };
+		E0ACB75C175544870068473C /* UIDevice+UDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+UDID.m"; path = "Classes/UIDevice+UDID.m"; sourceTree = "<group>"; };
+		E0ACB75F175546DA0068473C /* NSBundle+PSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PSExtensions.h"; sourceTree = "<group>"; };
+		E0ACB760175546DA0068473C /* NSBundle+PSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+PSExtensions.m"; sourceTree = "<group>"; };
+		E0ACB769175546DA0068473C /* NSObject+PSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PSExtensions.h"; sourceTree = "<group>"; };
+		E0ACB76A175546DA0068473C /* NSObject+PSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PSExtensions.m"; sourceTree = "<group>"; };
+		E0ACB76B175546DA0068473C /* NSString+PSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PSExtensions.h"; sourceTree = "<group>"; };
+		E0ACB76C175546DA0068473C /* NSString+PSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PSExtensions.m"; sourceTree = "<group>"; };
+		E0ACB76F175546DA0068473C /* PSExtensions+Foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PSExtensions+Foundation.h"; sourceTree = "<group>"; };
+		E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PSExtensions+Foundation.m"; sourceTree = "<group>"; };
+		E0D3A4DD17728032009653AD /* icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-57.png"; sourceTree = "<group>"; };
+		E0D3A4DF1772803A009653AD /* icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-114.png"; sourceTree = "<group>"; };
+		E0FA74AF1774FA0F004CF28F /* TripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
+		E0FA74B01774FA0F004CF28F /* TripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
+		E0FA74B21774FA3F004CF28F /* StarSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarSlider.h; sourceTree = "<group>"; };
+		E0FA74B31774FA3F004CF28F /* StarSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarSlider.m; sourceTree = "<group>"; };
+		E0FA74B51774FA7B004CF28F /* TripDetailPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripDetailPicker.xib; sourceTree = "<group>"; };
+		E0FA74B71774FAD8004CF28F /* Star-White-Half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-White-Half.png"; sourceTree = "<group>"; };
+		E0FA74B81774FAD8004CF28F /* Star-White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star-White.png"; sourceTree = "<group>"; };
+		E0FA74BB17752F9C004CF28F /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		E0FA74BC17752F9C004CF28F /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		EE2D2BCF169CC1BF0059BCC0 /* tabbar_instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_instructions@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD0169CC1BF0059BCC0 /* tabbar_record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_record@2x.png"; sourceTree = "<group>"; };
 		EE2D2BD1169CC1BF0059BCC0 /* tabbar_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_settings@2x.png"; sourceTree = "<group>"; };
@@ -271,6 +303,10 @@
 				641199B1106851AA00C201F0 /* SavedTripsViewController.m */,
 				64F823DF106AC151001413F8 /* SaveRequest.h */,
 				64F823E0106AC151001413F8 /* SaveRequest.m */,
+				E0FA74B21774FA3F004CF28F /* StarSlider.h */,
+				E0FA74B31774FA3F004CF28F /* StarSlider.m */,
+				E0FA74AF1774FA0F004CF28F /* TripDetailViewController.h */,
+				E0FA74B01774FA0F004CF28F /* TripDetailViewController.m */,
 				64119F021069ACF800C201F0 /* TripManager.h */,
 				64119F031069ACF800C201F0 /* TripManager.m */,
 				6433E54E106D542100C27387 /* TripPurposeDelegate.h */,
@@ -281,7 +317,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* CycleTracks.app */,
+				1D6058910D05DD3D006BFB54 /* OpenBike.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -289,11 +325,12 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				64577E28106DC2FD003ACBFD /* dist.plist */,
-				64F8239A106AB3E1001413F8 /* TouchJSON */,
-				64119AA81068672100C201F0 /* Trip Purpose data source */,
-				6411992B1068371B00C201F0 /* Data Model */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				6411992B1068371B00C201F0 /* Data Model */,
+				64119AA81068672100C201F0 /* Trip Purpose data source */,
+				64F8239A106AB3E1001413F8 /* TouchJSON */,
+				E0ACB75E175546DA0068473C /* Foundation */,
+				E01E223017761C7E007653C4 /* UIKit */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -306,7 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				64F823B6106AB402001413F8 /* constants.h */,
-				32CA4F630368D1EE00C91783 /* CycleTracks_Prefix.pch */,
+				32CA4F630368D1EE00C91783 /* OpenBike_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -319,13 +356,16 @@
 				6411A185106A90E400C201F0 /* TripPurposePickerIcons v2 */,
 				6411A16A106A05DE00C201F0 /* Images */,
 				6458114D107AA4D30075DABD /* bicycle-bell-normalized.aiff */,
-				8D1107310486CEB800E47090 /* CycleTracks-Info.plist */,
+				8D1107310486CEB800E47090 /* OpenBike-Info.plist */,
+				64577E28106DC2FD003ACBFD /* dist.plist */,
 				64210F28113508B800415F1A /* MainWindow.xib */,
 				642F14791071D3F10050BCB9 /* MapViewController.xib */,
 				64C8D40211386B26008BCADE /* RecordMap.xib */,
 				64210F5311350AE200415F1A /* RecordNewTrip.xib */,
+				E0FA74B51774FA7B004CF28F /* TripDetailPicker.xib */,
 				64119A9B1068665B00C201F0 /* TripPurposePicker.xib */,
 				64FCC5B311352242000FA1B6 /* PersonalInfo.xib */,
+				E01E223117761CDF007653C4 /* legal.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -350,10 +390,10 @@
 			isa = PBXGroup;
 			children = (
 				28C3AD890F43EF2300507BA6 /* CycleTracks.xcdatamodel */,
+				E0FA74BB17752F9C004CF28F /* Trip.h */,
+				E0FA74BC17752F9C004CF28F /* Trip.m */,
 				64119FC11069C4CC00C201F0 /* Coord.h */,
 				64119FC21069C4CC00C201F0 /* Coord.m */,
-				64119EB61069A35C00C201F0 /* Trip.h */,
-				64119EB71069A35C00C201F0 /* Trip.m */,
 				6433E4E4106D4A2D00C27387 /* User.h */,
 				6433E4E5106D4A2D00C27387 /* User.m */,
 			);
@@ -374,6 +414,10 @@
 		6411A16A106A05DE00C201F0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E0D3A4DF1772803A009653AD /* icon-114.png */,
+				E0D3A4DD17728032009653AD /* icon-57.png */,
+				E0FA74B71774FAD8004CF28F /* Star-White-Half.png */,
+				E0FA74B81774FAD8004CF28F /* Star-White.png */,
 				64C8D40411386C9F008BCADE /* LCD-screen-288x126.png */,
 				64C8D41B11387949008BCADE /* record-map-frame-288x141.png */,
 				6405FB45107E9038004B453B /* GreenCheckMark3.png */,
@@ -484,12 +528,36 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		E01E223017761C7E007653C4 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				E0ACB75B175544870068473C /* UIDevice+UDID.h */,
+				E0ACB75C175544870068473C /* UIDevice+UDID.m */,
+			);
+			name = UIKit;
+			sourceTree = "<group>";
+		};
+		E0ACB75E175546DA0068473C /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				E0ACB76F175546DA0068473C /* PSExtensions+Foundation.h */,
+				E0ACB770175546DA0068473C /* PSExtensions+Foundation.m */,
+				E0ACB75F175546DA0068473C /* NSBundle+PSExtensions.h */,
+				E0ACB760175546DA0068473C /* NSBundle+PSExtensions.m */,
+				E0ACB769175546DA0068473C /* NSObject+PSExtensions.h */,
+				E0ACB76A175546DA0068473C /* NSObject+PSExtensions.m */,
+				E0ACB76B175546DA0068473C /* NSString+PSExtensions.h */,
+				E0ACB76C175546DA0068473C /* NSString+PSExtensions.m */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* CycleTracks */ = {
+		1D6058900D05DD3D006BFB54 /* OpenBike */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "CycleTracks" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "OpenBike" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
@@ -499,9 +567,9 @@
 			);
 			dependencies = (
 			);
-			name = CycleTracks;
+			name = OpenBike;
 			productName = CycleTracks;
-			productReference = 1D6058910D05DD3D006BFB54 /* CycleTracks.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* OpenBike.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -509,8 +577,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CycleTracks" */;
-			compatibilityVersion = "Xcode 3.1";
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "OpenBike" */;
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -520,7 +591,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* CycleTracks */,
+				1D6058900D05DD3D006BFB54 /* OpenBike */,
 			);
 		};
 /* End PBXProject section */
@@ -583,6 +654,11 @@
 				EE2D2BF6169CCE1E0059BCC0 /* commute2@2x.png in Resources */,
 				EE2D2BF8169CD17F0059BCC0 /* start_button@2x.png in Resources */,
 				EE2D2BFA169CD1EE0059BCC0 /* save_button@2x.png in Resources */,
+				E0D3A4DE17728032009653AD /* icon-57.png in Resources */,
+				E0D3A4E01772803A009653AD /* icon-114.png in Resources */,
+				E0FA74B61774FA7B004CF28F /* TripDetailPicker.xib in Resources */,
+				E0FA74B91774FAD8004CF28F /* Star-White-Half.png in Resources */,
+				E0FA74BA1774FAD8004CF28F /* Star-White.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,7 +677,6 @@
 				64119AAD1068672100C201F0 /* CustomView.m in Sources */,
 				64119AAE1068672100C201F0 /* CustomPickerDataSource.m in Sources */,
 				64119ABF10689ED800C201F0 /* PickerViewController.m in Sources */,
-				64119EB81069A35C00C201F0 /* Trip.m in Sources */,
 				64119F041069ACF800C201F0 /* TripManager.m in Sources */,
 				64119FC31069C4CC00C201F0 /* Coord.m in Sources */,
 				64F823AE106AB3E1001413F8 /* CDataScanner.m in Sources */,
@@ -620,6 +695,14 @@
 				6426476E1073FEC300E43DEF /* ReminderManager.m in Sources */,
 				64210F6111350C8500415F1A /* AboutViewController.m in Sources */,
 				645E4EDC1200C1C800EFF0E6 /* LoadingView.m in Sources */,
+				E0ACB75D175544870068473C /* UIDevice+UDID.m in Sources */,
+				E0ACB772175546DA0068473C /* NSBundle+PSExtensions.m in Sources */,
+				E0ACB777175546DA0068473C /* NSObject+PSExtensions.m in Sources */,
+				E0ACB778175546DA0068473C /* NSString+PSExtensions.m in Sources */,
+				E0ACB77A175546DA0068473C /* PSExtensions+Foundation.m in Sources */,
+				E0FA74B11774FA0F004CF28F /* TripDetailViewController.m in Sources */,
+				E0FA74B41774FA3F004CF28F /* StarSlider.m in Sources */,
+				E0FA74BD17752F9C004CF28F /* Trip.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,17 +713,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gregory Kip (FG2MHX6374)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				GCC_PREFIX_HEADER = OpenBike_Prefix.pch;
+				INFOPLIST_FILE = "OpenBike-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = OpenBike;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "36201297-4C8D-46DE-8E18-28300F8A6197";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -649,15 +734,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: PermuSoft Corporation (9VXMU62624)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				GCC_PREFIX_HEADER = OpenBike_Prefix.pch;
+				INFOPLIST_FILE = "OpenBike-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = OpenBike;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "73B33A7C-9967-4976-B6A0-E2B846B7FA87";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -666,12 +753,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: PermuSoft Corporation (9VXMU62624)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3DAAC999-6AFF-4D5E-8693-A47DE2AFB440";
+				SDKROOT = iphoneos;
 			};
 			name = Distribution;
 		};
@@ -679,15 +768,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = dist.plist;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: PermuSoft Corporation (9VXMU62624)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				GCC_PREFIX_HEADER = OpenBike_Prefix.pch;
+				INFOPLIST_FILE = "OpenBike-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = OpenBike;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3DAAC999-6AFF-4D5E-8693-A47DE2AFB440";
 				SDKROOT = iphoneos;
 			};
 			name = Distribution;
@@ -697,13 +789,13 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: mopimp productions";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "50065992-A084-4871-A0E0-4871B4BD3D7C";
-				SDKROOT = iphoneos3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
 			};
 			name = Beta;
 		};
@@ -711,19 +803,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.1.3;
+				GCC_PREFIX_HEADER = OpenBike_Prefix.pch;
+				INFOPLIST_FILE = "OpenBike-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = OpenBike;
+				SDKROOT = iphoneos;
 			};
 			name = Beta;
 		};
@@ -731,12 +824,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
 			};
 			name = "Release Beta";
 		};
@@ -744,17 +838,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = dist.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = CycleTracks_Prefix.pch;
-				INFOPLIST_FILE = "CycleTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = CycleTracks;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.1.3;
+				GCC_PREFIX_HEADER = OpenBike_Prefix.pch;
+				INFOPLIST_FILE = "OpenBike-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = OpenBike;
+				SDKROOT = iphoneos;
 			};
 			name = "Release Beta";
 		};
@@ -762,12 +857,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gregory Kip (FG2MHX6374)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "36201297-4C8D-46DE-8E18-28300F8A6197";
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -775,19 +872,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: PermuSoft Corporation (9VXMU62624)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "73B33A7C-9967-4976-B6A0-E2B846B7FA87";
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "CycleTracks" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "OpenBike" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
@@ -799,7 +898,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CycleTracks" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "OpenBike" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,

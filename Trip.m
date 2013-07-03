@@ -19,28 +19,41 @@
  *   along with CycleTracks.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// 
+//
 //  Trip.m
 //  CycleTracks
 //
 //  Copyright 2009-2013 SFCTA. All rights reserved.
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/22/09.
-//	For more information on the project, 
+//	For more information on the project,
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+//  Trip.m
+//
+//  Created by Gregory Kip on 6/21/13.
+//  Adapted to OpenBike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import "Trip.h"
-
 #import "Coord.h"
+#import "User.h"
 
-@implementation Trip 
 
-@dynamic coords;
-@dynamic distance;
-@dynamic duration;
-@dynamic notes;
-@dynamic purpose;
+@implementation Trip
+
 @dynamic start;
-@dynamic saved;
+@dynamic distance;
+@dynamic notes;
 @dynamic uploaded;
+@dynamic purpose;
+@dynamic duration;
+@dynamic saved;
+@dynamic ease;
+@dynamic safety;
+@dynamic convenience;
+@dynamic coords;
+@dynamic user;
 
 @end

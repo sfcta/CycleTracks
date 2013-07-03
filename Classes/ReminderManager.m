@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/30/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
 #include <AudioToolbox/AudioToolbox.h>
@@ -34,70 +39,95 @@
 #import "ReminderManager.h"
 #import "TripManager.h"
 
+#define k2Minutes     (120.0)
+#define k10Minutes	 (600.0)
+#define k15Minutes	 (900.0)
+#define kNumReminders (10)
 
-#define k15Minutes	900
-#define k10Minutes	600
-#define kNumReminders 10
-
-//#define kEnableTestReminder		YES
-#define kEnableTestReminder		NO
+//#define kEnableTestReminder  (YES)
+#define kEnableTestReminder  (NO)
 
 @implementation ReminderManager
 @synthesize reminders;
 
 - (id)init {
-	if ( self = [super init] )
-	{
+	if ((self = [super init]) != nil) {
+      NSTimeInterval first_seconds;
+      NSTimeInterval seconds;
+      
+      if (kEnableTestReminder) {
+         first_seconds = k2Minutes;
+         seconds = k2Minutes;
+      } else {
+         first_seconds = k15Minutes;
+         seconds = k10Minutes;
+      }
+      
+      NSLog(@"Reminder initWithFirstFireInterval: %f interval: %f", first_seconds, seconds);
+      
 		//NSLog(@"ReminderManager init");
-		reminders = [[NSMutableArray arrayWithCapacity:kNumReminders*2] retain];
+		reminders = [NSMutableArray arrayWithCapacity:kNumReminders*2];
 		
 		// add reminders here
-		if ( kEnableTestReminder )
-			[self addRemindersWithFirstFireInterval:120 interval:120];
-			
-		[self addRemindersWithFirstFireInterval:k15Minutes interval:k10Minutes];
+      
+      // schedule all of our reminders to fire
+      for (int reminder_num=0; reminder_num < kNumReminders; reminder_num++) {
+         NSTimeInterval reminder_secs = (reminder_num==0 ? first_seconds : first_seconds+reminder_num*seconds);
+         
+         // Local notification will go if it's in the background
+         UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+         localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:reminder_secs];
+         localNotif.timeZone = [NSTimeZone defaultTimeZone];
+         localNotif.alertBody = [NSString stringWithFormat:@"Open Bike has been recording for %d minutes", ((int)(reminder_secs))/60];
+         localNotif.soundName = @"bicycle-bell-normalized.aiff";
+         
+         [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+         
+         // Timer will trigger if it's in the foreground
+         [reminders addObject:[NSTimer scheduledTimerWithTimeInterval:reminder_secs
+                                                               target:self
+                                                             selector:@selector(remindBell:)
+                                                             userInfo:nil
+                                                              repeats:NO]];
+      }
+      
 	}
 	
 	return self;
 }
 
-- (void)dealloc {
-    [reminders release];
-    [super dealloc];
-}
 
-- (void)addRemindersWithFirstFireInterval:(NSTimeInterval)first_seconds
-                                 interval:(NSTimeInterval)seconds
-{
-    NSLog(@"Reminder initWithFirstFireInterval: %f interval: %f", first_seconds, seconds);
-	if ( self = [super init] )
-	{
-        // schedule all of our reminders to fire
-        for (int reminder_num=0; reminder_num < kNumReminders; reminder_num++) {
-            NSTimeInterval reminder_secs = (reminder_num==0 ? first_seconds :
-                                            first_seconds+reminder_num*seconds);
-            
-            // Local notification will go if it's in the background
-            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
-            localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:reminder_secs];
-            localNotif.timeZone = [NSTimeZone defaultTimeZone];
-            localNotif.alertBody = [NSString
-                                    stringWithFormat:@"CycleTracks has been recording for %d minutes",
-                                    (int)(reminder_secs)/60];
-            localNotif.soundName = @"bicycle-bell-normalized.aiff"; // 
-            
-            [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
-            [localNotif release];
-            
-            // Timer will trigger if it's in the foreground
-            [reminders addObject:[NSTimer scheduledTimerWithTimeInterval:reminder_secs
-                                                                  target:self
-                                                                selector:@selector(remindBell:)
-                                                                userInfo:nil
-                                                                 repeats:NO]];
-        }
-    }
-}
+//- (void)addRemindersWithFirstFireInterval:(NSTimeInterval)first_seconds
+//                                 interval:(NSTimeInterval)seconds
+//{
+//	if ( self = [super init] )
+//	{
+//        // schedule all of our reminders to fire
+//        for (int reminder_num=0; reminder_num < kNumReminders; reminder_num++) {
+//            NSTimeInterval reminder_secs = (reminder_num==0 ? first_seconds :
+//                                            first_seconds+reminder_num*seconds);
+//            
+//            // Local notification will go if it's in the background
+//            UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+//            localNotif.fireDate = [NSDate dateWithTimeIntervalSinceNow:reminder_secs];
+//            localNotif.timeZone = [NSTimeZone defaultTimeZone];
+//            localNotif.alertBody = [NSString
+//                                    stringWithFormat:@"Open Bike has been recording for %d minutes",
+//                                    (int)(reminder_secs)/60];
+//            localNotif.soundName = @"bicycle-bell-normalized.aiff"; // 
+//            
+//            [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+//            [localNotif release];
+//            
+//            // Timer will trigger if it's in the foreground
+//            [reminders addObject:[NSTimer scheduledTimerWithTimeInterval:reminder_secs
+//                                                                  target:self
+//                                                                selector:@selector(remindBell:)
+//                                                                userInfo:nil
+//                                                                 repeats:NO]];
+//        }
+//    }
+//}
 
 - (void)remindBell:(NSTimer*)theTimer
 {
@@ -115,6 +145,8 @@
 
     // play audio + vibrate
     AudioServicesPlayAlertSound( soundFileObject );
+   
+   CFRelease(soundFileURLRef);
 }
 
 - (void)disableReminders

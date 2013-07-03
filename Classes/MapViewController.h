@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/28/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
@@ -45,10 +50,10 @@
 }
 
 
-@property (nonatomic, retain) Trip *trip;
-@property (nonatomic, retain) UIBarButtonItem *doneButton;
-@property (nonatomic, retain) UIBarButtonItem *flipButton;
-@property (nonatomic, retain) UIView *infoView;
+@property (nonatomic, strong) Trip *trip;
+@property (nonatomic, strong) UIBarButtonItem *doneButton;
+@property (nonatomic, strong) UIBarButtonItem *flipButton;
+@property (nonatomic, strong) UIView *infoView;
 
 - (id)initWithTrip:(Trip *)trip;
 

@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 8/8/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
@@ -44,8 +49,8 @@
 }
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
-@property (retain) NSString *title;
-@property (retain) NSString *subtitle;
+@property (strong) NSString *title;
+@property (strong) NSString *subtitle;
 
 @property (assign) BOOL first;
 @property (assign) BOOL last;

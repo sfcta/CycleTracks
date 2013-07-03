@@ -25,8 +25,13 @@
 //
 //  Copyright 2009-2013 SFCTA. All rights reserved.
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/22/09.
-//	For more information on the project, 
+//	For more information on the project,
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
 #import "CJSONSerializer.h"
@@ -59,7 +64,7 @@
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)context
 {
-    if ( self = [super init] )
+   if ( self = [super init] )
 	{
 		self.activityDelegate		= self;
 		self.coords					= [[NSMutableArray alloc] initWithCapacity:1000];
@@ -67,14 +72,14 @@
 		self.managedObjectContext	= context;
 		self.trip					= nil;
 		purposeIndex				= -1;
-    }
-    return self;
+   }
+   return self;
 }
 
 
 - (BOOL)loadTrip:(Trip*)_trip
 {
-    if ( _trip )
+   if ( _trip )
 	{
 		self.trip					= _trip;
 		distance					= [_trip.distance doubleValue];
@@ -82,15 +87,15 @@
 		
 		// NOTE: loading coords can be expensive for a large trip
 		NSLog(@"loading %fm trip started at %@...", distance, _trip.start);
-
+      
 		// sort coords by recorded date DESCENDING so that the coord at index=0 is the most recent
-		NSSortDescriptor *dateDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"recorded"
-																		ascending:NO] autorelease];
+		NSSortDescriptor *dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"recorded"
+                                                                      ascending:NO];
 		NSArray *sortDescriptors	= [NSArray arrayWithObjects:dateDescriptor, nil];
 		self.coords					= [[[_trip.coords allObjects] sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
 		
 		NSLog(@"loading %d coords completed.", [self.coords count]);
-
+      
 		// recalculate duration
 		if ( coords && [coords count] > 1 )
 		{
@@ -109,37 +114,42 @@
 		}
 		
 		/*
-		// recalculate trip distance
-		CLLocationDistance newDist	= [self calculateTripDistance:_trip];
+       // recalculate trip distance
+       CLLocationDistance newDist	= [self calculateTripDistance:_trip];
+       
+       NSLog(@"newDist: %f", newDist);
+       NSLog(@"oldDist: %f", distance);
+       */
 		
-		NSLog(@"newDist: %f", newDist);
-		NSLog(@"oldDist: %f", distance);
-		*/
-		
-		// TODO: initialize purposeIndex from trip.purpose
-		purposeIndex				= -1;
-    }
-    return YES;
+		purposeIndex				= [TripPurpose getPurposeIndex:trip.purpose];
+      ease                    = [[trip ease] integerValue];
+      safety                  = [[trip safety] integerValue];
+      convenience             = [[trip convenience] integerValue];
+   }
+   
+   return YES;
 }
 
 - (void)unloadTrip
 {
-    [self.coords removeAllObjects];
-    distance					= 0.0;
-    self.trip					= nil;
-    purposeIndex				= -1;
-
+   [self.coords removeAllObjects];
+   distance					   = 0.0;
+   self.trip					= nil;
+   purposeIndex				= -1;
+   ease                    = -1;
+   safety                  = -1;
+   convenience             = -1;
 }
 
 
 - (id)initWithTrip:(Trip*)_trip
 {
-    if ( self = [super init] )
+   if ( self = [super init] )
 	{
 		self.activityDelegate = self;
 		[self loadTrip:_trip];
-    }
-    return self;
+   }
+   return self;
 }
 
 
@@ -149,7 +159,7 @@
 	{
 		CGRect frame = CGRectMake( 130.0, 88.0, kActivityIndicatorSize, kActivityIndicatorSize );
 		activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:frame];
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+      activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
 		[activityIndicator sizeToFit];
 	}
 	return activityIndicator;
@@ -214,10 +224,10 @@
 
 - (CLLocationDistance)distanceFrom:(Coord*)prev to:(Coord*)next realTime:(BOOL)realTime
 {
-	CLLocation *prevLoc = [[CLLocation alloc] initWithLatitude:[prev.latitude doubleValue] 
-													 longitude:[prev.longitude doubleValue]];
-	CLLocation *nextLoc = [[CLLocation alloc] initWithLatitude:[next.latitude doubleValue] 
-													 longitude:[next.longitude doubleValue]];
+	CLLocation *prevLoc = [[CLLocation alloc] initWithLatitude:[prev.latitude doubleValue]
+                                                    longitude:[prev.longitude doubleValue]];
+	CLLocation *nextLoc = [[CLLocation alloc] initWithLatitude:[next.latitude doubleValue]
+                                                    longitude:[next.longitude doubleValue]];
 	
 	CLLocationDistance	deltaDist	= [nextLoc distanceFromLocation:prevLoc];
 	NSTimeInterval		deltaTime	= [next.recorded timeIntervalSinceDate:prev.recorded];
@@ -237,7 +247,7 @@
 	 */
 	
 	// sanity check accuracy
-	if ( [prev.hAccuracy doubleValue] < kEpsilonAccuracy && 
+	if ( [prev.hAccuracy doubleValue] < kEpsilonAccuracy &&
 		 [next.hAccuracy doubleValue] < kEpsilonAccuracy )
 	{
 		// sanity check time interval
@@ -259,15 +269,15 @@
 				 */
 			}
 			else
-				NSLog(@"WARNING speed exceeds epsilon: %f => throw out deltaDist: %f, deltaTime: %f", 
-					  deltaDist / deltaTime, deltaDist, deltaTime);
+				NSLog(@"WARNING speed exceeds epsilon: %f => throw out deltaDist: %f, deltaTime: %f",
+                  deltaDist / deltaTime, deltaDist, deltaTime);
 		}
 		else
 			NSLog(@"WARNING deltaTime exceeds epsilon: %f => throw out deltaDist: %f", deltaTime, deltaDist);
 	}
 	else
-		NSLog(@"WARNING accuracy exceeds epsilon: %f => throw out deltaDist: %f", 
-			  MAX([prev.hAccuracy doubleValue], [next.hAccuracy doubleValue]) , deltaDist);
+		NSLog(@"WARNING accuracy exceeds epsilon: %f => throw out deltaDist: %f",
+            MAX([prev.hAccuracy doubleValue], [next.hAccuracy doubleValue]) , deltaDist);
 	
 	return newDist;
 }
@@ -278,8 +288,8 @@
 	//NSLog(@"addCoord");
 	
 	if ( !trip )
-		[self createTrip];	
-
+		[self createTrip];
+   
 	// Create and configure a new instance of the Coord entity
 	Coord *coord = (Coord *)[NSEntityDescription insertNewObjectForEntityForName:@"Coord" inManagedObjectContext:managedObjectContext];
 	
@@ -297,7 +307,7 @@
 	
 	[trip addCoordsObject:coord];
 	//[coord setTrip:trip];
-
+   
 	// check to see if the coords array is empty
 	if ( [coords count] == 0 )
 	{
@@ -326,7 +336,7 @@
 		// Handle the error.
 		NSLog(@"TripManager addCoord error %@, %@", error, [error localizedDescription]);
 	}
-
+   
 	[coords insertObject:coord atIndex:0];
 	//NSLog(@"# coords = %d", [coords count]);
 	
@@ -343,7 +353,7 @@
 - (NSString*)jsonEncodeUserData
 {
 	NSLog(@"jsonEncodeUserData");
-	NSMutableDictionary *userDict = [NSMutableDictionary dictionaryWithCapacity:7];
+	NSMutableDictionary *userDict = [NSMutableDictionary dictionaryWithCapacity:10];
 	
 	NSFetchRequest		*request = [[NSFetchRequest alloc] init];
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext];
@@ -368,7 +378,7 @@
 		{
 			// initialize text fields to saved personal info
 			[userDict setValue:user.age			forKey:@"age"];
-			[userDict setValue:user.email		forKey:@"email"];
+			[userDict setValue:user.email		   forKey:@"email"];
 			[userDict setValue:user.gender		forKey:@"gender"];
 			[userDict setValue:user.homeZIP		forKey:@"homeZIP"];
 			[userDict setValue:user.workZIP		forKey:@"workZIP"];
@@ -378,7 +388,6 @@
 		else
 			NSLog(@"TripManager fetch user FAIL");
 		
-		[mutableFetchResults release];
 	}
 	else
 		NSLog(@"TripManager WARNING no saved user data to encode");
@@ -387,7 +396,6 @@
 	NSString *jsonUserData = [[CJSONSerializer serializer] serializeObject:userDict];
 	NSLog(@"%@", jsonUserData );
 	
-	[request release];
 	return jsonUserData;
 }
 
@@ -404,14 +412,14 @@
 	NSLog(@"about to save trip with %d coords...", [coords count]);
 	[activityDelegate updateSavingMessage:kPreparingData];
 	NSLog(@"%@", trip);
-
+   
 	// close out Trip record
 	// NOTE: this code assumes we're saving the current recording in progress
 	
 	/* TODO: revise to work with following edge cases:
 	 o coords unsorted
 	 o break in recording => can't calc duration by comparing first & last timestamp,
-	   incrementally tally delta time if < epsilon instead
+    incrementally tally delta time if < epsilon instead
 	 o recalculate distance
 	 */
 	if ( trip && [coords count] )
@@ -440,7 +448,7 @@
 	}
 	else
 		NSLog(@"Saved trip: %@ (%@m, %@s)", trip.purpose, trip.distance, trip.duration );
-
+   
 	dirty = YES;
 	
 	// get array of coords
@@ -449,11 +457,11 @@
 	Coord *coord;
 	
 	// format date as a string
-	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];		
+	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-
+   
 	// TODO: test more campact float representations with NSString, NSNumberFormatter
-
+   
 #if kSaveProtocolVersion == kSaveProtocolVersion_2
 	NSLog(@"saving using protocol version 2");
 	
@@ -487,11 +495,11 @@
 		[coordsDict setValue:coord.vAccuracy forKey:@"vAccuracy"];
 		
 		NSString *newDateString = [outputFormatter stringFromDate:coord.recorded];
-		[coordsDict setValue:newDateString forKey:@"recorded"];		
+		[coordsDict setValue:newDateString forKey:@"recorded"];
 		[tripDict setValue:coordsDict forKey:newDateString];
 	}
 #endif
-
+   
 	NSLog(@"serializing trip data to JSON...");
 	NSString *jsonTripData = [[CJSONSerializer serializer] serializeObject:tripDict];
 	NSLog(@"%@", jsonTripData );
@@ -507,34 +515,42 @@
 	NSString *notes = @"";
 	if ( trip.notes )
 		notes = trip.notes;
+   
+   NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+   
+   NSString *easeString = [formatter stringFromNumber:trip.ease];
+   NSString *safetyString = [formatter stringFromNumber:trip.safety];
+   NSString *convenienceString = [formatter stringFromNumber:trip.convenience];
 	
 	// get start date
 	NSString *start = [outputFormatter stringFromDate:trip.start];
 	NSLog(@"start: %@", start);
-
+   
 	// encode user data
 	NSString *jsonUserData = [self jsonEncodeUserData];
-
+   
 	// NOTE: device hash added by SaveRequest initWithPostVars
 	NSDictionary *postVars = [NSDictionary dictionaryWithObjectsAndKeys:
-							  jsonTripData, @"coords",
-							  purpose, @"purpose",
-							  notes, @"notes",
-							  start, @"start",
-							  jsonUserData, @"user",
-							  [NSString stringWithFormat:@"%d", kSaveProtocolVersion], @"version",
-							  nil];
-	
+                             jsonTripData, @"coords",
+                             easeString, @"ease",
+                             safetyString, @"safety",
+                             convenienceString, @"convenience",
+                             purpose, @"purpose",
+                             notes, @"notes",
+                             start, @"start",
+                             jsonUserData, @"user",
+                             [NSString stringWithFormat:@"%d", kSaveProtocolVersion], @"version",
+                             nil];
+   	
 	// create save request
 	SaveRequest *saveRequest = [[SaveRequest alloc] initWithPostVars:postVars];
 	
 	// create the connection with the request and start loading the data
-	NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:[saveRequest request]
-																   delegate:self];
+	NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:[saveRequest request] delegate:self];
 	
 	if ( theConnection )
 	{
-		receivedData=[[NSMutableData data] retain];		
+		receivedData=[NSMutableData data];
 	}
 	else
 	{
@@ -542,30 +558,50 @@
 	}
 }
 
+- (void)showSaveDialog
+{
+	// present UIAlertView "Saving..."
+	saving = [[UIAlertView alloc] initWithTitle:kSavingTitle
+										message:kConnecting
+									   delegate:nil
+							  cancelButtonTitle:nil
+							  otherButtonTitles:nil];
+
+	NSLog(@"created saving dialog: %@", saving);
+
+	[self createActivityIndicator];
+	[activityIndicator startAnimating];
+	[saving addSubview:activityIndicator];
+	[saving show];
+
+	// save / upload trip
+	[self saveTrip];
+}
+
 
 #pragma mark NSURLConnection delegate methods
 
 
-- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten 
+- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten
  totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite
 {
 	NSLog(@"%d bytesWritten, %d totalBytesWritten, %d totalBytesExpectedToWrite",
-		  bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+         bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
 	
 	[activityDelegate updateBytesWritten:totalBytesWritten
-			   totalBytesExpectedToWrite:totalBytesExpectedToWrite];
+              totalBytesExpectedToWrite:totalBytesExpectedToWrite];
 }
 
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
 	// this method is called when the server has determined that it
-    // has enough information to create the NSURLResponse
+   // has enough information to create the NSURLResponse
 	NSLog(@"didReceiveResponse: %@", response);
 	
 	NSHTTPURLResponse *httpResponse = nil;
 	if ( [response isKindOfClass:[NSHTTPURLResponse class]] &&
-		( httpResponse = (NSHTTPURLResponse*)response ) )
+       ( httpResponse = (NSHTTPURLResponse*)response ) )
 	{
 		BOOL success = NO;
 		NSString *title   = nil;
@@ -590,9 +626,9 @@
 				message = kServerError;
 		}
 		
-		NSLog(@"%@: %@", title, message);
+		NSLog(@"HTTP RESPONSE %@: %@", title, message);
 		
-		// update trip.uploaded 
+		// update trip.uploaded
 		if ( success )
 		{
 			[trip setUploaded:[NSDate date]];
@@ -605,70 +641,66 @@
 		}
 		
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-														message:message
-													   delegate:alertDelegate
-											  cancelButtonTitle:@"OK"
-											  otherButtonTitles:nil];
+                                                      message:message
+                                                     delegate:alertDelegate
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
 		[alert show];
-		[alert release];
 		
 		[activityDelegate dismissSaving];
 		[activityDelegate stopAnimating];
 	}
 	
-    // it can be called multiple times, for example in the case of a
+   // it can be called multiple times, for example in the case of a
 	// redirect, so each time we reset the data.
 	
-    // receivedData is declared as a method instance elsewhere
-    [receivedData setLength:0];
+   // receivedData is declared as a method instance elsewhere
+   [receivedData setLength:0];
 }
 
+-(NSURLRequest *)connection:(NSURLConnection *)connection
+            willSendRequest:(NSURLRequest *)request
+           redirectResponse:(NSURLResponse *)redirectResponse
+{
+   return request;
+}
+
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{	
-    // append the new data to the receivedData	
-    // receivedData is declared as a method instance elsewhere
-	[receivedData appendData:data];	
+{
+   // append the new data to the receivedData
+   // receivedData is declared as a method instance elsewhere
+	[receivedData appendData:data];
 	[activityDelegate startAnimating];
 }
 
 - (void)connection:(NSURLConnection *)connection
   didFailWithError:(NSError *)error
 {
-    // release the connection, and the data object	
-    [connection release];
-	
-    // receivedData is declared as a method instance elsewhere
-    [receivedData release];
-	
-    // inform the user
-    NSLog(@"Connection failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+   // inform the user
+   NSLog(@"Connection failed! Error - %@ %@",
+         [error localizedDescription],
+         [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
 	
 	[activityDelegate dismissSaving];
 	[activityDelegate stopAnimating];
-
+   
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kConnectionError
-													message:[error localizedDescription]
-												   delegate:alertDelegate
-										  cancelButtonTitle:@"OK"
-										  otherButtonTitles:nil];
+                                                   message:[error localizedDescription]
+                                                  delegate:alertDelegate
+                                         cancelButtonTitle:@"OK"
+                                         otherButtonTitles:nil];
 	[alert show];
-	[alert release];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	// do something with the data
-    NSLog(@"Succeeded! Received %d bytes of data", [receivedData length]);
-	NSLog(@"%@", [[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] autorelease] );
-
+   NSLog(@"Succeeded! Received %d bytes of data", [receivedData length]);
+	NSLog(@"%@", [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding]);
+   
 	[activityDelegate dismissSaving];
 	[activityDelegate stopAnimating];
-
-    // release the connection, and the data object
-    [connection release];
-    [receivedData release];	
 }
 
 
@@ -706,10 +738,43 @@
 	}
 	else
 		[self createTrip:index];
-
+   
 	dirty = YES;
 	return purpose;
 }
+
+-(NSString *)setPurpose:(unsigned int)index ease:(unsigned int)ease_ safety:(unsigned int)safety_ convenience:(unsigned int)convenience_ {
+   NSString *purpose = [self getPurposeString:index];
+	NSLog(@"setPurpose:ease:safety:convenience: %@ %u %u %u", purpose, ease_, safety_, convenience_);
+   
+	purposeIndex = index;
+   ease = ease_;
+   safety = safety_;
+   convenience = convenience_;
+	
+	if ( trip )
+	{
+		[trip setPurpose:purpose];
+      [trip setEase:[NSNumber numberWithInt:ease]];
+      [trip setSafety:[NSNumber numberWithInt:safety]];
+      [trip setConvenience:[NSNumber numberWithInt:convenience]];
+      
+		NSError *error;
+		if (![managedObjectContext save:&error]) {
+			// Handle the error.
+			NSLog(@"setPurpose error %@, %@", error, [error localizedDescription]);
+		}
+	}
+	else {
+		//[self createTrip:index];
+      [self createTrip:index ease:ease_ safety:safety_ convenience:convenience_];
+   }
+   
+	dirty = YES;
+	return purpose;
+}
+
+
 
 
 - (void)createTrip
@@ -717,8 +782,8 @@
 	NSLog(@"createTrip");
 	
 	// Create and configure a new instance of the Trip entity
-	trip = (Trip *)[[NSEntityDescription insertNewObjectForEntityForName:@"Trip" 
-												  inManagedObjectContext:managedObjectContext] retain];
+	trip = (Trip *)[NSEntityDescription insertNewObjectForEntityForName:@"Trip"
+                                                 inManagedObjectContext:managedObjectContext];
 	[trip setStart:[NSDate date]];
 	
 	NSError *error;
@@ -736,10 +801,33 @@
 	NSLog(@"createTrip: %@", purpose);
 	
 	// Create and configure a new instance of the Trip entity
-	trip = (Trip *)[[NSEntityDescription insertNewObjectForEntityForName:@"Trip" 
-												  inManagedObjectContext:managedObjectContext] retain];
+	trip = (Trip *)[NSEntityDescription insertNewObjectForEntityForName:@"Trip"
+                                                 inManagedObjectContext:managedObjectContext];
 	
 	[trip setPurpose:purpose];
+	[trip setStart:[NSDate date]];
+	
+	NSError *error;
+	if (![managedObjectContext save:&error]) {
+		// Handle the error.
+		NSLog(@"createTrip error %@, %@", error, [error localizedDescription]);
+	}
+}
+
+
+- (void)createTrip:(unsigned int)index ease:(unsigned int)ease_ safety:(unsigned int)safety_ convenience:(unsigned int)convenience_
+{
+	NSString *purpose = [self getPurposeString:index];
+	NSLog(@"createTrip: %@", purpose);
+	
+	// Create and configure a new instance of the Trip entity
+	trip = (Trip *)[NSEntityDescription insertNewObjectForEntityForName:@"Trip"
+                                                 inManagedObjectContext:managedObjectContext];
+	
+	[trip setPurpose:purpose];
+   [trip setEase:[NSNumber numberWithInteger:ease_]];
+   [trip setSafety:[NSNumber numberWithInteger:safety_]];
+   [trip setConvenience:[NSNumber numberWithInteger:convenience_]];
 	[trip setStart:[NSDate date]];
 	
 	NSError *error;
@@ -753,15 +841,14 @@
 - (void)promptForTripNotes
 {
 	tripNotes = [[UIAlertView alloc] initWithTitle:kTripNotesTitle
-										   message:@"\n\n\n"
-										  delegate:self
-								 cancelButtonTitle:@"Skip"
-								 otherButtonTitles:@"OK", nil];
-
+                                          message:@"\n\n\n"
+                                         delegate:self
+                                cancelButtonTitle:@"Skip"
+                                otherButtonTitles:@"OK", nil];
+   
 	[self createTripNotesText];
 	[tripNotes addSubview:tripNotesText];
 	[tripNotes show];
-	[tripNotes release];
 }
 
 
@@ -787,10 +874,10 @@
 		
 		// present UIAlertView "Saving..."
 		saving = [[UIAlertView alloc] initWithTitle:kSavingTitle
-											message:kConnecting
-										   delegate:nil
-								  cancelButtonTitle:nil
-								  otherButtonTitles:nil];
+                                          message:kConnecting
+                                         delegate:nil
+                                cancelButtonTitle:nil
+                                otherButtonTitles:nil];
 		
 		NSLog(@"created saving dialog: %@", saving);
 		
@@ -798,10 +885,9 @@
 		[activityIndicator startAnimating];
 		[saving addSubview:activityIndicator];
 		[saving show];
-		[saving release];
 		
 		// save / upload trip
-		[self saveTrip];		
+		[self saveTrip];
 	}
 }
 
@@ -856,8 +942,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved = nil"];
 	[request setPredicate:predicate];
@@ -866,7 +950,6 @@
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
 	NSLog(@"countUnSavedTrips = %d", count);
 	
-	[request release];
 	return count;
 }
 
@@ -881,8 +964,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved != nil AND uploaded = nil"];
 	[request setPredicate:predicate];
@@ -891,7 +972,6 @@
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
 	NSLog(@"countUnSyncedTrips = %d", count);
 	
-	[request release];
 	return count;
 }
 
@@ -906,8 +986,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved != nil AND distance < 0.1"];
 	[request setPredicate:predicate];
@@ -916,7 +994,6 @@
 	NSInteger count = [managedObjectContext countForFetchRequest:request error:&error];
 	NSLog(@"countZeroDistanceTrips = %d", count);
 	
-	[request release];
 	return count;
 }
 
@@ -931,8 +1008,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved = nil"];
 	[request setPredicate:predicate];
@@ -948,13 +1023,11 @@
 	else if ( [mutableFetchResults count] )
 	{
 		NSLog(@"UNSAVED trip(s) found");
-
+      
 		// NOTE: this will sort the trip's coords and make it ready to continue recording
 		success = [self loadTrip:[mutableFetchResults objectAtIndex:0]];
 	}
 	
-	[mutableFetchResults release];
-	[request release];
 	return success;
 }
 
@@ -968,7 +1041,7 @@
 	NSLog(@"calculateTripDistance for trip started %@ having %d coords", _trip.start, [_trip.coords count]);
 	
 	CLLocationDistance newDist = 0.;
-
+   
 	if ( _trip != trip )
 		[self loadTrip:_trip];
 	
@@ -980,7 +1053,7 @@
 	if ( [filteredCoords count] )
 	{
 		// sort filtered coords by recorded date
-		NSSortDescriptor *sortByDate	= [[[NSSortDescriptor alloc] initWithKey:@"recorded" ascending:YES] autorelease];
+		NSSortDescriptor *sortByDate	= [[NSSortDescriptor alloc] initWithKey:@"recorded" ascending:YES];
 		NSArray		*sortDescriptors	= [NSArray arrayWithObjects:sortByDate, nil];
 		NSArray		*sortedCoords		= [filteredCoords sortedArrayUsingDescriptors:sortDescriptors];
 		
@@ -996,7 +1069,7 @@
 		}
 	}
 	
-	NSLog(@"oldDist: %f => newDist: %f", distance, newDist);	
+	NSLog(@"oldDist: %f => newDist: %f", distance, newDist);
 	return newDist;
 }
 
@@ -1011,8 +1084,6 @@
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"start" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
 	[request setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-	[sortDescriptor release];
 	
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"saved != nil AND distance < 0.1"];
 	[request setPredicate:predicate];
@@ -1026,14 +1097,14 @@
 			NSLog(@"Unresolved error2 %@, %@", error, [error userInfo]);
 	}
 	int count = [mutableFetchResults count];
-
+   
 	NSLog(@"found %d trip(s) in need of distance recalcuation", count);
-
+   
 	for (Trip *_trip in mutableFetchResults)
 	{
 		CLLocationDistance newDist = [self calculateTripDistance:_trip];
 		[_trip setDistance:[NSNumber numberWithDouble:newDist]];
-
+      
 		NSError *error;
 		if (![managedObjectContext save:&error]) {
 			// Handle the error.
@@ -1042,8 +1113,6 @@
 		break;
 	}
 	
-	[mutableFetchResults release];
-	[request release];
 	
 	return count;
 }
@@ -1054,7 +1123,7 @@
 
 @implementation TripPurpose
 
-+ (unsigned int)getPurposeIndex:(NSString*)string
++ (NSInteger)getPurposeIndex:(NSString*)string
 {
 	if ( [string isEqualToString:kTripPurposeCommuteString] )
 		return kTripPurposeCommute;

@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/28/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
 #import "Coord.h"
@@ -193,7 +198,7 @@
 		NSLog(@"count of filtered coords = %d", [filteredCoords count]);
 		
 		// sort filtered coords by recorded date
-		NSSortDescriptor *sortByDate	= [[[NSSortDescriptor alloc] initWithKey:@"recorded" ascending:YES] autorelease];
+		NSSortDescriptor *sortByDate	= [[NSSortDescriptor alloc] initWithKey:@"recorded" ascending:YES];
 		NSArray		*sortDescriptors	= [NSArray arrayWithObjects:sortByDate, nil];
 		NSArray		*sortedCoords		= [filteredCoords sortedArrayUsingDescriptors:sortDescriptors];
 		
@@ -264,7 +269,7 @@
 		NSLog(@"added %d unique GPS coordinates of %d to map", count, [sortedCoords count]);
 		
 		// add end point as a pin annotation
-		if ( last = [sortedCoords lastObject] )
+		if ( last == [sortedCoords lastObject] )
 		{
 			pin.last = YES;
 			pin.title = @"End";
@@ -300,15 +305,15 @@
 		}
 		else
 		{
-			// init map region to San Francisco
-			MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
+			// init map region to Denver
+			MKCoordinateRegion region = { { 39.73934, -104.98480 }, { 0.10825, 0.10825 } };
 			[mapView setRegion:region animated:NO];
 		}
 	}
 	else
 	{
-		// error: init map region to San Francisco
-		MKCoordinateRegion region = { { 37.7620, -122.4350 }, { 0.10825, 0.10825 } };
+		// error: init map region to Denver
+		MKCoordinateRegion region = { { 39.73934, -104.98480 }, { 0.10825, 0.10825 } };
 		[mapView setRegion:region animated:NO];
 	}
 	
@@ -339,13 +344,6 @@
 }
 
 
-- (void)dealloc {
-	[doneButton release];
-	[flipButton release];
-	[mapView release];
-	[trip release];
-    [super dealloc];
-}
 
 
 #pragma mark MKMapViewDelegate methods
@@ -395,8 +393,7 @@
 			if ( !pinView )
 			{
 				// If an existing pin view was not available, create one
-				pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"FirstCoord"]
-						   autorelease];
+				pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"FirstCoord"];
 				
 				pinView.animatesDrop = YES;
 				pinView.canShowCallout = YES;
@@ -414,8 +411,7 @@
 			if ( !pinView )
 			{
 				// If an existing pin view was not available, create one
-				pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LastCoord"]
-						   autorelease];
+				pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"LastCoord"];
 				
 				pinView.animatesDrop = YES;
 				pinView.canShowCallout = YES;
@@ -433,8 +429,7 @@
 			if (!annotationView)
 			{
 				// If an existing pin view was not available, create one
-				annotationView = [[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MapCoord"]
-								  autorelease];
+				annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MapCoord"];
 				
 				annotationView.image = [UIImage imageNamed:@"MapCoord.png"];
 				

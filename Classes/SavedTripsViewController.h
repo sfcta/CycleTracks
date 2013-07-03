@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 8/10/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
@@ -54,12 +59,12 @@
 	LoadingView *loading;
 }
 
-@property (nonatomic, retain) NSMutableArray *trips;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSMutableArray *trips;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, retain) id <RecordingInProgressDelegate> delegate;
-@property (nonatomic, retain) TripManager *tripManager;
-@property (nonatomic, retain) Trip *selectedTrip;
+@property (nonatomic, strong) id <RecordingInProgressDelegate> delegate;
+@property (nonatomic, strong) TripManager *tripManager;
+@property (nonatomic, strong) Trip *selectedTrip;
 
 - (void)initTripManager:(TripManager*)manager;
 

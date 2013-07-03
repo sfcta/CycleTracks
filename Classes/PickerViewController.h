@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/28/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import <UIKit/UIKit.h>
 #import "CustomPickerDataSource.h"
@@ -43,11 +48,11 @@
 }
 
 
-@property (nonatomic, retain) id <TripPurposeDelegate> delegate;
-@property (nonatomic, retain) IBOutlet UIPickerView *customPickerView;
-@property (nonatomic, retain) CustomPickerDataSource *customPickerDataSource;
+@property (nonatomic, strong) id <TripPurposeDelegate> delegate;
+@property (nonatomic, strong) IBOutlet UIPickerView *customPickerView;
+@property (nonatomic, strong) CustomPickerDataSource *customPickerDataSource;
 
-@property (nonatomic, retain) UITextView *description;
+@property (nonatomic, strong) UITextView *description;
 
 - (id)initWithPurpose:(NSInteger)index;
 

@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/23/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
 #import "PersonalInfoViewController.h"
@@ -73,12 +78,12 @@
 }
 */
 
-- (UITextField*)initTextFieldAlpha
+- (UITextField*)initializeTextFieldAlpha
 {
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.textAlignment = UITextAlignmentRight;
+	textField.textAlignment = NSTextAlignmentRight;
 	textField.placeholder = @"";
 	textField.keyboardType = UIKeyboardTypeDefault;
 	textField.returnKeyType = UIReturnKeyDone;
@@ -87,13 +92,13 @@
 }
 
 
-- (UITextField*)initTextFieldEmail
+- (UITextField*)initializeTextFieldEmail
 {
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 	textField.autocapitalizationType = UITextAutocapitalizationTypeNone,
 	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.textAlignment = UITextAlignmentRight;
+	textField.textAlignment = NSTextAlignmentRight;
 	textField.placeholder = @"";
 	textField.keyboardType = UIKeyboardTypeEmailAddress;
 	textField.returnKeyType = UIReturnKeyDone;
@@ -102,12 +107,12 @@
 }
 
 
-- (UITextField*)initTextFieldNumeric
+- (UITextField*)initializeTextFieldNumeric
 {
 	CGRect frame = CGRectMake( 152, 7, 138, 29 );
 	UITextField *textField = [[UITextField alloc] initWithFrame:frame];
 	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.textAlignment = UITextAlignmentRight;
+	textField.textAlignment = NSTextAlignmentRight;
 	textField.placeholder = @"12345";
 	textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
 	textField.returnKeyType = UIReturnKeyDone;
@@ -119,7 +124,7 @@
 - (User *)createUser
 {
 	// Create and configure a new instance of the User entity
-	User *noob = (User *)[[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext] retain];
+	User *noob = (User *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
 	
 	NSError *error;
 	if (![managedObjectContext save:&error]) {
@@ -139,12 +144,12 @@
 	// self.title = @"Personal Info";
 	
 	// initialize text fields
-	self.age		= [self initTextFieldNumeric];
-	self.email		= [self initTextFieldEmail];
-	self.gender		= [self initTextFieldAlpha];
-	self.homeZIP	= [self initTextFieldNumeric];
-	self.workZIP	= [self initTextFieldNumeric];
-	self.schoolZIP	= [self initTextFieldNumeric];
+	self.age		= [self initializeTextFieldNumeric];
+	self.email		= [self initializeTextFieldEmail];
+	self.gender		= [self initializeTextFieldAlpha];
+	self.homeZIP	= [self initializeTextFieldNumeric];
+	self.workZIP	= [self initializeTextFieldNumeric];
+	self.schoolZIP	= [self initializeTextFieldNumeric];
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -199,8 +204,6 @@
 	else
 		NSLog(@"init FAIL");
 	
-	[mutableFetchResults release];
-	[request release];
 }
 
 
@@ -266,6 +269,8 @@
 
 - (void)done
 {
+   NSError *error;
+
 	if ( user != nil )
 	{
 		NSLog(@"saving age: %@", age.text);
@@ -289,7 +294,6 @@
 		NSLog(@"saving cycling freq: %d", [cyclingFreq intValue]);
 		[user setCyclingFreq:cyclingFreq];
 
-		NSError *error;
 		if (![managedObjectContext save:&error]) {
 			// Handle the error.
 			NSLog(@"PersonalInfo save cycling freq error %@, %@", error, [error localizedDescription]);
@@ -301,6 +305,13 @@
 	// update UI
 	// TODO: test for at least one set value
 	[delegate setSaved:YES];
+   
+   NSString *title = (user == nil) ? @"Error!" : @"Got it!";
+   NSString *message = (user == nil) ? [error localizedDescription] : @"Your data will be associated with your routes. You may change or delete your data at any time.";
+
+   
+   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Thanks, Open Bike!" otherButtonTitles:nil];
+   [alertView show];
 	
 	[self.navigationController popViewControllerAnimated:YES];
 }
@@ -406,7 +417,7 @@
 			static NSString *CellIdentifier = @"CellTextField";
 			cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 			if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			}
 
 			// inner switch statement identifies row
@@ -435,7 +446,7 @@
 			static NSString *CellIdentifier = @"CellTextField";
 			cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 			if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			}
 
 			switch ([indexPath indexAtPosition:1])
@@ -463,7 +474,7 @@
 			static NSString *CellIdentifier = @"CellCheckmark";
 			cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 			if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			}
 			
 			switch ([indexPath indexAtPosition:1])
@@ -602,9 +613,6 @@
 */
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

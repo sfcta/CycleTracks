@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 8/25/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import <Foundation/Foundation.h>
 
@@ -38,9 +43,9 @@
 	NSMutableDictionary *postVars;
 }
 
-@property (nonatomic, retain) NSMutableURLRequest *request;
-@property (nonatomic, retain) NSMutableDictionary *postVars;
-@property (nonatomic, retain) NSString *deviceUniqueIdHash;
+@property (nonatomic, strong) NSMutableURLRequest *request;
+@property (nonatomic, strong) NSMutableDictionary *postVars;
+@property (nonatomic, strong) NSString *deviceUniqueIdHash;
 
 - initWithPostVars:(NSDictionary *)inPostVars;
 

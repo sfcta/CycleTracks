@@ -25,32 +25,37 @@
 //
 //  Copyright 2009-2013 SFCTA. All rights reserved.
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/21/09.
-//	For more information on the project, 
+//	For more information on the project,
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
 @class RecordTripViewController;
 
 @interface CycleTracksAppDelegate : NSObject <UIApplicationDelegate>
 {
-    NSManagedObjectModel *managedObjectModel;
-    NSManagedObjectContext *managedObjectContext;	    
-    NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
-    UIWindow *window;
-    UITabBarController *tabBarController;
+   NSManagedObjectModel *managedObjectModel;
+   NSManagedObjectContext *managedObjectContext;
+   NSPersistentStoreCoordinator *persistentStoreCoordinator;
+   
+   UIWindow *window;
+   UITabBarController *tabBarController;
 	NSString *uniqueIDHash;
-    UIBackgroundTaskIdentifier bgTask;
-    RecordTripViewController *recordVC;
+   UIBackgroundTaskIdentifier bgTask;
+   RecordTripViewController *recordVC;
 }
 
-@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
-@property (nonatomic, retain) NSString *uniqueIDHash;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, strong) NSString *uniqueIDHash;
 
 - (NSString *)applicationDocumentsDirectory;
 - (void)initUniqueIDHash;

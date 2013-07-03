@@ -25,36 +25,42 @@
 //
 //  Copyright 2009-2013 SFCTA. All rights reserved.
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/22/09.
-//	For more information on the project, 
+//	For more information on the project,
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
 
+//
+//  Trip.h
+//
+//  Created by Gregory Kip on 6/21/13.
+//  Adapted to OpenBike by Gregory Kip (gkip@permusoft.com) and others.
+//
+
+#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Coord;
+@class Coord, User;
 
-@interface Trip :  NSManagedObject
-{
-}
+@interface Trip : NSManagedObject
 
-@property (nonatomic, retain) NSSet *coords;
-@property (nonatomic, retain) NSNumber *distance;
-@property (nonatomic, retain) NSNumber *duration;
-
-@property (nonatomic, retain) NSString *notes;
-@property (nonatomic, retain) NSString *purpose;
-
-@property (nonatomic, retain) NSDate *start;
-@property (nonatomic, retain) NSDate *saved;
-@property (nonatomic, retain) NSDate *uploaded;
-
+@property (nonatomic, strong) NSDate * start;
+@property (nonatomic, strong) NSNumber * distance;
+@property (nonatomic, strong) NSString * notes;
+@property (nonatomic, strong) NSDate * uploaded;
+@property (nonatomic, strong) NSString * purpose;
+@property (nonatomic, strong) NSNumber * duration;
+@property (nonatomic, strong) NSDate * saved;
+@property (nonatomic, strong) NSNumber * ease;
+@property (nonatomic, strong) NSNumber * safety;
+@property (nonatomic, strong) NSNumber * convenience;
+@property (nonatomic, strong) NSSet *coords;
+@property (nonatomic, strong) User *user;
 @end
-
 
 @interface Trip (CoreDataGeneratedAccessors)
+
 - (void)addCoordsObject:(Coord *)value;
 - (void)removeCoordsObject:(Coord *)value;
-- (void)addCoords:(NSSet *)value;
-- (void)removeCoords:(NSSet *)value;
+- (void)addCoords:(NSSet *)values;
+- (void)removeCoords:(NSSet *)values;
 
 @end
-

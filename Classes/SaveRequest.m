@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 8/25/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 #import "constants.h"
 #import "CycleTracksAppDelegate.h"
@@ -64,23 +69,14 @@
 		for(NSString * key in postVars)
 			[postBody appendString:[NSString stringWithFormat:@"%@=%@&", key, [postVars objectForKey:key]]];
 
-		NSLog(@"initializing HTTP POST request to %@ with %d bytes", 
-			  kSaveURL,
-			  [[postBody dataUsingEncoding:NSUTF8StringEncoding] length]);
+		NSLog(@"initializing HTTP POST request to %@ with %d bytes", kSaveURL, [[postBody dataUsingEncoding:NSUTF8StringEncoding] length]);
+      
 		[request setHTTPBody:[postBody dataUsingEncoding:NSUTF8StringEncoding]];
 	}
 	
 	return self;
 }
 
-- (void)dealloc
-{
-	[super dealloc];
-	
-	[postVars release];
-	[request release];
-	[deviceUniqueIdHash release];
-}
 
 #pragma mark instance methods
 
@@ -89,7 +85,7 @@
 {
 	
 	NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:delegate];
-	return [conn autorelease];
+	return conn;
 }
 
 @end

@@ -25,42 +25,47 @@
 //
 //  Copyright 2009-2013 SFCTA. All rights reserved.
 //  Written by Matt Paul <mattpaul@mopimp.com> on 8/25/09.
-//	For more information on the project, 
-//	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//	 For more information on the project,
+//	 e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+//  Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
-#define kActionSheetButtonConfirm	0
-#define kActionSheetButtonChange	1
-#define kActionSheetButtonDiscard	2
-#define kActionSheetButtonCancel	3
+#define kActionSheetButtonConfirm	(0)
+#define kActionSheetButtonChange	   (1)
+#define kActionSheetButtonDiscard	(2)
+#define kActionSheetButtonCancel	   (3)
 
-#define kActivityIndicatorSize	20.0
+#define kActivityIndicatorSize	  (20.0)
 
-#define kCounterTimeInterval	0.5
+#define kCounterTimeInterval	(0.5)
 
-#define kCustomButtonWidth		127.0
-#define kCustomButtonHeight		42.0
+#define kCustomButtonWidth		(127.0)
+#define kCustomButtonHeight	(42.0)
 
-#define kCounterFontSize		26.0
-#define kMinimumFontSize		16.0
+#define kCounterFontSize		(26.0)
+#define kMinimumFontSize		(16.0)
 
-#define kStdButtonWidth			106.0
-#define kStdButtonHeight		40.0
+#define kStdButtonWidth			(106.0)
+#define kStdButtonHeight		(40.0)
 
 // error messages
 #define kConnectionError	@"Unable to reach server"
-#define kServerError		@"Failed to upload your trip. Please try again later."
+#define kServerError		   @"Failed to upload your trip. Please try again later."
 
 // alert titles
 #define kBatteryTitle		@"Battery Low"
 #define kRetryTitle			@"Retry Upload?"
-#define	kSavingTitle		@"Uploading Your Trip"
+#define kSavingTitle       @"Uploading Your Trip"
 #define kSuccessTitle		@"Transfer complete"
 #define kTripNotesTitle		@"Enter Comments Below"
 
 
 #define kInterruptedTitle		@"Recording Interrupted"
-#define kInterruptedMessage		@"Oops! Looks like a previous trip recording has been interrupted."
+#define kInterruptedMessage	@"Oops! Looks like a previous trip recording has been interrupted."
 #define kUnsyncedTitle			@"Found Unsynced Trip(s)"
 #define kUnsyncedMessage		@"You have at least one saved trip that has not yet been uploaded."
 #define kZeroDistanceTitle		@"Recalculate Trip Distance?"
@@ -71,18 +76,26 @@
 #define kConnecting			@"Contacting server..."
 #define kPreparingData		@"Preparing your trip data for transfer."
 #define kRetryMessage		@"This trip has not yet been uploaded successfully. Try again?"
-#define kSaveSuccess		@"Your trip has been uploaded successfully. Thank you."
+#define kSaveSuccess		   @"Your trip has been uploaded successfully. Thank you."
 #define kSaveAccepted		@"Your trip has already been uploaded. Thank you."
 #define kSaveError			@"Your trip has been saved. Please try uploading again later."
 
-#define kInfoURL			@"http://www.sfcta.org/CycleTracksInfo"
-#define kInstructionsURL	@"http://www.sfcta.org/cycletrackshelp_v2.1.html"
+//#define kInfoURL			   @"http://www.sfcta.org/CycleTracksInfo"
+#define kInstructionsURL	@"http://www.permusoft.com/OpenBike/ioshelp.html"
 
-//#define kSaveURL			@"http://your-database-here/post/"
+#define kSaveURL           @"http://upload.openbike.co"
 
 #define kTripNotesPlaceholder	@"Comments"
 
 // CustomView metrics used by UIPickerViewDataSource, UIPickerViewDelegate
 #define MAIN_FONT_SIZE		18
 #define MIN_MAIN_FONT_SIZE	16
+
+// Default map coordinates to Denver for initial view or errors
+#define kMapInitLat			39.7392
+#define kMapInitLong		-104.9842
+
+// San Francisco coordinates
+//#define kMapInitLat			37.7620
+//#define kMapInitLong		-122.4350
 

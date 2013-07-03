@@ -1,4 +1,9 @@
-/**  CycleTracks, Copyright 2009-2013 San Francisco County Transportation Authority
+//
+//  CycleTracksAppDelegate.m
+//  CycleTracks
+//
+
+/*   CycleTracks, Copyright 2009-2013 San Francisco County Transportation Authority
  *                                    San Francisco, CA, USA
  *
  *   @author Matt Paul <mattpaul@mopimp.com>
@@ -20,13 +25,16 @@
  */
 
 //
-//  CycleTracksAppDelegate.m
-//  CycleTracks
-//
 //  Copyright 2009-2013 SFCTA. All rights reserved.
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/21/09.
-//	For more information on the project, 
-//	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//	 For more information on the project,
+//	 e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
+
 
 #import <CommonCrypto/CommonDigest.h>
 
@@ -36,6 +44,9 @@
 #import "RecordTripViewController.h"
 #import "SavedTripsViewController.h"
 #import "TripManager.h"
+
+#import "UIDevice+UDID.h"
+#import "NSBundle+PSExtensions.h"
 
 
 @implementation CycleTracksAppDelegate
@@ -48,28 +59,30 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application
-{
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+   NSLog(@"Permusoft's %@ v%@ (%@)", [NSBundle displayName], [NSBundle version], [NSBundle bundleIdentifier]);
+   NSLog(@"Copyright %@", [NSBundle copyright]);
+
 	// disable screen lock
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 	[UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 	
-	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
+	//[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleBlackTranslucent;
 	
-    NSManagedObjectContext *context = [self managedObjectContext];
-    if (!context) {
-        // Handle the error.
-    }
+   NSManagedObjectContext *context = [self managedObjectContext];
+   if (!context) {
+      // Handle the error.
+   }
 	
 	// init our unique ID hash
 	[self initUniqueIDHash];
 	
 	// initialize trip manager with the managed object context
-	TripManager *manager = [[[TripManager alloc] initWithManagedObjectContext:context] autorelease];
+	TripManager *manager = [[TripManager alloc] initWithManagedObjectContext:context];
 	
 	
 	/*
-	 // initialize each tab's root view controller with the trip manager	
+	 // initialize each tab's root view controller with the trip manager
 	 RecordTripViewController *recordTripViewController = [[[RecordTripViewController alloc]
 	 initWithTripManager:manager]
 	 autorelease];
@@ -103,95 +116,82 @@
 	 */
 	
 	
-	UINavigationController	*recordNav	= (UINavigationController*)[tabBarController.viewControllers 
-																	objectAtIndex:1];
+	UINavigationController	*recordNav	= (UINavigationController*)[tabBarController.viewControllers
+                                                                   objectAtIndex:1];
 	//[navCon popToRootViewControllerAnimated:NO];
-    recordVC	= (RecordTripViewController *)[recordNav topViewController];
+   recordVC	= (RecordTripViewController *)[recordNav topViewController];
 	[recordVC initTripManager:manager];
 	
 	
-	UINavigationController	*tripsNav	= (UINavigationController*)[tabBarController.viewControllers 
-																	objectAtIndex:2];
+	UINavigationController	*tripsNav	= (UINavigationController*)[tabBarController.viewControllers
+                                                                   objectAtIndex:2];
 	//[navCon popToRootViewControllerAnimated:NO];
 	SavedTripsViewController *tripsVC	= (SavedTripsViewController *)[tripsNav topViewController];
 	tripsVC.delegate					= recordVC;
 	[tripsVC initTripManager:manager];
-
+   
 	// select Record tab at launch
-	tabBarController.selectedIndex = 1;	
+	tabBarController.selectedIndex = 1;
 	
-	UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers 
-															 objectAtIndex:3];
+	UINavigationController	*nav	= (UINavigationController*)[tabBarController.viewControllers
+                                                             objectAtIndex:3];
 	PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
 	vc.managedObjectContext			= context;
 	
-		
+   
 	// Add the tab bar controller's current view as a subview of the window
-    [window setFrame:[[UIScreen mainScreen] bounds]];
-    [window addSubview:tabBarController.view];
-	[window makeKeyAndVisible];	
+   [window setFrame:[[UIScreen mainScreen] bounds]];
+   [window addSubview:tabBarController.view];
+	[window makeKeyAndVisible];
 }
 
 
-- (void)initUniqueIDHash
-{
-	unsigned char result[CC_MD5_DIGEST_LENGTH];
-	const char * uniqueIDStr = [[UIDevice currentDevice].uniqueIdentifier UTF8String];
-	CC_MD5(uniqueIDStr, strlen(uniqueIDStr), result);
-	NSString *uniqueID = [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-						  result[0], result[1], result[2], result[3],
-						  result[4], result[5], result[6], result[7],
-						  result[8], result[9], result[10], result[11],
-						  result[12], result[13], result[14], result[15]
-						  ];
-	
-	NSLog(@"uniqueID: %@", [UIDevice currentDevice].uniqueIdentifier);	
-	NSLog(@"Hashed uniqueID: %@", uniqueID);
-	self.uniqueIDHash = uniqueID; // save for later.
+-(void)initUniqueIDHash {
+	self.uniqueIDHash = [[UIDevice currentDevice] uniqueDeviceIdentifier];
 }
 
-/** 
+/**
  * Nofity the OS we're going to be doing stuff in the background -- recording, updating the timer, etc.
  */
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    
-    if (recordVC) {
-        // Let the RecordTripViewController take care of its business
-        [recordVC handleBackgrounding];
-    }
-    
-    // If we're not recording -- don't bother with the background task
-    if (recordVC && ![recordVC recording]) {
-        NSLog(@"applicationDidEnterBackground - bgTask=%d (should be zero)", bgTask);
-        return;
-    }
-    
-    bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Background Handler: End background because time ran out, cleaning up task.");
-            
-            // time's up - end the background task
-            [application endBackgroundTask:bgTask];
-            
-        });
-    }];
-
-    NSLog(@"applicationDidEnterBackground - bgTask=%d", bgTask);
+   
+   if (recordVC) {
+      // Let the RecordTripViewController take care of its business
+      [recordVC handleBackgrounding];
+   }
+   
+   // If we're not recording -- don't bother with the background task
+   if (recordVC && ![recordVC recording]) {
+      NSLog(@"applicationDidEnterBackground - bgTask=%d (should be zero)", bgTask);
+      return;
+   }
+   
+   bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
+      dispatch_async(dispatch_get_main_queue(), ^{
+         NSLog(@"Background Handler: End background because time ran out, cleaning up task.");
+         
+         // time's up - end the background task
+         [application endBackgroundTask:bgTask];
+         
+      });
+   }];
+   
+   NSLog(@"applicationDidEnterBackground - bgTask=%d", bgTask);
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    NSLog(@"applicationWillEnterForeground - bgTask=%d", bgTask);
-    if (bgTask) {
-        [application endBackgroundTask:bgTask];        
-    }
-    bgTask = 0;
-
-    if (recordVC) {
-        [recordVC handleForegrounding];
-        if (recordVC.recording) {
-            tabBarController.selectedIndex = 1;
-        }
-    }
+   NSLog(@"applicationWillEnterForeground - bgTask=%d", bgTask);
+   if (bgTask) {
+      [application endBackgroundTask:bgTask];
+   }
+   bgTask = 0;
+   
+   if (recordVC) {
+      [recordVC handleForegrounding];
+      if (recordVC.recording) {
+         tabBarController.selectedIndex = 1;
+      }
+   }
 }
 
 /**
@@ -199,13 +199,13 @@
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
 	
-    if (recordVC) {
-        [recordVC handleTermination];
-    }
-    
-    NSError *error = nil;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+   if (recordVC) {
+      [recordVC handleTermination];
+   }
+   
+   NSError *error = nil;
+   if (managedObjectContext != nil) {
+      if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
 			/*
 			 Replace this implementation with code to handle the error appropriately.
 			 
@@ -213,8 +213,8 @@
 			 */
 			NSLog(@"applicationWillTerminate: Unresolved error %@, %@", error, [error userInfo]);
 			abort();
-        } 
-    }
+      }
+   }
 }
 
 
@@ -227,16 +227,16 @@
  */
 - (NSManagedObjectContext *) managedObjectContext {
 	
-    if (managedObjectContext != nil) {
-        return managedObjectContext;
-    }
+   if (managedObjectContext != nil) {
+      return managedObjectContext;
+   }
 	
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [managedObjectContext setPersistentStoreCoordinator: coordinator];
-    }
-    return managedObjectContext;
+   NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+   if (coordinator != nil) {
+      managedObjectContext = [[NSManagedObjectContext alloc] init];
+      [managedObjectContext setPersistentStoreCoordinator: coordinator];
+   }
+   return managedObjectContext;
 }
 
 
@@ -246,11 +246,11 @@
  */
 - (NSManagedObjectModel *)managedObjectModel {
 	
-    if (managedObjectModel != nil) {
-        return managedObjectModel;
-    }
-    managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];    
-    return managedObjectModel;
+   if (managedObjectModel != nil) {
+      return managedObjectModel;
+   }
+   managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+   return managedObjectModel;
 }
 
 
@@ -260,15 +260,15 @@
  */
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
-    if (persistentStoreCoordinator != nil) {
-        return persistentStoreCoordinator;
-    }
+   if (persistentStoreCoordinator != nil) {
+      return persistentStoreCoordinator;
+   }
 	
-    NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"CycleTracks.sqlite"]];
+   NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"OpenBike.sqlite"]];
 	
 	NSError *error = nil;
-    persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
+   persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+   if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
 		/*
 		 Replace this implementation with code to handle the error appropriately.
 		 
@@ -281,9 +281,9 @@
 		 */
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
-    }    
+   }
 	
-    return persistentStoreCoordinator;
+   return persistentStoreCoordinator;
 }
 
 
@@ -298,19 +298,6 @@
 }
 
 
-#pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-	
-    [managedObjectContext release];
-    [managedObjectModel release];
-    [persistentStoreCoordinator release];
-    
-	[window release];
-	[super dealloc];
-}
 
 
 @end
-

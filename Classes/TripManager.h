@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/22/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
 #import <CoreLocation/CoreLocation.h>
@@ -46,20 +51,23 @@ UITextViewDelegate>
 {
 	id <ActivityIndicatorDelegate> activityDelegate;
 	id <UIAlertViewDelegate> alertDelegate;
-
+   
 	UIActivityIndicatorView *activityIndicator;
 	UIAlertView *saving;
 	UIAlertView *tripNotes;
 	UITextView	*tripNotesText;
-
+   
 	BOOL dirty;
 	Trip *trip;
 	CLLocationDistance distance;
 	NSInteger purposeIndex;
+   NSInteger ease;
+   NSInteger safety;
+   NSInteger convenience;
 	
 	NSMutableArray *coords;
-    NSManagedObjectContext *managedObjectContext;
-
+   NSManagedObjectContext *managedObjectContext;
+   
 	NSMutableData *receivedData;
 	
 	NSMutableArray *unSavedTrips;
@@ -68,21 +76,21 @@ UITextViewDelegate>
 }
 
 
-@property (nonatomic, retain) id <ActivityIndicatorDelegate> activityDelegate;
-@property (nonatomic, retain) id <UIAlertViewDelegate> alertDelegate;
+@property (nonatomic, strong) id <ActivityIndicatorDelegate> activityDelegate;
+@property (nonatomic, strong) id <UIAlertViewDelegate> alertDelegate;
 
-@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, retain) UIAlertView *saving;
-@property (nonatomic, retain) UIAlertView *tripNotes;
-@property (nonatomic, retain) UITextView *tripNotesText;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIAlertView *saving;
+@property (nonatomic, strong) UIAlertView *tripNotes;
+@property (nonatomic, strong) UITextView *tripNotesText;
 
 @property (assign) BOOL dirty;
-@property (nonatomic, retain) Trip *trip;
+@property (nonatomic, strong) Trip *trip;
 
-@property (nonatomic, retain) NSMutableArray *coords;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSMutableArray *coords;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property (nonatomic, retain) NSMutableData *receivedData;
+@property (nonatomic, strong) NSMutableData *receivedData;
 
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)context;
@@ -96,6 +104,7 @@ UITextViewDelegate>
 - (CLLocationDistance)addCoord:(CLLocation*)location;
 - (void)saveNotes:(NSString*)notes;
 - (void)saveTrip;
+- (void)showSaveDialog;
 
 - (CLLocationDistance)getDistanceEstimate;
 
@@ -111,12 +120,14 @@ UITextViewDelegate>
 - (int)recalculateTripDistances;
 - (CLLocationDistance)calculateTripDistance:(Trip*)_trip;
 
+-(NSString *)setPurpose:(unsigned int)index ease:(unsigned int)ease safety:(unsigned int)safety convenience:(unsigned int)convenience;
+
 @end
 
 
 @interface TripPurpose : NSObject { }
 
-+ (unsigned int)getPurposeIndex:(NSString*)string;
++ (NSInteger)getPurposeIndex:(NSString*)string;
 + (NSString *)getPurposeString:(unsigned int)index;
 
 @end

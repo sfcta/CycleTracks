@@ -27,6 +27,11 @@
 //  Written by Matt Paul <mattpaul@mopimp.com> on 9/28/09.
 //	For more information on the project, 
 //	e-mail Elizabeth Sall at the SFCTA <elizabeth.sall@sfcta.org>
+//
+
+//
+// Adapted to Open Bike by Gregory Kip (gkip@permusoft.com) and others.
+//
 
 
 #import "CustomView.h"
@@ -170,13 +175,6 @@
 }
 
 
-- (void)dealloc
-{
-	[customPickerDataSource release];
-	[customPickerView release];
-	
-	[super dealloc];
-}
 
 
 #pragma mark UIPickerViewDelegate
